@@ -3,9 +3,12 @@ package initialpkg;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.*;
 
@@ -42,6 +45,7 @@ public class Main {
 		
 		
 		int lines = countLines("Stormdata_1996.csv");
+		System.out.println(lines);
 
 		
 		
@@ -51,9 +55,10 @@ public class Main {
 			String thisLine = null;
 			
 			
-			
 			while ((thisLine = br.readLine()) != null){
 				try {
+									
+					
 					progressValue++;
 					final int setValue = (int)((1.0 * progressValue)/(lines * 1.0)*100.0);	//updates progress bar and shows
 					SwingUtilities.invokeLater(new Runnable() {								//the text.  This runs in another 
@@ -79,24 +84,15 @@ public class Main {
 	
 	public static int countLines(String fileName){
 	    try {
-	    	InputStream is = new BufferedInputStream(new FileInputStream(fileName));
-	        byte[] bytes = new byte[1024];
-	        int lineCount = 0;
-	        int characterRead = 0;
-	        boolean empty = true;
-	        while ((characterRead = is.read(bytes)) != -1) {
-	            empty = false;
-	            for (int i = 0; i < characterRead; ++i) {
-	                if (bytes[i] == '\n') {
-	                    ++lineCount;
-	                }
-	            }
-	        }
-	        is.close();
-	        return (lineCount == 0 && !empty) ? 1 : lineCount;
+	    	BufferedReader br = new BufferedReader(new FileReader(fileName));
+	    	int lines = 0;
+	    	while (br.readLine() != null) lines++;
+	    	br.close();
+	    	return lines;
 	    } catch (IOException e){
 	    	e.printStackTrace();
 	    }
 	    return 0;
 	}
+	
 }
