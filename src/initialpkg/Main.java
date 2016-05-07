@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import com.opencsv.CSVReader;
 
 import javax.swing.*;
 
@@ -35,7 +36,7 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1000, 100);
 		frame.setVisible(true);
-		frame.setTitle("Reading file...");
+		frame.setTitle("Reading file");
 		final DefaultBoundedRangeModel model = new DefaultBoundedRangeModel();
 		final JProgressBar progressBar = new JProgressBar(model);
 		progressBar.setStringPainted(true);
@@ -44,27 +45,27 @@ public class Main {
 		int progressValue = 0;
 		
 		
-		int lines = countLines("Stormdata_1996.csv");
+		int lines = (int) countLines("Stormdata_1996.csv");
 		System.out.println(lines);
 
 		
 		
 		
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("Stormdata_1996.csv")))){
+		try (CSVReader csvr = new CSVReader(new InputStreamReader(new FileInputStream("Stormdata_1996.csv")))){
 			
-			String thisLine = null;
+			String [] thisLine = null;
+			int j = 0;
 			
-			
-			while ((thisLine = br.readLine()) != null){
+			while ((thisLine = csvr.readNext()) != null){
 				try {
-									
-					
+					j++;
+					if (j == 6) System.out.println(Arrays.deepToString(thisLine));
 					progressValue++;
 					final int setValue = (int)((1.0 * progressValue)/(lines * 1.0)*100.0);	//updates progress bar and shows
 					SwingUtilities.invokeLater(new Runnable() {								//the text.  This runs in another 
 						public void run() {													//Thread.
 							progressBar.setValue(setValue);
-							progressBar.setString("Reading in file... " + setValue + "%");
+							progressBar.setString("Reading file - [" + setValue + "%]");
 						}
 					});
 					
@@ -82,14 +83,12 @@ public class Main {
 	}
 	
 	
-	public static int countLines(String fileName){
+	public static long countLines(String fileName){
 	    try {
-	    	BufferedReader br = new BufferedReader(new FileReader(fileName));
-	    	int lines = 0;
-	    	while (br.readLine() != null) lines++;
-	    	br.close();
-	    	return lines;
-	    } catch (IOException e){
+	    	CSVReader csvr = new CSVReader(new FileReader(fileName));
+	    	while(csvr.readNext() != null){}
+	    	return csvr.getRecordsRead();
+	    } catch (Exception e){
 	    	e.printStackTrace();
 	    }
 	    return 0;
