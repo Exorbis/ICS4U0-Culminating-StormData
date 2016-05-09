@@ -54,12 +54,10 @@ public class Main {
 		try (CSVReader csvr = new CSVReader(new InputStreamReader(new FileInputStream("Stormdata_1996.csv")))){
 			
 			String [] thisLine = null;
-			int j = 0;
+
 			
 			while ((thisLine = csvr.readNext()) != null){
 				try {
-					j++;
-					if (j == 6) System.out.println(Arrays.deepToString(thisLine));
 					progressValue++;
 					final int setValue = (int)((1.0 * progressValue)/(lines * 1.0)*100.0);	//updates progress bar and shows
 					SwingUtilities.invokeLater(new Runnable() {								//the text.  This runs in another 
@@ -78,15 +76,36 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		
-
 	}
 	
 	
+	
+	
+	/**
+	 * 
+	 * @param fileName is the input file name if opened relatively or path 
+	 * @return
+	 */
 	public static long countLines(String fileName){
+		
+		final JFrame firstBar = new JFrame();
+		firstBar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		firstBar.setSize(1000, 100);
+		firstBar.setVisible(true);
+		firstBar.setTitle("Reading file lines");
+		JLabel counter = new JLabel();
+		int progressValue = 0;
+		int lines = 1;
+		
+		
+			
+
+		
+		
 	    try {
 	    	CSVReader csvr = new CSVReader(new FileReader(fileName));
-	    	while(csvr.readNext() != null){}
+	    	while(csvr.readNext() != null){progressValue++;}
+	    	csvr.close();
 	    	return csvr.getRecordsRead();
 	    } catch (Exception e){
 	    	e.printStackTrace();
