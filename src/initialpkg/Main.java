@@ -87,7 +87,25 @@ public class Main {
 		
 	}
 	
-	
+	public static ArrayList<Storm> fileToStorm(String fileName, int lines){
+		ArrayList<Storm> array = new ArrayList<Storm>();
+		
+		final JFrame frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setSize(1000, 100);
+		frame.setVisible(true);
+		frame.setTitle("File data to Storm object");
+		final DefaultBoundedRangeModel model = new DefaultBoundedRangeModel();
+		final JProgressBar progressBar = new JProgressBar(model);
+		progressBar.setStringPainted(true);
+		frame.add(progressBar);
+		progressBar.setValue(0);
+		int progressValue = 0;
+		
+		
+		
+		return array;
+	}
 	
 	
 	/**
@@ -97,7 +115,7 @@ public class Main {
 	 * @param fileName is the input file name if opened relatively or path 
 	 * @return the number of lines counted (long)
 	 */
-	public static long countLines(String fileName){
+	public static int countLines(String fileName){
 		int progressValue = 0;
 		
 		//Initialize JFrame, JPanel, JLabel
@@ -128,7 +146,7 @@ public class Main {
 	    		counter.setText("Number of lines: " + progressValue); //update counter
 	    	}
 	    	csvr.close();
-	    	return csvr.getRecordsRead();
+	    	return (int) csvr.getRecordsRead();
 	    } catch (Exception e){
 	    	e.printStackTrace();
 	    }
