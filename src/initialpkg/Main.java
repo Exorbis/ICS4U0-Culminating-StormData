@@ -1,5 +1,7 @@
 package initialpkg;
 
+import java.awt.GridBagLayout;
+import java.awt.Window;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -12,6 +14,7 @@ import java.util.Arrays;
 import com.opencsv.CSVReader;
 
 import javax.swing.*;
+
 
 
 
@@ -72,6 +75,12 @@ public class Main {
 				}
 			}
 			
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run(){
+					frame.dispose();
+				}
+			});
+			
 		} catch (Exception e){
 			e.printStackTrace();
 		}
@@ -82,29 +91,42 @@ public class Main {
 	
 	
 	/**
+	 * This method counts the number of lines in the file using openCSV API
+	 * Also includes a loading bar and line counter to visualize the process
 	 * 
 	 * @param fileName is the input file name if opened relatively or path 
-	 * @return
+	 * @return the number of lines counted (long)
 	 */
 	public static long countLines(String fileName){
-		
-		final JFrame firstBar = new JFrame();
-		firstBar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		firstBar.setSize(1000, 100);
-		firstBar.setVisible(true);
-		firstBar.setTitle("Reading file lines");
-		JLabel counter = new JLabel();
 		int progressValue = 0;
-		int lines = 1;
 		
+		//Initialize JFrame, JPanel, JLabel
+		final JFrame frame = new JFrame("Line Counter");
+		JPanel panel = new JPanel();
+		JLabel counter = new JLabel();
 		
-			
-
+		//Label (Line count)
+		counter.setText("Number of lines: " + progressValue);
+		
+		//Panel (Contains label)
+		panel.setLayout(new GridBagLayout());
+		panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		panel.add(counter);
+		
+		//Frame
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setSize(250, 75);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		frame.add(panel);
 		
 		
 	    try {
 	    	CSVReader csvr = new CSVReader(new FileReader(fileName));
-	    	while(csvr.readNext() != null){progressValue++;}
+	    	while(csvr.readNext() != null){
+	    		progressValue++;
+	    		counter.setText("Number of lines: " + progressValue); //update counter
+	    	}
 	    	csvr.close();
 	    	return csvr.getRecordsRead();
 	    } catch (Exception e){
