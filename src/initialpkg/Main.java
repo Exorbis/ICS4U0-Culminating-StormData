@@ -2,6 +2,7 @@ package initialpkg;
 
 import java.awt.GridBagLayout;
 import java.awt.Window;
+import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -30,7 +31,13 @@ import javax.swing.*;
  */
 //Took Seidel's progress bar
 
-public class Main {
+public class Main extends JPanel implements ActionListener {
+	
+	static private final String newline = "\n";
+	JButton openButton;
+	JTextArea log;
+	JFileChooser fileChooser;
+	
 
 	public static void main(String[] args) {
 
@@ -84,7 +91,6 @@ public class Main {
 							checkParseInt(thisLine[36]), thisLine[37], checkParseDouble(thisLine[38]), thisLine[39], thisLine[40], checkParseDouble(thisLine[41]), thisLine[42], thisLine[43], 
 							checkParseDouble(thisLine[44]), checkParseDouble(thisLine[45]), checkParseDouble(thisLine[46]), checkParseDouble(thisLine[47]), thisLine[48], thisLine[49], thisLine[50], 
 							thisLine[51], thisLine[52], thisLine[53], thisLine[54], thisLine[55], thisLine[56], thisLine[57]));
-					
 				}
 				
 				
@@ -153,8 +159,8 @@ public class Main {
 
 		//Initialize JFrame, JPanel, JLabel
 		final JFrame frame = new JFrame("Line Counter");
-		JPanel panel = new JPanel();
-		JLabel counter = new JLabel();
+		final JPanel panel = new JPanel();
+		final JLabel counter = new JLabel();
 
 		//Label (Line count)
 		counter.setText("Number of lines: " + progressValue);
