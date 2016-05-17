@@ -1,20 +1,17 @@
 package initialpkg;
 
-import java.awt.GridBagLayout;
-import java.awt.Window;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import com.opencsv.CSVReader;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicFileChooserUI;
 
 
 
@@ -31,26 +28,67 @@ import javax.swing.*;
  */
 //Took Seidel's progress bar
 
-public class Main extends JPanel implements ActionListener {
-	
-	static private final String newline = "\n";
-	JButton openButton;
-	JTextArea log;
-	JFileChooser fileChooser;
-	
+public class Main {
+
 
 	public static void main(String[] args) {
 
+
+
+
+
 		ArrayList<Storm> test = new ArrayList<Storm>();
 		test = fileToStorm("Stormdata_1996.csv", countLines("Stormdata_1996.csv"));
+
+		String filePath = getString();
 		
-		for (int i = 0; i < test.size(); i++){
-			System.out.println(test.get(i));
-		}
 
 
 
 	}
+
+	/*
+	public static void setFilePath(final FilePath testPath){
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+		}
+
+		final JFrame initialFrame = new JFrame("Open File");
+		initialFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		initialFrame.setLayout(new BorderLayout());
+		JButton openButton = new JButton("Open");
+
+
+		initialFrame.add(openButton);
+
+		initialFrame.pack();
+		initialFrame.setLocationByPlatform(true);
+		initialFrame.setVisible(true);
+		openButton.addActionListener(new ActionListener() {
+
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				if (chooser.showOpenDialog(initialFrame) == JFileChooser.APPROVE_OPTION) {
+					testPath.setPath(chooser.getSelectedFile().getAbsolutePath());
+					FilePath newPath = new FilePath(chooser.getSelectedFile().getAbsolutePath());
+				}
+			} 
+
+		});
+	} */
+
+
+
+
+
+
+
+
+
+
 
 	/**
 	 * This method takes in a file name (if path relative) or a path with then number of lines and creates a Storm object based off each line of the CSV file using openCSV API
@@ -80,9 +118,9 @@ public class Main extends JPanel implements ActionListener {
 
 
 			while ((thisLine = csvr.readNext()) != null){
-				
+
 				if (progressValue != 0){
-					
+
 					array.add(new Storm(thisLine[0], checkParseInt(thisLine[1]), checkParseInt(thisLine[2]), thisLine[3], checkParseInt(thisLine[4]), checkParseInt(thisLine[5]), 
 							checkParseInt(thisLine[6]), checkParseInt(thisLine[7]), thisLine[8], checkParseInt(thisLine[9]), checkParseInt(thisLine[10]), thisLine[11], thisLine[12], 
 							thisLine[13].charAt(0), checkParseInt(thisLine[14]), thisLine[15], thisLine[16], thisLine[17], thisLine[18], thisLine[19], checkParseInt(thisLine[20]), 
@@ -92,8 +130,8 @@ public class Main extends JPanel implements ActionListener {
 							checkParseDouble(thisLine[44]), checkParseDouble(thisLine[45]), checkParseDouble(thisLine[46]), checkParseDouble(thisLine[47]), thisLine[48], thisLine[49], thisLine[50], 
 							thisLine[51], thisLine[52], thisLine[53], thisLine[54], thisLine[55], thisLine[56], thisLine[57]));
 				}
-				
-				
+
+
 				try {
 					progressValue++;
 					final int setValue = (int)((1.0 * progressValue)/(lines * 1.0)*100.0);	//updates progress bar and shows
@@ -133,8 +171,8 @@ public class Main extends JPanel implements ActionListener {
 		if (input.equals("")){ return -1; }
 		else { return Integer.parseInt(input); }
 	}
-	
-	
+
+
 	/**
 	 * This method returns the double value of the string if it is not empty, if it is empty the method returns -1
 	 * 
@@ -145,8 +183,8 @@ public class Main extends JPanel implements ActionListener {
 		if (input.equals("")){ return -1; }
 		else { return Double.parseDouble(input); }
 	}
-	
-	
+
+
 	/**
 	 * This method counts the number of lines in the file using openCSV API
 	 * Also includes a loading bar and line counter to visualize the process
