@@ -1,9 +1,6 @@
 package initialpkg;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -11,7 +8,6 @@ import java.util.Arrays;
 import com.opencsv.CSVReader;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicFileChooserUI;
 
 
 
@@ -26,21 +22,25 @@ import javax.swing.plaf.basic.BasicFileChooserUI;
  * @version 1.0
  *
  */
-//Took Seidel's progress bar
+//Took Seidel's progress bar, prompt, getString
 
 public class Main {
 
 
 	public static void main(String[] args) {
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+		} 
 
-
-
-
+		String path = getString("Enter path");
+		
 
 		ArrayList<Storm> test = new ArrayList<Storm>();
-		test = fileToStorm("Stormdata_1996.csv", countLines("Stormdata_1996.csv"));
+		test = fileToStorm(path, countLines(path));
 
-		String filePath = getString();
+
 		
 
 
@@ -100,6 +100,11 @@ public class Main {
 	public static ArrayList<Storm> fileToStorm(String fileName, int lines){
 		ArrayList<Storm> array = new ArrayList<Storm>();
 
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+		}
+		
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(1000, 100);
@@ -125,7 +130,7 @@ public class Main {
 							checkParseInt(thisLine[6]), checkParseInt(thisLine[7]), thisLine[8], checkParseInt(thisLine[9]), checkParseInt(thisLine[10]), thisLine[11], thisLine[12], 
 							thisLine[13].charAt(0), checkParseInt(thisLine[14]), thisLine[15], thisLine[16], thisLine[17], thisLine[18], thisLine[19], checkParseInt(thisLine[20]), 
 							checkParseInt(thisLine[21]), checkParseInt(thisLine[22]), checkParseInt(thisLine[23]), thisLine[24], thisLine[25], thisLine[26], checkParseDouble(thisLine[27]),
-							thisLine[28], thisLine[29], thisLine[30], thisLine[31], checkParseDouble(thisLine[32]), checkParseInt(thisLine[33]), thisLine[34], thisLine[35], 
+							thisLine[28], thisLine[29], thisLine[30], thisLine[31], checkParseDouble(thisLine[32]), checkParseDouble(thisLine[33]), thisLine[34], thisLine[35], 
 							checkParseInt(thisLine[36]), thisLine[37], checkParseDouble(thisLine[38]), thisLine[39], thisLine[40], checkParseDouble(thisLine[41]), thisLine[42], thisLine[43], 
 							checkParseDouble(thisLine[44]), checkParseDouble(thisLine[45]), checkParseDouble(thisLine[46]), checkParseDouble(thisLine[47]), thisLine[48], thisLine[49], thisLine[50], 
 							thisLine[51], thisLine[52], thisLine[53], thisLine[54], thisLine[55], thisLine[56], thisLine[57]));
@@ -186,6 +191,30 @@ public class Main {
 
 
 	/**
+	 * This function will assist in getting input into your program.  If nothing is entered, a null value is returned
+	 * 
+	 * @param s is the string value that shows in the dialog window which is typically guides the user into what to type into the textbox.
+	 * @return The input value.  If nothing is entered, then the value returned is null.
+	 */
+	public static String prompt(String s) {
+		String entry = JOptionPane.showInputDialog(s);
+		if (entry == null)
+			return null;
+		return entry;
+	}
+
+	/**
+	 * This function uses the prompt() function to return a String.
+	 * 
+	 * @param s The prompt string for the dialog window.
+	 * @return a string value obtained by the input
+	 */
+	public static String getString(String s) {
+		return prompt(s);
+	}
+	
+	
+	/**
 	 * This method counts the number of lines in the file using openCSV API
 	 * Also includes a loading bar and line counter to visualize the process
 	 * 
@@ -195,6 +224,12 @@ public class Main {
 	public static int countLines(String fileName){
 		int progressValue = 0;
 
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+		}
+		
+		
 		//Initialize JFrame, JPanel, JLabel
 		final JFrame frame = new JFrame("Line Counter");
 		final JPanel panel = new JPanel();
