@@ -77,4 +77,7 @@ public class Storm {
 		this.addCorrDate = addCorrDate;
 	}
 	
+	public int getEventID(){
+		return this.eventID;
+	}
 }
