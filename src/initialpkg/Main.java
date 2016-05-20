@@ -28,24 +28,61 @@ public class Main {
 
 
 	public static void main(String[] args) {
-		
+
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
 		} 
 
-		String path = getString("Enter path");
+		//String path = getString("Enter path");
+
+
+		//ArrayList<Storm> test = new ArrayList<Storm>();
+		//test = fileToStorm(path, countLines(path));
 		
+		
+		Thread t = new Thread(new Runnable (){
 
-		ArrayList<Storm> test = new ArrayList<Storm>();
-		test = fileToStorm(path, countLines(path));
-
+				public void run() {
+					//Turn off metal's use of bold fonts
+					UIManager.put("swing.boldMetal", Boolean.FALSE); 
+					FileOpen.createAndShowGUI();
+					
+				}
+			});
 
 		
+		Thread nt = new Thread(new Runnable () {
+			public void run () {
+				ArrayList<Storm> test = new ArrayList<Storm>();
+				
 
+				test = fileToStorm(FileOpen.getPath(), countLines(FileOpen.getPath()));
+
+				for (int i = 0; i < test.size(); i++){
+					System.out.println(test.get(i).getEventID());
+				}
+			}
+		});
+		
+		t.start();
+		
+		while(FileOpen.getPath() == null){}
+		
+		nt.start();
+		
+		
+		
+		
+		
+		
+		
 
 
 	}
+
+
+
 
 	/*
 	public static void setFilePath(final FilePath testPath){
@@ -104,7 +141,7 @@ public class Main {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
 		}
-		
+
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(1000, 100);
@@ -212,8 +249,8 @@ public class Main {
 	public static String getString(String s) {
 		return prompt(s);
 	}
-	
-	
+
+
 	/**
 	 * This method counts the number of lines in the file using openCSV API
 	 * Also includes a loading bar and line counter to visualize the process
@@ -228,8 +265,8 @@ public class Main {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
 		}
-		
-		
+
+
 		//Initialize JFrame, JPanel, JLabel
 		final JFrame frame = new JFrame("Line Counter");
 		final JPanel panel = new JPanel();
