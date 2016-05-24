@@ -80,4 +80,8 @@ public class Storm {
 	public int getEventID(){
 		return this.eventID;
 	}
+	
+	public int getBeginTime(){
+		return this.beginTime;
+	}
 }
