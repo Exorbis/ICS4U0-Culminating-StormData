@@ -12,91 +12,76 @@ import java.io.File;
 public class FileOpen extends JPanel implements ActionListener{
 	
 	static private final String newline = "\n";
-    JButton openButton, saveButton;
+    JButton openButton;
     JTextArea log;
-    JFileChooser fc;
+    JFileChooser fileChooser;
     static String filePath;
  
     public FileOpen() {
         super(new BorderLayout());
- 
-
+        
+        fileChooser = new JFileChooser();
+        openButton = new JButton("Open a StormData File...");
+        
         log = new JTextArea(5,20);
         log.setMargin(new Insets(5,5,5,5));
         log.setEditable(false);
+        
         JScrollPane logScrollPane = new JScrollPane(log);
  
-        fc = new JFileChooser();
- 
-       
-        openButton = new JButton("Open a File...");
         openButton.addActionListener(this);
-
-        saveButton = new JButton("Save a File...");
-        saveButton.addActionListener(this);
- 
 
         JPanel buttonPanel = new JPanel(); 
         buttonPanel.add(openButton);
-        buttonPanel.add(saveButton);
  
-
         add(buttonPanel, BorderLayout.PAGE_START);
         add(logScrollPane, BorderLayout.CENTER);
     }
  
     public void actionPerformed(ActionEvent e) {
  
-
         if (e.getSource() == openButton) {
-            int returnVal = fc.showOpenDialog(FileOpen.this);
+            int returnVal = fileChooser.showOpenDialog(FileOpen.this);
  
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
+                File file = fileChooser.getSelectedFile();
                 filePath = file.getAbsolutePath();
                 log.append("Opening: " + file.getName() + "." + newline);
+                
                 if (FileOpen.getPath() != null){
                 	log.append("Successfully retreived path: \n" + FileOpen.getPath());
+                } else {
+                	log.append("File opening did not work, try again");
                 }
             } else {
                 log.append("Open command cancelled by user." + newline);
             }
             log.setCaretPosition(log.getDocument().getLength());
- 
-
-        } else if (e.getSource() == saveButton) {
-            int returnVal = fc.showSaveDialog(FileOpen.this);
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
-                
-                log.append("Saving: " + file.getName() + "." + newline);
-            } else {
-                log.append("Save command cancelled by user." + newline);
-            }
-            log.setCaretPosition(log.getDocument().getLength());
-        }
+        } 
     }
  
 
  
     /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event dispatch thread.
+     * This calls for the class to show the frame and allow the execution of other related methods
      */
+    
     static void createAndShowGUI() {
-        //Create and set up the window.
-        JFrame frame = new JFrame("File Chooser");
+    	JFrame frame = new JFrame("StormData by Marc");
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
- 
-        //Add content to the window.
+        frame.setSize(500, 200);
         frame.add(new FileOpen());
- 
-        //Display the window.
-        frame.pack();
         frame.setVisible(true);
     }
 	
+
+    
+    /**
+     * This retrieves the path that was selected and assigned from the JFileChooser
+     * 
+     * @return filePath is the full absolute path (string)
+     */
     static String getPath(){
     	return filePath;
     }
