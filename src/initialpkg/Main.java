@@ -34,33 +34,25 @@ public class Main {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
 		} 
 
-		//String path = getString("Enter path");
-
-
-		//ArrayList<Storm> test = new ArrayList<Storm>();
-		//test = fileToStorm(path, countLines(path));
-		
 		
 		Thread t = new Thread(new Runnable (){
 
 				public void run() {
-					//Turn off metal's use of bold fonts
-					UIManager.put("swing.boldMetal", Boolean.FALSE); 
 					FileOpen.createAndShowGUI();
 					
 				}
 			});
 
-		
+		 
 		Thread nt = new Thread(new Runnable () {
 			public void run () {
-				ArrayList<Storm> test = new ArrayList<Storm>();
 				
+				ArrayList<Storm> fileData = new ArrayList<Storm>();
 
-				test = fileToStorm(FileOpen.getPath(), countLines(FileOpen.getPath()));
+				fileData = fileToStorm(FileOpen.getPath(), countLines(FileOpen.getPath()));
 
-				for (int i = 0; i < test.size(); i++){
-					System.out.println(test.get(i).getEventID());
+				for (int i = 0; i < fileData.size(); i++){
+					System.out.println(fileData.get(i).getEventID());
 				}
 			}
 		});
@@ -72,58 +64,15 @@ public class Main {
 		nt.start();
 		
 		
-		
-		
-		
-		
-		
-
-
 	}
 
-
-
-
-	/*
-	public static void setFilePath(final FilePath testPath){
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-		}
-
-		final JFrame initialFrame = new JFrame("Open File");
-		initialFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		initialFrame.setLayout(new BorderLayout());
-		JButton openButton = new JButton("Open");
-
-
-		initialFrame.add(openButton);
-
-		initialFrame.pack();
-		initialFrame.setLocationByPlatform(true);
-		initialFrame.setVisible(true);
-		openButton.addActionListener(new ActionListener() {
-
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser chooser = new JFileChooser();
-				if (chooser.showOpenDialog(initialFrame) == JFileChooser.APPROVE_OPTION) {
-					testPath.setPath(chooser.getSelectedFile().getAbsolutePath());
-					FilePath newPath = new FilePath(chooser.getSelectedFile().getAbsolutePath());
-				}
-			} 
-
-		});
-	} */
-
-
-
-
-
-
-
-
+	
+	public static ArrayList<Storm> mergeSort(ArrayList<Storm> array){
+		if (array.size() == 1) return array;
+		
+		ArrayList<Storm> firstHalf = (ArrayList<Storm>) array.subList(0, array.size()/2);
+	}
+	
 
 
 
@@ -203,54 +152,7 @@ public class Main {
 		return array;
 	}
 
-	/**
-	 * This method returns the integer value of the string if it is not empty, if it is empty the method returns -1
-	 * 
-	 * @param input the input string that needs to be changed into an integer
-	 * @return the value -1 or the integer value of the inputed string (int)
-	 */
-	public static int checkParseInt(String input){
-		if (input.equals("")){ return -1; }
-		else { return Integer.parseInt(input); }
-	}
-
-
-	/**
-	 * This method returns the double value of the string if it is not empty, if it is empty the method returns -1
-	 * 
-	 * @param input the input string that needs to be changed into an double
-	 * @return the value -1 or the double value of the inputed string (double)
-	 */
-	public static double checkParseDouble(String input){
-		if (input.equals("")){ return -1; }
-		else { return Double.parseDouble(input); }
-	}
-
-
-	/**
-	 * This function will assist in getting input into your program.  If nothing is entered, a null value is returned
-	 * 
-	 * @param s is the string value that shows in the dialog window which is typically guides the user into what to type into the textbox.
-	 * @return The input value.  If nothing is entered, then the value returned is null.
-	 */
-	public static String prompt(String s) {
-		String entry = JOptionPane.showInputDialog(s);
-		if (entry == null)
-			return null;
-		return entry;
-	}
-
-	/**
-	 * This function uses the prompt() function to return a String.
-	 * 
-	 * @param s The prompt string for the dialog window.
-	 * @return a string value obtained by the input
-	 */
-	public static String getString(String s) {
-		return prompt(s);
-	}
-
-
+	
 	/**
 	 * This method counts the number of lines in the file using openCSV API
 	 * Also includes a loading bar and line counter to visualize the process
@@ -295,11 +197,43 @@ public class Main {
 				counter.setText("Number of lines: " + progressValue); //update counter
 			}
 			csvr.close();
+			
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run(){
+					frame.dispose();
+				}
+			});
+			
 			return (int) csvr.getRecordsRead();
 		} catch (Exception e){
 			e.printStackTrace();
 		}
+		
+		
 		return 0;
+	}
+	
+	/**
+	 * This method returns the integer value of the string if it is not empty, if it is empty the method returns -1
+	 * 
+	 * @param input the input string that needs to be changed into an integer
+	 * @return the value -1 or the integer value of the inputed string (int)
+	 */
+	public static int checkParseInt(String input){
+		if (input.equals("")){ return -1; }
+		else { return Integer.parseInt(input); }
+	}
+
+
+	/**
+	 * This method returns the double value of the string if it is not empty, if it is empty the method returns -1
+	 * 
+	 * @param input the input string that needs to be changed into an double
+	 * @return the value -1 or the double value of the inputed string (double)
+	 */
+	public static double checkParseDouble(String input){
+		if (input.equals("")){ return -1; }
+		else { return Double.parseDouble(input); }
 	}
 
 }
