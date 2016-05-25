@@ -64,13 +64,31 @@ public class Main {
 		nt.start();
 		
 		
+		
 	}
 
 	
-	public static ArrayList<Storm> mergeSort(ArrayList<Storm> array){
+	public static ArrayList<Storm> mergeSort(ArrayList<Storm> array, String type){
 		if (array.size() == 1) return array;
 		
 		ArrayList<Storm> firstHalf = (ArrayList<Storm>) array.subList(0, array.size()/2);
+		ArrayList<Storm> secondHalf = (ArrayList<Storm>) array.subList(array.size()/2, array.size());
+		
+		firstHalf = mergeSort(firstHalf, type);
+		secondHalf = mergeSort(secondHalf, type);
+		
+		return merge(firstHalf, secondHalf, type);
+	}
+	
+	/
+	public static ArrayList<Storm> merge(ArrayList<Storm> array1, ArrayList<Storm> array2, String type){
+		ArrayList<Storm> array3 =  new ArrayList<Storm>();
+		
+		while (array1.size() != 0 && array2.size() != 0){
+			if ((array1.get(0).getData(type)).compareTo(array2.get(0).getData(type))){
+				
+			}
+		}
 	}
 	
 
