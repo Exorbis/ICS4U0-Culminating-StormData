@@ -9,6 +9,7 @@ public class Storm {
 	private double magnitude, torLength, beginRange, endRange, beginLatitude, beginLongitude, endLatitude, endLongitude, torWidth;
 	private char czType;
 	
+	
 	public Storm(String beginYearMonth, int beginDay, int beginTime, String endYearMonth, int endDay, int endTime, 
 			int episodeID, int eventID, String state, int stateFIPS, int year, String month, String eventType, char czType, 
 			int czFips, String czName, String wfo, String beginDateTime, String timezone, String endDateTime, int directInj, 
@@ -81,7 +82,111 @@ public class Storm {
 		return this.eventID;
 	}
 	
-	public int getBeginTime(){
-		return this.beginTime;
+
+	
+	
+	
+	
+	public String getData(String type){
+		switch (type.toLowerCase()) {
+		
+		case "beginyearmonth":
+			return this.beginYearMonth;
+			
+		case "endyearmonth":
+			return this.endYearMonth;
+			
+		case "state":
+			return this.state;
+			
+		case "month":
+			return this.month;
+			
+		case "eventtype":
+			return this.eventType;
+			
+		case "czname":
+			return this.czName;
+			
+		case "wfo":
+			return this.wfo;
+			
+		case "begindatetime":
+			return this.beginDateTime;
+			
+		case "timezone":
+			return this.timezone;
+			
+		case "enddatetime":
+			return this.endDateTime;
+			
+		case "propertydmg":
+			return this.propertyDmg;
+			
+		case "cropdmg":
+			return this.cropDmg;
+		
+		case "sourcetype":
+			return this.sourceType;
+			
+		case "magnitudetype":
+			return this.magnitudeType;
+			
+		case "floodcause":
+			return this.floodCause;
+			
+		case "category":
+			return this.category;
+			
+		case "torfscale":
+			return this.torFScale;
+			
+		case "torwfo":
+			return this.torwfo;
+			
+		case "torstate":
+			return this.torState;
+			
+		case "beginazimuth":
+			return this.beginAzimuth;
+			
+		case "beginlocation":
+			return this.beginLocation;
+			
+		case "endazimuth":
+			return this.endAzimuth;
+			
+		case "endlocation":
+			return this.endLocation;
+			
+		case "episodenarrative":
+			return this.episodeNarrative;
+			
+		case "eventnarrative":
+			return this.eventNarrative;
+			
+		case "lastmoddate":
+			return this.lastModDate;
+		
+		case "lastcertdate":
+			return this.lastCertDate;
+			
+		case "lastcerttime":
+			return this.lastCertTime;
+			
+		case "lastmod":
+			return this.lastMod;
+			
+		case "lastcert":
+			return this.lastCert;
+			
+		case "addcorrflg":
+			return this.addCorrFlg;
+			
+		case "addcorrdate":
+			return this.addCorrDate;
+			
+		}
+		return "Incorrect input type";
 	}
 }
