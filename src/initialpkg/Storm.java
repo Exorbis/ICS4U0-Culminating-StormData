@@ -82,11 +82,6 @@ public class Storm {
 		return this.eventID;
 	}
 	
-
-	
-	
-	
-	
 	public String getData(String type){
 		switch (type.toLowerCase()) {
 		
@@ -190,3 +185,4 @@ public class Storm {
 		return "Incorrect input type";
 	}
 }
+
