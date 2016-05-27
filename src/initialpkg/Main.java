@@ -35,6 +35,12 @@ public class Main {
 		} 
 
 		
+		
+		//ArrayList<Storm> test = new ArrayList<Storm>();
+		
+		//test = fileToStorm("C:/Users/Marc/Documents/John Fraser (2015-2016) SENIOR YEAR/Computer Science/ICS4U0-Culminating-StormData/Stormdata_1997.csv", countLines("C:/Users/Marc/Documents/John Fraser (2015-2016) SENIOR YEAR/Computer Science/ICS4U0-Culminating-StormData/Stormdata_1997.csv"));
+		
+
 		Thread t = new Thread(new Runnable (){
 
 				public void run() {
@@ -48,7 +54,8 @@ public class Main {
 			public void run () {
 				
 				ArrayList<Storm> fileData = new ArrayList<Storm>();
-
+				
+				System.out.println(FileOpen.getPath());
 				fileData = fileToStorm(FileOpen.getPath(), countLines(FileOpen.getPath()));
 
 				for (int i = 0; i < fileData.size(); i++){
@@ -59,13 +66,21 @@ public class Main {
 		
 		t.start();
 		
-		while(FileOpen.getPath() == null){}
+		
+		
+		while(FileOpen.getPath() == null){
+			try {
+				Thread.sleep(0);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		nt.start();
 		
 		
-		
 	}
+	
 
 	
 	public static ArrayList<Storm> mergeSort(ArrayList<Storm> array, String type){
@@ -79,20 +94,35 @@ public class Main {
 		
 		return merge(firstHalf, secondHalf, type);
 	}
+
 	
-	/
 	public static ArrayList<Storm> merge(ArrayList<Storm> array1, ArrayList<Storm> array2, String type){
 		ArrayList<Storm> array3 =  new ArrayList<Storm>();
 		
-		while (array1.size() != 0 && array2.size() != 0){
-			if ((array1.get(0).getData(type)).compareTo(array2.get(0).getData(type))){
-				
+		while (array1 != null && array2 != null){
+			if ((array1.get(0).getData(type)).compareTo(array2.get(0).getData(type)) > 0){
+				array3.add(array2.get(0));
+				array2.remove(0);
+			} else {
+				array3.add(array1.get(0));
+				array1.remove(0);
 			}
 		}
-	}
+		
+		while (array1 != null){
+			array3.add(array1.get(0));
+			array1.remove(0);
+		}
+		
+		while (array2 != null){
+			array3.add(array1.get(0));
+			array1.remove(0);
+		}
+		
+		return array3;
+	} 
+
 	
-
-
 
 	/**
 	 * This method takes in a file name (if path relative) or a path with then number of lines and creates a Storm object based off each line of the CSV file using openCSV API
@@ -241,6 +271,8 @@ public class Main {
 		if (input.equals("")){ return -1; }
 		else { return Integer.parseInt(input); }
 	}
+
+
 
 
 	/**
