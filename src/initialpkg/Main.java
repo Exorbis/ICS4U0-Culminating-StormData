@@ -26,7 +26,290 @@ import javax.swing.*;
 
 public class Main {
 
+ static ArrayList<Storm> fileData = new ArrayList<Storm>();
+ 
+ 
+ 
+
+ public static void main(String[] args) {
+
+  try {
+   UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+  } catch (Exception ex) {
+   ex.printStackTrace();
+  } 
+  
+  
+  
+  Thread t = new Thread(new Runnable (){
+
+    public void run() {
+     FileOpen.createAndShowGUI();
+     
+    }
+   });
+
+   
+  Thread nt = new Thread(new Runnable () {
+   public void run () {
+    
+    fileData = fileToStorm(FileOpen.getPath(), countLines(FileOpen.getPath()));
+
+   }
+  });
+  
+  t.start();
+  
+  
+  
+  while(FileOpen.getPath() == null){
+   try {
+    Thread.sleep(0);
+   } catch (InterruptedException e) {
+    e.printStackTrace();
+   }
+  }
+  
+  nt.start();
+  
+  while(fileData.size() == 0) {
+   try {
+    Thread.sleep(0);
+   } catch (Exception e){
+    e.printStackTrace();
+   }
+  }
+
+  
+  ArrayList<Storm> sortedData = mergeSort(fileData, "beginTime");
+
+  
+  for (int i = 0; i < sortedData.size(); i++){
+   System.out.println(sortedData.get(i).getDataString("beginTime"));
+  } 
+  
+  
+  
+ }
+ 
+
+ /**
+  * This method sorts an array of Storm objects based off the specified data type in a recursive-top down format
+  *
+  * @param array is the input array that needs to be sorted
+  * @param type is what the method is going to sort based off of
+  * @return the sorted array
+  */
+ public static ArrayList<Storm> mergeSort(ArrayList<Storm> array, String type){
+  if (array.size() <= 1) return array;
+  
+  int leftSize = array.size()/2;
+  int rightSize;
+  
+  if(array.size() % 2 == 0) rightSize = leftSize;
+  else rightSize = leftSize + 1;
+  
+  ArrayList<Storm> firstHalf = new ArrayList<Storm>(array.subList(0, leftSize));
+  ArrayList<Storm> secondHalf = new ArrayList<Storm>(array.subList(rightSize, array.size()));
+  
+  firstHalf = mergeSort(firstHalf, type);
+  secondHalf = mergeSort(secondHalf, type);
+  
+  return merge(firstHalf, secondHalf, type);
+ }
+
+ /**
+  * This method merges the first half split with the second half split in the mergeSort process
+  *
+  * @param array1 is the first half of the split
+  * @param array2 is the second half of the split
+  * @return array3 is the finalized merged array of the first half and second half 
+  */
+ public static ArrayList<Storm> merge(ArrayList<Storm> array1, ArrayList<Storm> array2, String type){
+  ArrayList<Storm> array3 =  new ArrayList<Storm>();
+  
+  String checkType = array1.get(0).checkType(type).toLowerCase();
+  
+  if (checkType.equals("string")){
+   
+   while (array1.size() > 0 && array2.size() > 0){
+
+   if (compareData(array1.get(0).getDataString(type), array2.get(0).getDataString(type)) >= 0){
+    array3.add(array2.get(0));
+    array2.remove(0);
+   } else {
+    array3.add(array1.get(0));
+    array1.remove(0);
+   }
+   }
+  
+   while (array1.size() > 0){
+    array3.add(array1.get(0));
+    array1.remove(0);
+   }
+   
+   while (array2.size() > 0){
+    array3.add(array2.get(0));
+    array2.remove(0);
+   }
+  }
+  
+  else if (checkType.equals("int")){
+   while (array1.size() > 0 && array2.size() > 0){
+
+   if (compareData(array1.get(0).getDataInt(type), array2.get(0).getDataInt(type)) >= 0){
+    array3.add(array2.get(0));
+    array2.remove(0);
+   } else {
+    array3.add(array1.get(0));
+    array1.remove(0);
+   }
+   }
+  
+   while (array1.size() > 0){
+    array3.add(array1.get(0));
+    array1.remove(0);
+   }
+   
+   while (array2.size() > 0){
+    array3.add(array2.get(0));
+    array2.remove(0);
+   }
+  }
+  
+  else if (checkType.equals("double")){
+   while (array1.size() > 0 && array2.size() > 0){
+
+   if (compareData(array1.get(0).getDataDouble(type), array2.get(0).getDataDouble(type)) >= 0){
+    array3.add(array2.get(0));
+    array2.remove(0);
+   } else {
+    array3.add(array1.get(0));
+    array1.remove(0);
+   }
+   }
+  
+   while (array1.size() > 0){
+    array3.add(array1.get(0));
+    array1.remove(0);
+   }
+   
+   while (array2.size() > 0){
+    array3.add(array2.get(0));
+    array2.remove(0);
+   }
+  }
+  
+  else if (checkType.equals("char")){
+   while (array1.size() > 0 && array2.size() > 0){
+
+   if (compareData(array1.get(0).getDataChar(type), array2.get(0).getDataChar(type)) >= 0){
+    array3.add(array2.get(0));
+    array2.remove(0);
+   } else {
+    array3.add(array1.get(0));
+    array1.remove(0);
+   }
+   }
+  
+   while (array1.size() > 0){
+    array3.add(array1.get(0));
+    array1.remove(0);
+   }
+   
+   while (array2.size() > 0){
+    array3.add(array2.get(0));
+    array2.remove(0);
+   }
+  }
+  
+  
+  
+  
+  return array3;
+ } 
+
+ 
+ public static int compareData(int first, int second){
+  return Integer.compare(first, second);
+ }
+ 
+ public static int compareData(double first, double second){
+  return Double.compare(first, second);
+ }
+ 
+ public static int compareData(String first, String second) {
+  return first.compareTo(second);
+ }
+ 
+ /**
+  * This method takes in a file name (if path relative) or a path with then number of lines and creates a Storm object based off each line of the CSV file using openCSV API
+  * 
+  * @param fileName is the name of the file (if the path is relative) or the path itself
+  * @param lines the number of lines in the file that is inputed that will most likely be calculated by countLines method
+  * @return the array of Storm objects with all relevant parameters inputed
+  */
+ public static ArrayList<Storm> fileToStorm(String fileName, int lines){
+  ArrayList<Storm> array = new ArrayList<Storm>();
+
+  try {
+   UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+  } catch (Exception ex) {
+    ex.printStackTrace();
+  }
+
+  final JFrame frame = new JFrame();
+  frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+  frame.setSize(1000, 100);
+  frame.setVisible(true);
+  frame.setTitle("File data to Storm object");
+  final DefaultBoundedRangeModel model = new DefaultBoundedRangeModel();
+  final JProgressBar progressBar = new JProgressBar(model);
+  progressBar.setStringPainted(true);
+  frame.add(progressBar);
+  progressBar.setValue(0);
+  int progressValue = 0;
+
+  //try (CSVReader csvr = new CSVReader(new InputStreamReader(new FileInputStream(fileName)))){
+  
+  try {
+   CSVReader csvr = new CSVReader(new InputStreamReader(new FileInputStream(fileName)));
+   String [] thisLine = null;
+
+
+   while ((thisLine = csvr.readNext()) != null){
+package initialpkg;
+
+import java.awt.*;
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import com.opencsv.CSVReader;
+
+import javax.swing.*;
+
+
+
+
+
+/**
+ * 
+ * @author Marc Pelve
+ * @author Andrew Seidel
+ * @since May 5, 2016
+ * @since JDK 8
+ * @version 1.0
+ *
+ */
+//Took Seidel's progress bar, prompt, getString
+
+public class Main {
+
 	static ArrayList<Storm> fileData = new ArrayList<Storm>();
+	
+	
+	
 
 	public static void main(String[] args) {
 
@@ -86,7 +369,6 @@ public class Main {
 		} 
 		
 		
-		System.out.println(1845 > 100);
 		
 	}
 	
@@ -126,27 +408,103 @@ public class Main {
 	public static ArrayList<Storm> merge(ArrayList<Storm> array1, ArrayList<Storm> array2, String type){
 		ArrayList<Storm> array3 =  new ArrayList<Storm>();
 		
-		while (array1.size() > 0 && array2.size() > 0){
+		String checkType = array1.get(0).checkType(type).toLowerCase();
+		
+		if (checkType.equals("string")){
+			
+			while (array1.size() > 0 && array2.size() > 0){
 
-			//if (compareData(array1.get(0).getData(type), array2.get(0).getData(type)) >= 0){
-			if (array1.get(0).getData(type) > array2.get(0).getData(type)){
+			if (compareData(array1.get(0).getDataString(type), array2.get(0).getDataString(type)) >= 0){
 				array3.add(array2.get(0));
 				array2.remove(0);
 			} else {
 				array3.add(array1.get(0));
 				array1.remove(0);
 			}
+			}
+		
+			while (array1.size() > 0){
+				array3.add(array1.get(0));
+				array1.remove(0);
+			}
+			
+			while (array2.size() > 0){
+				array3.add(array2.get(0));
+				array2.remove(0);
+			}
 		}
 		
-		while (array1.size() > 0){
-			array3.add(array1.get(0));
-			array1.remove(0);
+		else if (checkType.equals("int")){
+			while (array1.size() > 0 && array2.size() > 0){
+
+			if (compareData(array1.get(0).getDataInt(type), array2.get(0).getDataInt(type)) >= 0){
+				array3.add(array2.get(0));
+				array2.remove(0);
+			} else {
+				array3.add(array1.get(0));
+				array1.remove(0);
+			}
+			}
+		
+			while (array1.size() > 0){
+				array3.add(array1.get(0));
+				array1.remove(0);
+			}
+			
+			while (array2.size() > 0){
+				array3.add(array2.get(0));
+				array2.remove(0);
+			}
 		}
 		
-		while (array2.size() > 0){
-			array3.add(array2.get(0));
-			array2.remove(0);
+		else if (checkType.equals("double"){
+			while (array1.size() > 0 && array2.size() > 0){
+
+			if (compareData(array1.get(0).getDataDouble(type), array2.get(0).getDataDouble(type)) >= 0){
+				array3.add(array2.get(0));
+				array2.remove(0);
+			} else {
+				array3.add(array1.get(0));
+				array1.remove(0);
+			}
+			}
+		
+			while (array1.size() > 0){
+				array3.add(array1.get(0));
+				array1.remove(0);
+			}
+			
+			while (array2.size() > 0){
+				array3.add(array2.get(0));
+				array2.remove(0);
+			}
 		}
+		
+		else if (checkType.equals("char")){
+			while (array1.size() > 0 && array2.size() > 0){
+
+			if (compareData(array1.get(0).getDataChar(type), array2.get(0).getDataChar(type)) >= 0){
+				array3.add(array2.get(0));
+				array2.remove(0);
+			} else {
+				array3.add(array1.get(0));
+				array1.remove(0);
+			}
+			}
+		
+			while (array1.size() > 0){
+				array3.add(array1.get(0));
+				array1.remove(0);
+			}
+			
+			while (array2.size() > 0){
+				array3.add(array2.get(0));
+				array2.remove(0);
+			}
+		}
+		
+		
+		
 		
 		return array3;
 	} 
@@ -177,6 +535,7 @@ public class Main {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+			ex.printStackTrace();
 		}
 
 		final JFrame frame = new JFrame();
