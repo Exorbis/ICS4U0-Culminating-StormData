@@ -452,5 +452,139 @@ public class Storm {
 		}
 		return "-1";
 	}
+	
+	public String getData(String type){
+		switch (type.toLowerCase()){
+		
+		case "beginyearmonth":
+			return this.beginYearMonth;
+			
+		case "beginday":
+			return String.valueOf(this.beginDay);
+		
+		case "begintime":
+			return String.valueOf(this.beginTime);
+			
+		case "endyearmonth":
+			return String.valueOf(this.endYearMonth);
+			
+		case "endday":
+			return String.valueOf(this.endDay);
+		
+		case "endtime":
+			return String.valueOf(this.endTime); 
+			
+		case "episodeid":
+			return String.valueOf(this.episodeID);
+			
+		case "eventid":
+			return String.valueOf(this.eventID);
+			
+		case "state":
+			return this.state;
+		
+		case "statefips":
+			return String.valueOf(this.stateFIPS);
+			
+		case "year":
+			return String.valueOf(this.year);
+			
+		case "month":
+			return this.month;
+			
+		case "eventType":
+			return this.eventType;
+			
+		case "cztype":
+			return String.valueOf(this.czType);
+			
+		case "czfips":
+			return String.valueOf(this.czFips);
+			
+		case "czName":
+			return this.czName;
+			
+		case "wfo":
+			return this.wfo;
+			
+		case "begindatetime":
+			return this.beginDateTime;
+			
+		case "timezone":
+			return this.timezone;
+			
+		case "enddatetime":
+			return this.endDateTime;
+			
+		case "directinj":
+			return String.valueOf(this.indirectInj);
+			
+		case "indirectinj":
+			return String.valueOf(this.indirectInj);
+			
+		case "directdeaths":
+			return String.valueOf(this.directDeaths);
+			
+		case "indirectDeaths":
+			return String.valueOf(this.indirectDeaths);
+			
+		case "propertydmg":
+			return this.propertyDmg;
+			
+		case "cropdmg":
+			return this.cropDmg;
+			
+		case "sourcetype":
+			return this.sourceType;
+			
+		case "magnitdue":
+			return String.valueOf(this.magnitude);
+			
+		case "magnitudetype":
+			return this.magnitudeType;
+			
+		case "floodcause":
+			return this.floodCause;
+			
+		case "category":
+			return this.category;
+			
+		case "torfscale":
+			return this.torFScale;
+			
+		case "torLength":
+			return String.valueOf(this.torLength);
+			
+			
+			
+		}
+		
+
+		this.torWidth 
+		this.torwfo 
+		this.torState 
+		this.torFIPS 
+		this.torName 
+		this.beginRange 
+		this.beginAzimuth 
+		this.beginLocation
+		this.endRange 
+		this.endAzimuth 
+		this.endLocation 
+		this.beginLatitude 
+		this.beginLongitude
+		this.endLatitude 
+		this.endLongitude 
+		this.episodeNarrative
+		this.eventNarrative
+		this.lastModDate
+		this.lastModTime
+		this.lastCertDate
+		this.lastCertTime 
+		this.lastMod
+		this.lastCert 
+		this.addCorrFlg
+		this.addCorrDate
+	}
 
 } 
