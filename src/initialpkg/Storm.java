@@ -88,7 +88,7 @@ public class Storm {
 		switch (type.toLowerCase()) {
 		
 		case "cztype":
-			return this.czType.getClass().getSimpleName();
+			return ((Object)this.czType).getClass().getSimpleName();
 		
 		case "beginyearmonth":
 			return this.beginYearMonth.getClass().getSimpleName();
@@ -187,74 +187,76 @@ public class Storm {
 			return this.addCorrDate.getClass().getSimpleName();
 			
 		case "beginday":
-			return this.beginDay.getClass().getSimpleName();
+			return ((Object)this.beginDay).getClass().getSimpleName();
 		
 		case "begintime":
-			return this.beginTime.getClass().getSimpleName();
+			return ((Object)this.beginTime).getClass().getSimpleName();
 			
 		case "endday":
-			return this.endDay.getClass().getSimpleName();
+			return ((Object)this.endDay).getClass().getSimpleName();
 			
 		case "endtime":
-			return this.endTime.getClass().getSimpleName();
+			return ((Object)this.endTime).getClass().getSimpleName();
 			
 		case "episodeid":
-			return this.episodeID.getClass().getSimpleName();
+			return ((Object)this.episodeID).getClass().getSimpleName();
 			
 		case "eventid":
-			return this.eventID.getClass().getSimpleName();
+			return ((Object)this.eventID).getClass().getSimpleName();
 			
 		case "statefips":
-			return this.stateFIPS.getClass().getSimpleName();
+			return ((Object)this.stateFIPS).getClass().getSimpleName();
 			
 		case "year":
-			return this.year.getClass().getSimpleName();
+			return ((Object)this.year).getClass().getSimpleName();
 			
 		case "czfips":
-			return this.czFips.getClass().getSimpleName();
+			return ((Object)this.czFips).getClass().getSimpleName();
 		
 		case "directinj":
-			return this.directInj.getClass().getSimpleName();
+			return ((Object)this.directInj).getClass().getSimpleName();
 			
 		case "indirectinj":
-			return this.indirectInj.getClass().getSimpleName();
+			return ((Object)this.indirectInj).getClass().getSimpleName();
 			
 		case "directdeaths":
-			return this.directDeaths.getClass().getSimpleName();
+			return ((Object)this.directDeaths).getClass().getSimpleName();
 			
 		case "indirectdeaths":
-			return this.indirectDeaths.getClass().getSimpleName();
+			return ((Object)this.indirectDeaths).getClass().getSimpleName();
 			
 		case "torfips":
-			return this.torFIPS.getClass().getSimpleName();
+			return ((Object)this.torFIPS).getClass().getSimpleName();
 			
 		case "magnitude":
-			return this.magnitude.getClass().getSimpleName();
+			return ((Object)this.magnitude).getClass().getSimpleName();
 			
 		case "torlength":
-			return this.torLength.getClass().getSimpleName();
+			return ((Object)this.torLength).getClass().getSimpleName();
 			
 		case "beginrange":
-			return this.beginRange.getClass().getSimpleName();
+			return ((Object)this.beginRange).getClass().getSimpleName();
 			
 		case "endrange":
-			return this.endRange.getClass().getSimpleName();
+			return ((Object)this.endRange).getClass().getSimpleName();
 			
 		case "beginlatitude":
-			return this.beginLatitude.getClass().getSimpleName();
+			return ((Object)this.beginLatitude).getClass().getSimpleName();
 			
 		case "beginlongitude":
-			return this.beginLongitude.getClass().getSimpleName();
+			return ((Object)this.beginLongitude).getClass().getSimpleName();
 			
 		case "endlatitude":
-			return this.endLatitude.getClass().getSimpleName();
+			return ((Object)this.endLatitude).getClass().getSimpleName();
 			
 		case "endlongitude":
-			return this.endLongitude.getClass().getSimpleName();
+			return ((Object)this.endLongitude).getClass().getSimpleName();
 			
 		case "torwidth":
-			return this.torWidth.getClass().getSimpleName();
+			return ((Object)this.torWidth).getClass().getSimpleName();
 		}
+		
+		return "Nothing";
 	}
 	
 	public char getDataChar(String type){
