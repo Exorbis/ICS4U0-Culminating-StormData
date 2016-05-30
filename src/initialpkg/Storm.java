@@ -84,33 +84,272 @@ public class Storm {
 		return this.eventID;
 	}
 	
-	public String getTest(){
-		return this.beginYearMonth;
+	public String checkType(String type){
+		switch (type.toLowerCase()) {
+		
+		case "cztype":
+			return this.czType.getClass().getSimpleName();
+		
+		case "beginyearmonth":
+			return this.beginYearMonth.getClass().getSimpleName();
+			
+		case "endyearmonth":
+			return this.endYearMonth.getClass().getSimpleName();
+			
+		case "state":
+			return this.state.getClass().getSimpleName();
+			
+		case "month":
+			return this.month.getClass().getSimpleName();
+			
+		case "eventtype":
+			return this.eventType.getClass().getSimpleName();
+			
+		case "czname":
+			return this.czName.getClass().getSimpleName();
+			
+		case "wfo":
+			return this.wfo.getClass().getSimpleName();
+			
+		case "begindatetime":
+			return this.beginDateTime.getClass().getSimpleName();
+			
+		case "timezone":
+			return this.timezone.getClass().getSimpleName();
+			
+		case "enddatetime":
+			return this.endDateTime.getClass().getSimpleName();
+			
+		case "propertydmg":
+			return this.propertyDmg.getClass().getSimpleName();
+			
+		case "cropdmg":
+			return this.cropDmg.getClass().getSimpleName();
+		
+		case "sourcetype":
+			return this.sourceType.getClass().getSimpleName();
+			
+		case "magnitudetype":
+			return this.magnitudeType.getClass().getSimpleName();
+			
+		case "floodcause":
+			return this.floodCause.getClass().getSimpleName();
+			
+		case "category":
+			return this.category.getClass().getSimpleName();
+			
+		case "torfscale":
+			return this.torFScale.getClass().getSimpleName();
+			
+		case "torwfo":
+			return this.torwfo.getClass().getSimpleName();
+			
+		case "torstate":
+			return this.torState.getClass().getSimpleName();
+			
+		case "beginazimuth":
+			return this.beginAzimuth.getClass().getSimpleName();
+			
+		case "beginlocation":
+			return beginLocation.getClass().getSimpleName();
+			
+		case "endazimuth":
+			return this.endAzimuth.getClass().getSimpleName();
+			
+		case "endlocation":
+			return this.endLocation.getClass().getSimpleName();
+			
+		case "episodenarrative":
+			return this.episodeNarrative.getClass().getSimpleName();
+			
+		case "eventnarrative":
+			return this.eventNarrative.getClass().getSimpleName();
+			
+		case "lastmoddate":
+			return this.lastModDate.getClass().getSimpleName();
+		
+		case "lastcertdate":
+			return lastCertDate.getClass().getSimpleName();
+			
+		case "lastcerttime":
+			return this.lastCertTime.getClass().getSimpleName();
+			
+		case "lastmod":
+			return this.lastMod.getClass().getSimpleName();
+			
+		case "lastcert":
+			return this.lastCert.getClass().getSimpleName();
+			
+		case "addcorrflg":
+			return this.addCorrFlg.getClass().getSimpleName();
+			
+		case "addcorrdate":
+			return this.addCorrDate.getClass().getSimpleName();
+			
+		case "beginday":
+			return this.beginDay.getClass().getSimpleName();
+		
+		case "begintime":
+			return this.beginTime.getClass().getSimpleName();
+			
+		case "endday":
+			return this.endDay.getClass().getSimpleName();
+			
+		case "endtime":
+			return this.endTime.getClass().getSimpleName();
+			
+		case "episodeid":
+			return this.episodeID.getClass().getSimpleName();
+			
+		case "eventid":
+			return this.eventID.getClass().getSimpleName();
+			
+		case "statefips":
+			return this.stateFIPS.getClass().getSimpleName();
+			
+		case "year":
+			return this.year.getClass().getSimpleName();
+			
+		case "czfips":
+			return this.czFips.getClass().getSimpleName();
+		
+		case "directinj":
+			return this.directInj.getClass().getSimpleName();
+			
+		case "indirectinj":
+			return this.indirectInj.getClass().getSimpleName();
+			
+		case "directdeaths":
+			return this.directDeaths.getClass().getSimpleName();
+			
+		case "indirectdeaths":
+			return this.indirectDeaths.getClass().getSimpleName();
+			
+		case "torfips":
+			return this.torFIPS.getClass().getSimpleName();
+			
+		case "magnitude":
+			return this.magnitude.getClass().getSimpleName();
+			
+		case "torlength":
+			return this.torLength.getClass().getSimpleName();
+			
+		case "beginrange":
+			return this.beginRange.getClass().getSimpleName();
+			
+		case "endrange":
+			return this.endRange.getClass().getSimpleName();
+			
+		case "beginlatitude":
+			return this.beginLatitude.getClass().getSimpleName();
+			
+		case "beginlongitude":
+			return this.beginLongitude.getClass().getSimpleName();
+			
+		case "endlatitude":
+			return this.endLatitude.getClass().getSimpleName();
+			
+		case "endlongitude":
+			return this.endLongitude.getClass().getSimpleName();
+			
+		case "torwidth":
+			return this.torWidth.getClass().getSimpleName();
+		}
 	}
 	
-	public char getData(String type){
+	public char getDataChar(String type){
 		switch (type.toLowerCase()){
 		
 		case "cztype":
 			return this.czType;
 		}
-		return 'Z';
+		return 'N';
 	}
 	
-	public int getData(String type){
+	public int getDataInt(String type){
 		switch (type.toLowerCase()){
 		
 		case "beginday":
 			return this.beginDay; 
+		
+		case "begintime":
+			return this.beginTime;
+			
+		case "endday":
+			return this.endDay;
+			
+		case "endtime":
+			return this.endTime;
+			
+		case "episodeid":
+			return this.episodeID;
+			
+		case "eventID":
+			return this.eventID;
+			
+		case "statefips":
+			return this.stateFIPS;
+			
+		case "year":
+			return this.year;
+			
+		case "czfips":
+			return this.czFips;
+		
+		case "directinj":
+			return this.directInj;
+			
+		case "indirectinj":
+			return this.indirectInj;
+			
+		case "directdeaths":
+			return this.directDeaths;
+			
+		case "indirectdeaths":
+			return this.indirectDeaths;
+			
+		case "torfips":
+			return this.torFIPS;
 		}
 		return -1;
 	}
 	
-	public String getData(String type){
-		switch (type.toLowerCase()) {
+	public double getDataDouble(String type){
+		switch (type.toLowerCase()){
+			
+		case "magnitude":
+			return this.magnitude;
+			
+		case "torlength":
+			return this.torLength;
+			
+		case "beginrange":
+			return this.beginRange;
+			
+		case "endrange":
+			return this.endRange;
+			
+		case "beginlatitude":
+			return this.beginLatitude;
+			
+		case "beginlongitude":
+			return this.beginLongitude;
+			
+		case "endlatitude":
+			return this.endLatitude;
+			
+		case "endlongitude":
+			return this.endLongitude;
+			
+		case "torwidth":
+			return this.torWidth;
+		}
 		
-		case "cztype":
-			return String.valueOf(this.czType).trim();
+		return -1;
+	}
+	
+	public String getDataString(String type){
+		switch (type.toLowerCase()) {
 		
 		case "beginyearmonth":
 			return this.beginYearMonth.trim();
@@ -208,72 +447,6 @@ public class Storm {
 		case "addcorrdate":
 			return this.addCorrDate.trim();
 			
-		
-		case "begintime":
-			return String.valueOf(this.beginTime).trim();
-			
-		case "endday":
-			return String.valueOf(this.endDay).trim();
-			
-		case "endtime":
-			return String.valueOf(this.endTime).trim();
-			
-		case "episodeid":
-			return String.valueOf(this.episodeID).trim();
-			
-		case "eventID":
-			return String.valueOf(this.eventID).trim();
-			
-		case "statefips":
-			return String.valueOf(this.stateFIPS).trim();
-			
-		case "year":
-			return String.valueOf(this.year).trim();
-			
-		case "czfips":
-			return String.valueOf(this.czFips).trim();
-		
-		case "directinj":
-			return String.valueOf(this.directInj).trim();
-			
-		case "indirectinj":
-			return String.valueOf(this.indirectInj).trim();
-			
-		case "directdeaths":
-			return String.valueOf(this.directDeaths).trim();
-			
-		case "indirectdeaths":
-			return String.valueOf(this.indirectDeaths).trim();
-			
-		case "torfips":
-			return String.valueOf(this.torFIPS).trim();
-			
-		case "magnitude":
-			return String.valueOf(this.magnitude).trim();
-			
-		case "torlength":
-			return String.valueOf(this.torLength).trim();
-			
-		case "beginrange":
-			return String.valueOf(this.beginRange).trim();
-			
-		case "endrange":
-			return String.valueOf(this.endRange).trim();
-			
-		case "beginlatitude":
-			return String.valueOf(this.beginLatitude).trim();
-			
-		case "beginlongitude":
-			return String.valueOf(this.beginLongitude).trim();
-			
-		case "endlatitude":
-			return String.valueOf(this.endLatitude).trim();
-			
-		case "endlongitude":
-			return String.valueOf(this.endLongitude).trim();
-			
-		case "torwidth":
-			return String.valueOf(this.torWidth).trim();
 		}
 		return "-1";
 	}
