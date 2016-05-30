@@ -20,6 +20,8 @@ public class Storm {
 			String episodeNarrative, String eventNarrative, String lastModDate, String lastModTime, String lastCertDate, 
 			String lastCertTime, String lastMod, String lastCert, String addCorrFlg, String addCorrDate){
 		
+		this.beginYearMonth = beginYearMonth;
+		this.beginDay = beginDay;
 		this.beginTime = beginTime;
 		this.endYearMonth = endYearMonth;
 		this.endDay = endDay;
@@ -82,107 +84,198 @@ public class Storm {
 		return this.eventID;
 	}
 	
+	public String getTest(){
+		return this.beginYearMonth;
+	}
+	
+	public char getData(String type){
+		switch (type.toLowerCase()){
+		
+		case "cztype":
+			return this.czType;
+		}
+		return 'Z';
+	}
+	
+	public int getData(String type){
+		switch (type.toLowerCase()){
+		
+		case "beginday":
+			return this.beginDay; 
+		}
+		return -1;
+	}
+	
 	public String getData(String type){
 		switch (type.toLowerCase()) {
 		
+		case "cztype":
+			return String.valueOf(this.czType).trim();
+		
 		case "beginyearmonth":
-			return this.beginYearMonth;
+			return this.beginYearMonth.trim();
 			
 		case "endyearmonth":
-			return this.endYearMonth;
+			return this.endYearMonth.trim();
 			
 		case "state":
-			return this.state;
+			return this.state.trim();
 			
 		case "month":
-			return this.month;
+			return this.month.trim();
 			
 		case "eventtype":
-			return this.eventType;
+			return this.eventType.trim();
 			
 		case "czname":
-			return this.czName;
+			return this.czName.trim();
 			
 		case "wfo":
-			return this.wfo;
+			return this.wfo.trim();
 			
 		case "begindatetime":
-			return this.beginDateTime;
+			return this.beginDateTime.trim();
 			
 		case "timezone":
-			return this.timezone;
+			return this.timezone.trim();
 			
 		case "enddatetime":
-			return this.endDateTime;
+			return this.endDateTime.trim();
 			
 		case "propertydmg":
-			return this.propertyDmg;
+			return this.propertyDmg.trim();
 			
 		case "cropdmg":
-			return this.cropDmg;
+			return this.cropDmg.trim();
 		
 		case "sourcetype":
-			return this.sourceType;
+			return this.sourceType.trim();
 			
 		case "magnitudetype":
-			return this.magnitudeType;
+			return this.magnitudeType.trim();
 			
 		case "floodcause":
-			return this.floodCause;
+			return this.floodCause.trim();
 			
 		case "category":
-			return this.category;
+			return this.category.trim();
 			
 		case "torfscale":
-			return this.torFScale;
+			return this.torFScale.trim();
 			
 		case "torwfo":
-			return this.torwfo;
+			return this.torwfo.trim();
 			
 		case "torstate":
-			return this.torState;
+			return this.torState.trim();
 			
 		case "beginazimuth":
-			return this.beginAzimuth;
+			return this.beginAzimuth.trim();
 			
 		case "beginlocation":
-			return this.beginLocation;
+			return this.beginLocation.trim();
 			
 		case "endazimuth":
-			return this.endAzimuth;
+			return this.endAzimuth.trim();
 			
 		case "endlocation":
-			return this.endLocation;
+			return this.endLocation.trim();
 			
 		case "episodenarrative":
-			return this.episodeNarrative;
+			return this.episodeNarrative.trim();
 			
 		case "eventnarrative":
-			return this.eventNarrative;
+			return this.eventNarrative.trim();
 			
 		case "lastmoddate":
-			return this.lastModDate;
+			return this.lastModDate.trim();
 		
 		case "lastcertdate":
-			return this.lastCertDate;
+			return this.lastCertDate.trim();
 			
 		case "lastcerttime":
-			return this.lastCertTime;
+			return this.lastCertTime.trim();
 			
 		case "lastmod":
-			return this.lastMod;
+			return this.lastMod.trim();
 			
 		case "lastcert":
-			return this.lastCert;
+			return this.lastCert.trim();
 			
 		case "addcorrflg":
-			return this.addCorrFlg;
+			return this.addCorrFlg.trim();
 			
 		case "addcorrdate":
-			return this.addCorrDate;
+			return this.addCorrDate.trim();
 			
+		
+		case "begintime":
+			return String.valueOf(this.beginTime).trim();
+			
+		case "endday":
+			return String.valueOf(this.endDay).trim();
+			
+		case "endtime":
+			return String.valueOf(this.endTime).trim();
+			
+		case "episodeid":
+			return String.valueOf(this.episodeID).trim();
+			
+		case "eventID":
+			return String.valueOf(this.eventID).trim();
+			
+		case "statefips":
+			return String.valueOf(this.stateFIPS).trim();
+			
+		case "year":
+			return String.valueOf(this.year).trim();
+			
+		case "czfips":
+			return String.valueOf(this.czFips).trim();
+		
+		case "directinj":
+			return String.valueOf(this.directInj).trim();
+			
+		case "indirectinj":
+			return String.valueOf(this.indirectInj).trim();
+			
+		case "directdeaths":
+			return String.valueOf(this.directDeaths).trim();
+			
+		case "indirectdeaths":
+			return String.valueOf(this.indirectDeaths).trim();
+			
+		case "torfips":
+			return String.valueOf(this.torFIPS).trim();
+			
+		case "magnitude":
+			return String.valueOf(this.magnitude).trim();
+			
+		case "torlength":
+			return String.valueOf(this.torLength).trim();
+			
+		case "beginrange":
+			return String.valueOf(this.beginRange).trim();
+			
+		case "endrange":
+			return String.valueOf(this.endRange).trim();
+			
+		case "beginlatitude":
+			return String.valueOf(this.beginLatitude).trim();
+			
+		case "beginlongitude":
+			return String.valueOf(this.beginLongitude).trim();
+			
+		case "endlatitude":
+			return String.valueOf(this.endLatitude).trim();
+			
+		case "endlongitude":
+			return String.valueOf(this.endLongitude).trim();
+			
+		case "torwidth":
+			return String.valueOf(this.torWidth).trim();
 		}
-		return "Incorrect input type";
+		return "-1";
 	}
-}
 
+} 
