@@ -22,6 +22,8 @@ public class Storm {
 	}
 	
 	private int monthIndex;
+	private double indexFullDateTime;
+	private String customTime, customDate;
 	
 	private String beginYearMonth, endYearMonth, state, month, eventType, czName, wfo, beginDateTime, timezone, endDateTime, propertyDmg, cropDmg, sourceType, magnitudeType, floodCause, category, torFScale, torwfo, torState, torName, beginAzimuth, beginLocation, endAzimuth, endLocation, episodeNarrative, eventNarrative, lastModDate, lastModTime, lastCertDate, lastCertTime, lastMod, lastCert, addCorrFlg, addCorrDate;
 	private int beginDay, beginTime, endDay, endTime, episodeID, eventID, stateFIPS, year, czFips, directInj, indirectInj, directDeaths, indirectDeaths, torFIPS;
@@ -100,7 +102,22 @@ public class Storm {
 		this.addCorrFlg = addCorrFlg;
 		this.addCorrDate = addCorrDate;
 		
+		
+		
+		//-----Custom Data Manipulation variables------
 		this.monthIndex = months.get(this.month.trim().toLowerCase());
+		
+		if (String.valueOf(beginTime).length() < 4){
+			this.customTime = "0.0" + String.valueOf(beginTime); 
+		} else {
+			this.customTime = "0." + String.valueOf(beginTime);
+		}
+		
+		this.customDate = beginDateTime.split(" ")[0];
+		this.customDate = this.customDate.replaceAll("/", "");
+		
+		this.indexFullDateTime = Double.parseDouble(this.customDate) + Double.parseDouble(this.customTime);
+		
 	}
 	
 	public String checkType(String type){
@@ -131,7 +148,7 @@ public class Storm {
 			return this.wfo.getClass().getSimpleName();
 			
 		case "begindatetime":
-			return this.beginDateTime.getClass().getSimpleName();
+			return ((Object)this.indexFullDateTime).getClass().getSimpleName();
 			
 		case "timezone":
 			return this.timezone.getClass().getSimpleName();
@@ -367,6 +384,9 @@ public class Storm {
 			
 		case "torwidth":
 			return this.torWidth;
+			
+		case "begindatetime":
+			return this.indexFullDateTime;
 		}
 		
 		return -1;
@@ -392,9 +412,6 @@ public class Storm {
 			
 		case "wfo":
 			return this.wfo.trim();
-			
-		case "begindatetime":
-			return this.beginDateTime.trim();
 			
 		case "timezone":
 			return this.timezone.trim();
