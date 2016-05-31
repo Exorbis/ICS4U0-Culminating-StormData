@@ -1,13 +1,34 @@
 package initialpkg;
 
+import java.util.HashMap;
+
 public class Storm {
 
-	private String [] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+	private HashMap<String, Integer> months = new HashMap<String, Integer>();
+	{
+	months.put("january", 1);
+	months.put("february", 2);
+	months.put("march", 3);
+	months.put("april", 4);
+	months.put("may", 5);
+	months.put("june", 6);
+	months.put("july", 7);
+	months.put("august", 8);
+	months.put("september", 9);
+	months.put("october", 10);
+	months.put("november", 11);
+	months.put("december", 12);
+	
+	}
+	
+	private int monthIndex;
 	
 	private String beginYearMonth, endYearMonth, state, month, eventType, czName, wfo, beginDateTime, timezone, endDateTime, propertyDmg, cropDmg, sourceType, magnitudeType, floodCause, category, torFScale, torwfo, torState, torName, beginAzimuth, beginLocation, endAzimuth, endLocation, episodeNarrative, eventNarrative, lastModDate, lastModTime, lastCertDate, lastCertTime, lastMod, lastCert, addCorrFlg, addCorrDate;
 	private int beginDay, beginTime, endDay, endTime, episodeID, eventID, stateFIPS, year, czFips, directInj, indirectInj, directDeaths, indirectDeaths, torFIPS;
 	private double magnitude, torLength, beginRange, endRange, beginLatitude, beginLongitude, endLatitude, endLongitude, torWidth;
 	private char czType;
+	
+	
 	
 	
 	public Storm(String beginYearMonth, int beginDay, int beginTime, String endYearMonth, int endDay, int endTime, 
@@ -78,10 +99,8 @@ public class Storm {
 		this.lastCert = lastCert;
 		this.addCorrFlg = addCorrFlg;
 		this.addCorrDate = addCorrDate;
-	}
-	
-	public int getEventID(){
-		return this.eventID;
+		
+		this.monthIndex = months.get(this.month.trim().toLowerCase());
 	}
 	
 	public String checkType(String type){
@@ -100,7 +119,7 @@ public class Storm {
 			return this.state.getClass().getSimpleName();
 			
 		case "month":
-			return this.month.getClass().getSimpleName();
+			return ((Object)this.monthIndex).getClass().getSimpleName();
 			
 		case "eventtype":
 			return this.eventType.getClass().getSimpleName();
@@ -256,7 +275,7 @@ public class Storm {
 			return ((Object)this.torWidth).getClass().getSimpleName();
 		}
 		
-		return "Nothing";
+		return "-1";
 	}
 	
 	public char getDataChar(String type){
@@ -270,6 +289,9 @@ public class Storm {
 	
 	public int getDataInt(String type){
 		switch (type.toLowerCase()){
+		
+		case "month":
+			return this.monthIndex;
 		
 		case "beginday":
 			return this.beginDay; 
@@ -362,9 +384,6 @@ public class Storm {
 		case "state":
 			return this.state.trim();
 			
-		case "month":
-			return this.month.trim();
-			
 		case "eventtype":
 			return this.eventType.trim();
 			
@@ -453,7 +472,7 @@ public class Storm {
 		return "-1";
 	}
 	
-	public String getData(String type){
+	public String displayData(String type){
 		switch (type.toLowerCase()){
 		
 		case "beginyearmonth":
@@ -492,7 +511,7 @@ public class Storm {
 		case "month":
 			return this.month;
 			
-		case "eventType":
+		case "eventtype":
 			return this.eventType;
 			
 		case "cztype":
@@ -537,7 +556,7 @@ public class Storm {
 		case "sourcetype":
 			return this.sourceType;
 			
-		case "magnitdue":
+		case "magnitude":
 			return String.valueOf(this.magnitude);
 			
 		case "magnitudetype":
@@ -552,39 +571,85 @@ public class Storm {
 		case "torfscale":
 			return this.torFScale;
 			
-		case "torLength":
+		case "torlength":
 			return String.valueOf(this.torLength);
+		
+		case "torwidth":
+			return String.valueOf(this.torWidth);
 			
+		case "torwfo":
+			return this.torwfo;
 			
+		case "torstate":
+			return this.torState;
+			
+		case "torfips":
+			return String.valueOf(this.torFIPS);
+			
+		case "torname":
+			return this.torName;
+			
+		case  "beginrange":
+			return String.valueOf(this.beginRange);
+			
+		case "beginazimuth":
+			return this.beginAzimuth;
+			
+		case "beginlocation":
+			return this.beginLocation;
+			
+		case "endrange":
+			return String.valueOf(this.endRange);
+			
+		case "endazimuth":
+			return this.endAzimuth;
+			
+		case "beginlatitude":
+			return String.valueOf(this.beginLatitude);
+			
+		case "beginlongitude":
+			return String.valueOf(this.beginLongitude);
+			
+		case "endlatitude":
+			return String.valueOf(this.endLatitude);
+			
+		case "endlongitude":
+			return String.valueOf(this.endLongitude);
+			
+		case "episodenarrrative":
+			return this.episodeNarrative;
+			
+		case "eventnarrative":
+			return this.eventNarrative;
+			
+		case "lastmoddate":
+			return this.lastModDate;
+			
+		case "lastmodtime":
+			return this.lastModTime;
+			
+		case "lastcertdate":
+			return this.lastCertDate;
+			
+		case "lastcerttime":
+			return this.lastCertTime;
+			
+		case "lastmod":
+			return this.lastMod;
+			
+		case "lastcert":
+			return this.lastCert;
+			
+		case "addcorrflg":
+			return this.addCorrFlg;
+			
+		case "addcorrdate":
+			return this.addCorrDate;
 			
 		}
 		
-
-		this.torWidth 
-		this.torwfo 
-		this.torState 
-		this.torFIPS 
-		this.torName 
-		this.beginRange 
-		this.beginAzimuth 
-		this.beginLocation
-		this.endRange 
-		this.endAzimuth 
-		this.endLocation 
-		this.beginLatitude 
-		this.beginLongitude
-		this.endLatitude 
-		this.endLongitude 
-		this.episodeNarrative
-		this.eventNarrative
-		this.lastModDate
-		this.lastModTime
-		this.lastCertDate
-		this.lastCertTime 
-		this.lastMod
-		this.lastCert 
-		this.addCorrFlg
-		this.addCorrDate
+		return "-1";
+		
 	}
 
 } 

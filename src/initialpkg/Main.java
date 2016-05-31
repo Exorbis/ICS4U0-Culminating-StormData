@@ -78,11 +78,11 @@ public class Main {
 		}
 
 
-		ArrayList<Storm> sortedData = mergeSort(fileData, "begintime");
+		ArrayList<Storm> sortedData = mergeSort(fileData, "beginDateTime");
 
 		
 		for (int i = 0; i < sortedData.size(); i++){
-			System.out.println(sortedData.get(i).getDataInt("begintime"));
+			System.out.println(sortedData.get(i).displayData("beginDateTime"));
 		} 
 
 
