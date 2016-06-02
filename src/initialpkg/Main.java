@@ -27,7 +27,7 @@ import javax.swing.*;
 
 public class Main {
 
-	static ArrayList<Storm> fileData = new ArrayList<Storm>();
+	public static ArrayList<Storm> fileData = new ArrayList<Storm>();
 
 	public static void main(String[] args) {
 
@@ -78,18 +78,13 @@ public class Main {
 		}
 
 
-		ArrayList<Storm> sortedData = mergeSort(fileData, "beginDateTime");
-
+		StormView frame = new StormView(fileData);
+		frame.setVisible(true);
 		
-		for (int i = 0; i < sortedData.size(); i++){
-			System.out.println(sortedData.get(i).displayData("beginDateTime"));
-		} 
 
 
 
 	}
-
-
 
 
 
@@ -403,6 +398,10 @@ public class Main {
 	public static double checkParseDouble(String input){
 		if (input.equals("")){ return -1; }
 		else { return Double.parseDouble(input); }
+	}
+
+	public static ArrayList<Storm> getStorms() {
+		return fileData;
 	}
 
 }
