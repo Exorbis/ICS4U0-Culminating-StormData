@@ -77,7 +77,6 @@ public class Main {
 			}
 		}
 
-
 		StormView frame = new StormView(fileData);
 		frame.setVisible(true);
 		

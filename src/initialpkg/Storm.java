@@ -325,7 +325,7 @@ public class Storm {
 		case "episodeid":
 			return this.episodeID;
 			
-		case "eventID":
+		case "eventid":
 			return this.eventID;
 			
 		case "statefips":

@@ -43,15 +43,17 @@ public class StormView extends JFrame implements ActionListener{
 		
 	}
 	
-	public ArrayList<Storm> returnNonRepeats(ArrayList<Storm> array, String type){
+	public ArrayList<String> returnNonRepeats(ArrayList<Storm> array, String type){
+		ArrayList<Storm> workArray = Main.mergeSort(array, type);
+		ArrayList<String> nonRepeats = new ArrayList<String>();
 		
-		ArrayList<Storm> nonRepeats = new ArrayList<Storm>();
-		
-		for (int i = 0; i < array.size(); i++){
-			if (!nonRepeats.contains(array.get(i).displayData(type))){
-				nonRepeats.add(array.get(i));
-			}
+		for (int i = 0; i < workArray.size(); i++){
+			if (!(nonRepeats.contains(workArray.get(i).displayData(type)))){
+				nonRepeats.add(workArray.get(i).displayData(type));
+			} 
 		}
+		
+		while (nonRepeats.remove("-1")){}
 		
 		return nonRepeats;
 		
@@ -62,407 +64,465 @@ public class StormView extends JFrame implements ActionListener{
 			JComboBox localSortBy = (JComboBox)e.getSource();
 			String category = (String)localSortBy.getSelectedItem();
 			
-			ArrayList<Storm> categoryValue;
+			ArrayList<String> categoryValue;
 			ArrayList<Storm> storms = Main.getStorms();
 			
 			switch (category.toLowerCase()){
 			
 			case "beginyearmonth":
 				categoryValue = returnNonRepeats(storms, "beginyearmonth");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("beginyearmonth"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "beginday":
 				categoryValue = returnNonRepeats(storms, "beginday");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("beginyearmonth"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 			
 			case "begintime":
 				categoryValue = returnNonRepeats(storms, "begintime");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("begintime"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "endyearmonth":
 				categoryValue = returnNonRepeats(storms, "endyearmonth");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("endyearmonth"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "endday":
 				categoryValue = returnNonRepeats(storms, "endday");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("endday"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 			
 			case "endtime":
 				categoryValue = returnNonRepeats(storms, "endtime");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("endtime"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break; 
 				
 			case "episodeid":
 				categoryValue = returnNonRepeats(storms, "episodeid");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("episodeid"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "eventid":
 				categoryValue = returnNonRepeats(storms, "eventid");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("eventid"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "state":
 				categoryValue = returnNonRepeats(storms, "state");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("state"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 			
 			case "statefips":
 				categoryValue = returnNonRepeats(storms, "statefips");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("statefips"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "year":
 				categoryValue = returnNonRepeats(storms, "year");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("year"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "month":
 				categoryValue = returnNonRepeats(storms, "month");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("month"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "eventtype":
 				categoryValue = returnNonRepeats(storms, "eventtype");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("eventtype"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "cztype":
 				categoryValue = returnNonRepeats(storms, "cztype");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("cztype"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "czfips":
 				categoryValue = returnNonRepeats(storms, "czfips");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("czfips"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "czName":
 				categoryValue = returnNonRepeats(storms, "czName");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("czName"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "wfo":
 				categoryValue = returnNonRepeats(storms, "wfo");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("wfo"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "begindatetime":
 				categoryValue = returnNonRepeats(storms, "begindatetime");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("begindatetime"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "timezone":
 				categoryValue = returnNonRepeats(storms, "timezone");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("timezone"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "enddatetime":
 				categoryValue = returnNonRepeats(storms, "enddatetime");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("enddatetime"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "directinj":
 				categoryValue = returnNonRepeats(storms, "directinj");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("directinj"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "indirectinj":
 				categoryValue = returnNonRepeats(storms, "indirectinj");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("indirectinj"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "directdeaths":
 				categoryValue = returnNonRepeats(storms, "directdeaths");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("directdeaths"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "indirectDeaths":
 				categoryValue = returnNonRepeats(storms, "indirectDeaths");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("indirectDeaths"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "propertydmg":
 				categoryValue = returnNonRepeats(storms, "propertydmg");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("propertydmg"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "cropdmg":
 				categoryValue = returnNonRepeats(storms, "cropdmg");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("cropdmg"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "sourcetype":
 				categoryValue = returnNonRepeats(storms, "sourcetype");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("sourcetype"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "magnitude":
 				categoryValue = returnNonRepeats(storms, "magnitude");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("magnitude"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "magnitudetype":
 				categoryValue = returnNonRepeats(storms, "magnitudetype");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("magnitudetype"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "floodcause":
 				categoryValue = returnNonRepeats(storms, "floodcause");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("floodcause"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "category":
 				categoryValue = returnNonRepeats(storms, "category");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("category"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "torfscale":
 				categoryValue = returnNonRepeats(storms, "torfscale");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("torfscale"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "torlength":
 				categoryValue = returnNonRepeats(storms, "torlength");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("torlength"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 			
 			case "torwidth":
 				categoryValue = returnNonRepeats(storms, "torwidth");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("torwidth"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "torwfo":
 				categoryValue = returnNonRepeats(storms, "torwfo");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("torwfo"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "torstate":
 				categoryValue = returnNonRepeats(storms, "torstate");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("torstate"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "torfips":
 				categoryValue = returnNonRepeats(storms, "torfips");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("torfips"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "torname":
 				categoryValue = returnNonRepeats(storms, "torname");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("torname"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case  "beginrange":
 				categoryValue = returnNonRepeats(storms, "beginrange");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("beginrange"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "beginazimuth":
 				categoryValue = returnNonRepeats(storms, "beginazimuth");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("beginazimuth"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "beginlocation":
 				categoryValue = returnNonRepeats(storms, "beginlocation");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("beginlocation"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "endrange":
 				categoryValue = returnNonRepeats(storms, "endrange");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("endrange"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "endazimuth":
 				categoryValue = returnNonRepeats(storms, "endazimuth");
+				sortBy2.removeAllItems();
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("endazimuth"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "beginlatitude":
 				categoryValue = returnNonRepeats(storms, "beginlatitude");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("beginlatitude"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "beginlongitude":
 				categoryValue = returnNonRepeats(storms, "beginlongitude");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("beginlongitude"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "endlatitude":
 				categoryValue = returnNonRepeats(storms, "endlatitude");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("endlatitude"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "endlongitude":
 				categoryValue = returnNonRepeats(storms, "endlongitude");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("endlongitude"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "episodenarrrative":
 				categoryValue = returnNonRepeats(storms, "episodenarrrative");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("episodenarrrative"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "eventnarrative":
 				categoryValue = returnNonRepeats(storms, "eventnarrative");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("eventnarrative"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "lastmoddate":
 				categoryValue = returnNonRepeats(storms, "lastmoddate");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("lastmoddate"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "lastmodtime":
 				categoryValue = returnNonRepeats(storms, "lastmodtime");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("lastmodtime"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "lastcertdate":
 				categoryValue = returnNonRepeats(storms, "lastcertdate");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("lastcertdate"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "lastcerttime":
 				categoryValue = returnNonRepeats(storms, "lastcerttime");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("lastcerttime"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "lastmod":
 				categoryValue = returnNonRepeats(storms, "lastmod");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("lastmod"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "lastcert":
 				categoryValue = returnNonRepeats(storms, "lastcert");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("lastcert"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "addcorrflg":
 				categoryValue = returnNonRepeats(storms, "addcorrflg");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("addcorrflg"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 				
 			case "addcorrdate":
 				categoryValue = returnNonRepeats(storms, "addcorrdate");
+				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i).displayData("addcorrdate"));
+					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
 			}
