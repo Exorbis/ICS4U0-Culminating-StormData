@@ -69,7 +69,7 @@ public class StormView extends JFrame implements ActionListener{
 			} 
 		}
 		
-		while (nonRepeats.remove("-1")){}
+		while (nonRepeats.remove("-1") || nonRepeats.remove("-1.0")){}
 		
 		return nonRepeats;
 		

@@ -42,7 +42,7 @@ public class Storm {
 	
 	
 	/**
-	 * This is the constructor for the STorm that takes in these mentioned parameters of data
+	 * This is the constructor for the Storm that takes in these mentioned parameters of data
 	 * 
 	 * @param beginYearMonth this is the year and numeric month value (no spaces) it began
 	 * @param beginDay this is the day in the month it began
