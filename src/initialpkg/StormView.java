@@ -13,6 +13,15 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * This StormView will be used as the main client that the user interacts with and where the data is displayed
+ * 
+ * @author Marc Pelve
+ * @since JDK 8
+ * @since June 2, 2016
+ * @version 1.0
+ *
+ */
 public class StormView extends JFrame implements ActionListener{
 	
 	private String [] categories = {"beginYearMonth", "beginDay", "beginTime", "episodeID", "eventID", "state", "stateFIPS", "year", "month", "eventType", "czType", "czFips", "czName", "wfo", "beginDateTime", "timezone", "directInj", "indirectInj", "propertyDmg", "cropDmg", "sourceType", "magnitude", "magnitudeType", "floodCause", "category", "torFScale", "torLength", "torWidth", "torwfo", "torState", "torFIPS", "torName", "beginAzimuth", "beingRange", "beginLocation", "beginLatitude", "beginLongitude", "episodeNarrative", "eventNarrative", "lastModDate", "lastModTime", "lastCertDate", "lastCertTime", "lastMod", "lastCert", "addCorrFlg", "addCorrDate"};
@@ -20,7 +29,10 @@ public class StormView extends JFrame implements ActionListener{
 	private JComboBox sortBy = new JComboBox(categories);
 	private JComboBox sortBy2 = new JComboBox();
 	
-	StormView(ArrayList<Storm> storms){
+	/**
+	 * This is the default constructor that is called to display the client 
+	 */
+	StormView(){
 		JPanel dropDown = new JPanel();
 		setLayout(new FlowLayout());
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -29,9 +41,7 @@ public class StormView extends JFrame implements ActionListener{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Storm Data Timeline");
 		
-		
-		
-		
+
 		sortBy.setSelectedIndex(0);
 		sortBy.addActionListener(this);
 		dropDown.add(sortBy);
@@ -39,10 +49,16 @@ public class StormView extends JFrame implements ActionListener{
 		
 		this.add(dropDown);
 		
-		
-		
+
 	}
 	
+	/**
+	 * This method returns a list of strings that includes a unique term from the list of Storm data inputed, which is specified by the inputed type
+	 * 
+	 * @param array is the input array that contains the Storm data
+	 * @param type is the type of data from Storm parameter to sort from
+	 * @return the categories non repeated in an arraylist of strings
+	 */
 	public ArrayList<String> returnNonRepeats(ArrayList<Storm> array, String type){
 		ArrayList<Storm> workArray = Main.mergeSort(array, type);
 		ArrayList<String> nonRepeats = new ArrayList<String>();
@@ -59,6 +75,9 @@ public class StormView extends JFrame implements ActionListener{
 		
 	}
 	
+	/**
+	 * This method detects for an action listener and carries out a function based off where the action comes from
+	 */
 	public void actionPerformed(ActionEvent e){
 		if (e.getSource() == sortBy){
 			JComboBox localSortBy = (JComboBox)e.getSource();

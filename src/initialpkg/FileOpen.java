@@ -8,7 +8,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-
+/**
+ * This FileOpen will be used to allow the user to maneuver to a desired file through a window explorer and then select the file to continue the program's intended functionality
+ * 
+ * @author Marc Pelve
+ * @since JDK 8
+ * @since June 2, 2016
+ * @version 1.0
+ *
+ */
 public class FileOpen extends JPanel implements ActionListener{
 	
 	static private final String newline = "\n";
@@ -17,6 +25,9 @@ public class FileOpen extends JPanel implements ActionListener{
     JFileChooser fileChooser;
     static String filePath;
  
+    /**
+     * This is the default constructor for calling this file opener
+     */
     public FileOpen() {
         super(new BorderLayout());
         
@@ -38,6 +49,11 @@ public class FileOpen extends JPanel implements ActionListener{
         add(logScrollPane, BorderLayout.CENTER);
     }
  
+    /**
+     * This method retrieves the event sent by the action listener on the button and stores the path of the file in order to open it for future use
+     * 
+     * @param e is an event sent by the action listener on the button
+     */
     public void actionPerformed(ActionEvent e) {
  
         if (e.getSource() == openButton) {
@@ -65,7 +81,6 @@ public class FileOpen extends JPanel implements ActionListener{
     /**
      * This calls for the class to show the frame and allow the execution of other related methods
      */
-    
     static synchronized void createAndShowGUI() {
     	JFrame frame = new JFrame("StormData by Marc");
         

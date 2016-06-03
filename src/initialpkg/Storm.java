@@ -2,6 +2,15 @@ package initialpkg;
 
 import java.util.HashMap;
 
+/**
+ * This Storm will be used as the framework for when a line of storm data is retrieved from the file and stored in this class to properly represent that storm
+ * 
+ * @author Marc Pelve
+ * @since JDK 8
+ * @since June 2, 2016
+ * @version 1.1
+ *
+ */
 public class Storm {
 
 	private HashMap<String, Integer> months = new HashMap<String, Integer>();
@@ -32,7 +41,68 @@ public class Storm {
 	
 	
 	
-	
+	/**
+	 * This is the constructor for the STorm that takes in these mentioned parameters of data
+	 * 
+	 * @param beginYearMonth this is the year and numeric month value (no spaces) it began
+	 * @param beginDay this is the day in the month it began
+	 * @param beginTime this is the time in 24 hour clock format it began
+	 * @param endYearMonth this is the year and numeric month value (no spaces) it ended
+	 * @param endDay this is the day in the month it ended
+	 * @param endTime this is the time in 24 hour clock format it ended
+	 * @param episodeID this is a unique ID associated with the storm
+	 * @param eventID this is a unique ID associated with the storm
+	 * @param state this is the state the storm happened in
+	 * @param stateFIPS this is a unique number assigned to the area for State Federal Information Processing Standard (SFIPS)
+	 * @param year this is the year the storm occurred
+	 * @param month this is the month the storm occurred
+	 * @param eventType this is the name of the of storm non abbreviated
+	 * @param czType this indicates whether the event happened in a county/parish, zone, or marine
+	 * @param czFips this is a unique number assigned to the county/zone
+	 * @param czName this is the name of the county/zone
+	 * @param wfo this is the county warning area code
+	 * @param beginDateTime this is the full date and time stamp of the storm beginning
+	 * @param timezone this is the time zone the storm occurred in
+	 * @param endDateTime this is the full date and time stamp of the storm ending
+	 * @param directInj this is the amount of people directly injured by the storm
+	 * @param indirectInj this is the amount of people indirectly injured by the storm
+	 * @param directDeaths this is the amount of deaths directly caused by the storm
+	 * @param indirectDeaths this is the amount of deaths indirectly caused by the storm
+	 * @param propertyDmg this is the estimated amount of property damage the storm caused in dollars
+	 * @param cropDmg this is the estimated amount of crop damage the storm caused in dollars
+	 * @param sourceType the is the source that was reporting the event
+	 * @param magnitude this is the magnitude of the storm (used for wind speeds and hail size)
+	 * @param magnitudeType is the abbreviated value for the type of magnitude is being measured
+	 * @param floodCause this is the cause of the flood 
+	 * @param category this field is unknown but is kept in the case that future data holds information here
+	 * @param torFScale this is the Enhanced Fujita Scale (strength of tornado)
+	 * @param torLength this is the length of the tornado
+	 * @param torWidth this is the width of the tornado
+	 * @param torwfo this is the indication of a tornado segment crossing from one national weather service forecast office to another
+	 * @param torState this is the indication of a tornado crossing county or zone boundaries (alpha)
+	 * @param torFIPS this is the indication of a tornado crossing county or zone boundaries (numeric)
+	 * @param torName this is the name of the state if a tornado crosses from one state to another
+	 * @param beginRange this is representing the start of geological center
+	 * @param beginAzimuth this is the start compass direction
+	 * @param beginLocation this is the beginning location
+	 * @param endRange this is representing the end of geological center
+	 * @param endAzimuth this is the end compass direction
+	 * @param endLocation this is the end location
+	 * @param beginLatitude this is the latitude where the storm first started
+	 * @param beginLongitude this is the longitude where the storm first started
+	 * @param endLatitude this is the latitude where the storm ended
+	 * @param endLongitude this is the longitude where the storm ended
+	 * @param episodeNarrative this is the general description of the storm event
+	 * @param eventNarrative this is the more detailed description of the storm event
+	 * @param lastModDate this is the last date of modification by NWS
+	 * @param lastModTime this is the last time of modification by NWS
+	 * @param lastCertDate this is the last date of certification by NWS
+	 * @param lastCertTime this is the last date of certification by NWS
+	 * @param lastMod this is the last modification by NWS
+	 * @param lastCert this is the last certification by NWS
+	 * @param addCorrFlg this is an added correction flag by NWS 
+	 * @param addCorrDate this is an added correction date by NWS
+	 */
 	public Storm(String beginYearMonth, int beginDay, int beginTime, String endYearMonth, int endDay, int endTime, 
 			int episodeID, int eventID, String state, int stateFIPS, int year, String month, String eventType, char czType, 
 			int czFips, String czName, String wfo, String beginDateTime, String timezone, String endDateTime, int directInj, 
@@ -104,7 +174,7 @@ public class Storm {
 		
 		
 		
-		//-----Custom Data Manipulation variables------
+		//-----Custom Data Manipulation variables and initializing------
 		this.monthIndex = months.get(this.month.trim().toLowerCase());
 		
 		if (String.valueOf(beginTime).length() < 4){
@@ -120,6 +190,12 @@ public class Storm {
 		
 	}
 	
+	/**
+	 * This method takes in a string describing which parameter needs to be checked and returns the data type it is (int, string, double, etc...)
+	 * 
+	 * @param type is the inputed string that is an intended parameter of the Storm object that needs to be checked
+	 * @return the data type of the parameter
+	 */
 	public String checkType(String type){
 		switch (type.toLowerCase()) {
 		
@@ -295,6 +371,12 @@ public class Storm {
 		return "-1";
 	}
 	
+	/**
+	 * This method retrieves the specified character data type mentioned by the input string
+	 * 
+	 * @param type the inputed string mentioning which character data to return
+	 * @return the character mentioned by the inputed string
+	 */
 	public char getDataChar(String type){
 		switch (type.toLowerCase()){
 		
@@ -304,6 +386,12 @@ public class Storm {
 		return 'N';
 	}
 	
+	/**
+	 * This method retrieves the specified integer data type mentioned by the input string
+	 * 
+	 * @param type the inputed string mentioning which integer data to return
+	 * @return the integer mentioned by the inputed string
+	 */
 	public int getDataInt(String type){
 		switch (type.toLowerCase()){
 		
@@ -355,6 +443,12 @@ public class Storm {
 		return -1;
 	}
 	
+	/**
+	 * This method retrieves the specified double data type mentioned by the input string
+	 * 
+	 * @param type the inputed string mentioning which double data to return
+	 * @return the double mentioned by the inputed string
+	 */
 	public double getDataDouble(String type){
 		switch (type.toLowerCase()){
 			
@@ -392,6 +486,12 @@ public class Storm {
 		return -1;
 	}
 	
+	/**
+	 * This method retrieves the specified string data type mentioned by the input string
+	 * 
+	 * @param type the inputed string mentioning which string data to return
+	 * @return the string mentioned by the inputed string
+	 */
 	public String getDataString(String type){
 		switch (type.toLowerCase()) {
 		
@@ -489,6 +589,12 @@ public class Storm {
 		return "-1";
 	}
 	
+	/**
+	 * This method returns a string version of any parameter mentioned by the input string
+	 * 
+	 * @param type is the input string mentioning which parameter to return 
+	 * @return the string version of the mentioned parameter by the input string
+	 */
 	public String displayData(String type){
 		switch (type.toLowerCase()){
 		

@@ -14,16 +14,16 @@ import javax.swing.*;
 
 
 /**
+ * This is a program that retrieves data from "Storm Data" files and allows predetermined user interactivity with the organized data
  * 
  * @author Marc Pelve
- * @author Andrew Seidel
- * @since May 5, 2016
  * @since JDK 8
- * @version 1.0
+ * @since June 2, 2016
+ * @version 1.1
  *
  */
 //Requires openCSV API 
-//Took Seidel's progress bar, prompt, getString
+//Used Andrew Seidel's loading bar
 
 public class Main {
 
@@ -77,7 +77,7 @@ public class Main {
 			}
 		}
 
-		StormView frame = new StormView(fileData);
+		StormView frame = new StormView();
 		frame.setVisible(true);
 		
 
@@ -223,15 +223,35 @@ public class Main {
 		return array3;
 	}
 
-
+	/**
+	 * This method takes two integer inputs and uses the built in java compare in order to allow mergeSort to take multiple data types
+	 * 
+	 * @param first the first integer to be compared to
+	 * @param second the second integer that is comparing
+	 * @return a positive, zero, or negative value based off the built in java compare
+	 */
 	public static int compareData(int first, int second){
 		return Integer.compare(first, second);
 	}
 
+	/**
+	 * This method takes two double inputs and uses the built in java compare in order to allow mergeSort to take multiple data types
+	 * 
+	 * @param first the first double to be compared to
+	 * @param second the second double that is comparing
+	 * @return a positive, zero, or negative value based off the built in java compare
+	 */
 	public static int compareData(double first, double second){
 		return Double.compare(first, second);
 	}
 
+	/**
+	 * This method takes two string inputs and uses the built in java compare in order to allow mergeSort to take multiple data types
+	 * 
+	 * @param first the first string to be compared to
+	 * @param second the second string that is comparing
+	 * @return a positive, zero, or negative value based off the built in java compare
+	 */
 	public static int compareData(String first, String second) {
 		return first.compareTo(second);
 	}
@@ -399,6 +419,11 @@ public class Main {
 		else { return Double.parseDouble(input); }
 	}
 
+	/**
+	 * This method returns the array of Storm objects that were initiated during the opening process 
+	 * 
+	 * @return the array list of storm objects
+	 */
 	public static ArrayList<Storm> getStorms() {
 		return fileData;
 	}
