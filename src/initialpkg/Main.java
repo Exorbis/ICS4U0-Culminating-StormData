@@ -122,6 +122,7 @@ public class Main {
 	public static ArrayList<Storm> merge(ArrayList<Storm> array1, ArrayList<Storm> array2, String type){
 		ArrayList<Storm> array3 =  new ArrayList<Storm>();
 
+		
 		String checkType = fileData.get(0).checkType(type).toLowerCase();
 
 		if (checkType.equals("string")){
@@ -216,7 +217,6 @@ public class Main {
 				array2.remove(0);
 			}
 		}
-
 
 
 
