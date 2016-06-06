@@ -381,66 +381,6 @@ public class Main {
 
 
 	/**
-	 * This method counts the number of lines in the file using openCSV API
-	 * Also includes a loading bar and line counter to visualize the process
-	 * 
-	 * @param fileName is the input file name if opened relatively or path 
-	 * @return the number of lines counted (int)
-	 */
-	public static int countLines(String fileName){
-		int progressValue = 0;
-
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-		}
-
-
-		//Initialize JFrame, JPanel, JLabel
-		final JFrame frame = new JFrame("Line Counter");
-		final JPanel panel = new JPanel();
-		final JLabel counter = new JLabel();
-
-		//Label (Line count)
-		counter.setText("Number of lines: " + progressValue);
-
-		//Panel (Contains label)
-		panel.setLayout(new GridBagLayout());
-		panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-		panel.add(counter);
-
-		//Frame
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setSize(250, 75);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		frame.add(panel);
-
-
-		try {
-			CSVReader csvr = new CSVReader(new FileReader(fileName));
-			while(csvr.readNext() != null){
-				progressValue++;
-				counter.setText("Number of lines: " + progressValue); //update counter
-			}
-			csvr.close();
-
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run(){
-					frame.dispose();
-				}
-			});
-
-			return (int) csvr.getRecordsRead();
-		} catch (Exception e){
-			e.printStackTrace();
-		}
-
-
-		return 0;
-	}
-
-	/**
 	 * This method returns the integer value of the string if it is not empty, if it is empty the method returns -1
 	 * 
 	 * @param input the input string that needs to be changed into an integer
