@@ -97,14 +97,10 @@ public class Main {
 	public static ArrayList<Storm> mergeSort(ArrayList<Storm> array, String type){
 		if (array.size() <= 1) return array;
 
-		int leftSize = array.size()/2;
-		int rightSize;
+		int midpoint = array.size()/2;
 
-		if(array.size() % 2 == 0) rightSize = leftSize;
-		else rightSize = leftSize + 1;
-
-		ArrayList<Storm> firstHalf = new ArrayList<Storm>(array.subList(0, leftSize));
-		ArrayList<Storm> secondHalf = new ArrayList<Storm>(array.subList(rightSize, array.size()));
+		ArrayList<Storm> firstHalf = new ArrayList<Storm>(array.subList(0, midpoint));
+		ArrayList<Storm> secondHalf = new ArrayList<Storm>(array.subList(midpoint, array.size()));
 
 		firstHalf = mergeSort(firstHalf, type);
 		secondHalf = mergeSort(secondHalf, type);
@@ -129,7 +125,7 @@ public class Main {
 
 			while (array1.size() > 0 && array2.size() > 0){
 
-				if (compareData(array1.get(0).getDataString(type), array2.get(0).getDataString(type)) >= 0){
+				if (array1.get(0).getDataString(type).compareTo(array2.get(0).getDataString(type))) >= 0){
 					array3.add(array2.get(0));
 					array2.remove(0);
 				} else {
@@ -152,7 +148,7 @@ public class Main {
 		else if (checkType.equals("integer")){
 			while (array1.size() > 0 && array2.size() > 0){
 
-				if (compareData(array1.get(0).getDataInt(type), array2.get(0).getDataInt(type)) >= 0){
+				if (array1.get(0).getDataInt(type) > array2.get(0).getDataInt(type)){
 					array3.add(array2.get(0));
 					array2.remove(0);
 				} else {
@@ -175,7 +171,7 @@ public class Main {
 		else if (checkType.equals("double")){
 			while (array1.size() > 0 && array2.size() > 0){
 
-				if (compareData(array1.get(0).getDataDouble(type), array2.get(0).getDataDouble(type)) >= 0){
+				if (array1.get(0).getDataDouble(type) > array2.get(0).getDataDouble(type)){
 					array3.add(array2.get(0));
 					array2.remove(0);
 				} else {
@@ -198,7 +194,7 @@ public class Main {
 		else if (checkType.equals("character")){
 			while (array1.size() > 0 && array2.size() > 0){
 
-				if (compareData(array1.get(0).getDataChar(type), array2.get(0).getDataChar(type)) >= 0){
+				if (array1.get(0).getDataChar(type).compareTo(array2.get(0).getDataChar(type))) >= 0){
 					array3.add(array2.get(0));
 					array2.remove(0);
 				} else {
