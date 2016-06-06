@@ -1,10 +1,24 @@
 package initialpkg;
 
-import java.awt.*;
-import java.io.*;
+
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
 import com.opencsv.CSVReader;
-import javax.swing.*;
+
 
 
 
@@ -230,8 +244,8 @@ public class Main {
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		final JFrame frame = new JFrame();
@@ -256,80 +270,22 @@ public class Main {
 		
 		int progressValue = 0;
 
-		try {
-			InputStream is = new BufferedInputStream(new FileInputStream(fileName));
-		    byte[] c = new byte[1024];
-		    int count = 0;
-		    int readChars = 0;
-		    boolean empty = true;
-		    while ((readChars = is.read(c)) != -1) {
-		        empty = false;
-		        for (int i = 0; i < readChars; ++i) {
-		            if (c[i] == '\n') {
-		                ++count;
-		            }
-		        }
-		    }
-
-		    
-		    is.close();
-		} catch (Exception e){
-			e.printStackTrace();
-		}
 		
+	    try {
+	    	BufferedReader br = new BufferedReader(new FileReader(fileName));
+	    	String input;
+	    	while ((input = br.readLine()) != null){
+	    		if (input.startsWith("19") || input.startsWith("20")){
+	    			lines++;
+	    			counter.setText("Number of lines: " + lines);
+	    		}	    		
+	    	}
+	    	
+	    } catch (Exception e){
+	    	e.printStackTrace();
+	    }
+	    
 		
-		/*
-		try {
-			CSVReader csvr = new CSVReader(new FileReader(fileName));
-			while(csvr.readNext() != null){
-				counterValue++;
-				counter.setText("Number of lines: " + counterValue);
-			}
-			csvr.close();
-			lines =  (int) csvr.getRecordsRead();
-		} catch (Exception e){
-			e.printStackTrace();
-		}*/
-	
-
-
-		try {
-			InputStream is = new BufferedInputStream(new FileInputStream(fileName));
-		    byte[] c = new byte[1024];
-		    int count = 0;
-		    int readChars = 0;
-		    boolean empty = true;
-		    while ((readChars = is.read(c)) != -1) {
-		        empty = false;
-		        for (int i = 0; i < readChars; ++i) {
-		            if (c[i] == '\n') {
-		                ++count;
-		            }
-		        }
-		    }
-
-		    
-		    is.close();
-		} catch (Exception e){
-			e.printStackTrace();
-		}
-		
-		
-		/*
-		try {
-			CSVReader csvr = new CSVReader(new FileReader(fileName));
-			while(csvr.readNext() != null){
-				counterValue++;
-				counter.setText("Number of lines: " + counterValue);
-			}
-			csvr.close();
-			lines =  (int) csvr.getRecordsRead();
-		} catch (Exception e){
-			e.printStackTrace();
-		}*/
-	
-
-
 		try (CSVReader csvr = new CSVReader(new InputStreamReader(new FileInputStream(fileName)))){
 
 			String [] thisLine = null;
@@ -390,7 +346,6 @@ public class Main {
 		if (input.equals("")){ return -1; }
 		else { return Integer.parseInt(input); }
 	}
-
 
 
 

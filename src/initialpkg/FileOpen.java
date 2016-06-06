@@ -1,12 +1,18 @@
 package initialpkg;
 
-import javax.swing.*;
 
 import java.awt.BorderLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  * This FileOpen will be used to allow the user to maneuver to a desired file through a window explorer and then select the file to continue the program's intended functionality
