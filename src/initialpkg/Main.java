@@ -220,39 +220,6 @@ public class Main {
 	}
 
 	/**
-	 * This method takes two integer inputs and uses the built in java compare in order to allow mergeSort to take multiple data types
-	 * 
-	 * @param first the first integer to be compared to
-	 * @param second the second integer that is comparing
-	 * @return a positive, zero, or negative value based off the built in java compare
-	 */
-	public static int compareData(int first, int second){
-		return Integer.compare(first, second);
-	}
-
-	/**
-	 * This method takes two double inputs and uses the built in java compare in order to allow mergeSort to take multiple data types
-	 * 
-	 * @param first the first double to be compared to
-	 * @param second the second double that is comparing
-	 * @return a positive, zero, or negative value based off the built in java compare
-	 */
-	public static int compareData(double first, double second){
-		return Double.compare(first, second);
-	}
-
-	/**
-	 * This method takes two string inputs and uses the built in java compare in order to allow mergeSort to take multiple data types
-	 * 
-	 * @param first the first string to be compared to
-	 * @param second the second string that is comparing
-	 * @return a positive, zero, or negative value based off the built in java compare
-	 */
-	public static int compareData(String first, String second) {
-		return first.compareTo(second);
-	}
-
-	/**
 	 * This method takes in a file name (if path relative) or a path with then number of lines and creates a Storm object based off each line of the CSV file using openCSV API
 	 * 
 	 * @param fileName is the name of the file (if the path is relative) or the path itself
