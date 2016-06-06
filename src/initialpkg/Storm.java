@@ -247,10 +247,10 @@ public class Storm {
 			return this.endDateTime.getClass().getSimpleName();
 			
 		case "propertydmg":
-			return this.customPropertyDmg.getClass().getSimpleName();
+			return ((Object)this.customPropertyDmg).getClass().getSimpleName();
 			
 		case "cropdmg":
-			return this.custoCropDmg.getClass().getSimpleName();
+			return ((Object)this.customCropDmg).getClass().getSimpleName();
 		
 		case "sourcetype":
 			return this.sourceType.getClass().getSimpleName();
@@ -457,7 +457,7 @@ public class Storm {
 		case "propertydmg":
 			return this.customPropertyDmg;
 			
-		case "cropdmg"
+		case "cropdmg":
 			return this.customCropDmg;
 		}
 		return -1;

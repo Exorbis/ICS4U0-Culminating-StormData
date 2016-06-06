@@ -125,7 +125,7 @@ public class Main {
 
 			while (array1.size() > 0 && array2.size() > 0){
 
-				if (array1.get(0).getDataString(type).compareTo(array2.get(0).getDataString(type))) >= 0){
+				if (array1.get(0).getDataString(type).compareTo(array2.get(0).getDataString(type)) >= 0){
 					array3.add(array2.get(0));
 					array2.remove(0);
 				} else {
@@ -194,7 +194,7 @@ public class Main {
 		else if (checkType.equals("character")){
 			while (array1.size() > 0 && array2.size() > 0){
 
-				if (array1.get(0).getDataChar(type).compareTo(array2.get(0).getDataChar(type))) >= 0){
+				if (array1.get(0).getDataChar(type) > (array2.get(0).getDataChar(type))){
 					array3.add(array2.get(0));
 					array2.remove(0);
 				} else {
@@ -238,22 +238,50 @@ public class Main {
 		}
 
 		final JFrame frame = new JFrame();
-		final JPanel panel = new JPanel();
+		final JPanel panel = new JPanel(new FlowLayout());
 		final JLabel counter = new JLabel();
 		counter.setText("Number of lines: " + counterValue);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setSize(1000, 100);
+		frame.setSize(1000, 110);
 		frame.setVisible(true);
 		frame.setTitle("File data to Storm object");
 		final DefaultBoundedRangeModel model = new DefaultBoundedRangeModel();
 		final JProgressBar progressBar = new JProgressBar(model);
+		Dimension prefSize = progressBar.getPreferredSize();
+		prefSize.width = 860;
+		prefSize.height = 60;
+		progressBar.setPreferredSize(prefSize);
 		progressBar.setStringPainted(true);
-		panel.add(counter);
-		frame.add(progressBar);
-		frame.add(panel);
 		progressBar.setValue(0);
+		panel.add(progressBar);
+		panel.add(counter);
+		frame.add(panel);
+		
 		int progressValue = 0;
 
+		try {
+			InputStream is = new BufferedInputStream(new FileInputStream(fileName));
+		    byte[] c = new byte[1024];
+		    int count = 0;
+		    int readChars = 0;
+		    boolean empty = true;
+		    while ((readChars = is.read(c)) != -1) {
+		        empty = false;
+		        for (int i = 0; i < readChars; ++i) {
+		            if (c[i] == '\n') {
+		                ++count;
+		            }
+		        }
+		    }
+
+		    
+		    is.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		/*
 		try {
 			CSVReader csvr = new CSVReader(new FileReader(fileName));
 			while(csvr.readNext() != null){
@@ -264,7 +292,7 @@ public class Main {
 			lines =  (int) csvr.getRecordsRead();
 		} catch (Exception e){
 			e.printStackTrace();
-		}
+		}*/
 	
 
 
