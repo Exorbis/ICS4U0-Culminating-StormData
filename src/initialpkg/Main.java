@@ -2,11 +2,8 @@ package initialpkg;
 
 import java.awt.*;
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import com.opencsv.CSVReader;
-
 import javax.swing.*;
 
 
@@ -50,7 +47,7 @@ public class Main {
 		Thread nt = new Thread(new Runnable () {
 			public void run () {
 
-				fileData = fileToStorm(FileOpen.getPath(), countLines(FileOpen.getPath()));
+				fileData = fileToStorm(FileOpen.getPath());
 
 			}
 		});
@@ -97,14 +94,10 @@ public class Main {
 	public static ArrayList<Storm> mergeSort(ArrayList<Storm> array, String type){
 		if (array.size() <= 1) return array;
 
-		int leftSize = array.size()/2;
-		int rightSize;
+		int midpoint = array.size()/2;
 
-		if(array.size() % 2 == 0) rightSize = leftSize;
-		else rightSize = leftSize + 1;
-
-		ArrayList<Storm> firstHalf = new ArrayList<Storm>(array.subList(0, leftSize));
-		ArrayList<Storm> secondHalf = new ArrayList<Storm>(array.subList(rightSize, array.size()));
+		ArrayList<Storm> firstHalf = new ArrayList<Storm>(array.subList(0, midpoint));
+		ArrayList<Storm> secondHalf = new ArrayList<Storm>(array.subList(midpoint, array.size()));
 
 		firstHalf = mergeSort(firstHalf, type);
 		secondHalf = mergeSort(secondHalf, type);
@@ -129,7 +122,7 @@ public class Main {
 
 			while (array1.size() > 0 && array2.size() > 0){
 
-				if (compareData(array1.get(0).getDataString(type), array2.get(0).getDataString(type)) >= 0){
+				if (array1.get(0).getDataString(type).compareTo(array2.get(0).getDataString(type)) >= 0){
 					array3.add(array2.get(0));
 					array2.remove(0);
 				} else {
@@ -152,7 +145,7 @@ public class Main {
 		else if (checkType.equals("integer")){
 			while (array1.size() > 0 && array2.size() > 0){
 
-				if (compareData(array1.get(0).getDataInt(type), array2.get(0).getDataInt(type)) >= 0){
+				if (array1.get(0).getDataInt(type) > array2.get(0).getDataInt(type)){
 					array3.add(array2.get(0));
 					array2.remove(0);
 				} else {
@@ -175,7 +168,7 @@ public class Main {
 		else if (checkType.equals("double")){
 			while (array1.size() > 0 && array2.size() > 0){
 
-				if (compareData(array1.get(0).getDataDouble(type), array2.get(0).getDataDouble(type)) >= 0){
+				if (array1.get(0).getDataDouble(type) > array2.get(0).getDataDouble(type)){
 					array3.add(array2.get(0));
 					array2.remove(0);
 				} else {
@@ -198,7 +191,7 @@ public class Main {
 		else if (checkType.equals("character")){
 			while (array1.size() > 0 && array2.size() > 0){
 
-				if (compareData(array1.get(0).getDataChar(type), array2.get(0).getDataChar(type)) >= 0){
+				if (array1.get(0).getDataChar(type) > (array2.get(0).getDataChar(type))){
 					array3.add(array2.get(0));
 					array2.remove(0);
 				} else {
@@ -224,47 +217,16 @@ public class Main {
 	}
 
 	/**
-	 * This method takes two integer inputs and uses the built in java compare in order to allow mergeSort to take multiple data types
-	 * 
-	 * @param first the first integer to be compared to
-	 * @param second the second integer that is comparing
-	 * @return a positive, zero, or negative value based off the built in java compare
-	 */
-	public static int compareData(int first, int second){
-		return Integer.compare(first, second);
-	}
-
-	/**
-	 * This method takes two double inputs and uses the built in java compare in order to allow mergeSort to take multiple data types
-	 * 
-	 * @param first the first double to be compared to
-	 * @param second the second double that is comparing
-	 * @return a positive, zero, or negative value based off the built in java compare
-	 */
-	public static int compareData(double first, double second){
-		return Double.compare(first, second);
-	}
-
-	/**
-	 * This method takes two string inputs and uses the built in java compare in order to allow mergeSort to take multiple data types
-	 * 
-	 * @param first the first string to be compared to
-	 * @param second the second string that is comparing
-	 * @return a positive, zero, or negative value based off the built in java compare
-	 */
-	public static int compareData(String first, String second) {
-		return first.compareTo(second);
-	}
-
-	/**
 	 * This method takes in a file name (if path relative) or a path with then number of lines and creates a Storm object based off each line of the CSV file using openCSV API
 	 * 
 	 * @param fileName is the name of the file (if the path is relative) or the path itself
 	 * @param lines the number of lines in the file that is inputed that will most likely be calculated by countLines method
 	 * @return the array of Storm objects with all relevant parameters inputed
 	 */
-	public static ArrayList<Storm> fileToStorm(String fileName, int lines){
+	public static ArrayList<Storm> fileToStorm(String fileName){
 		ArrayList<Storm> array = new ArrayList<Storm>();
+		int counterValue = 0;
+		int lines = 0;
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -273,16 +235,63 @@ public class Main {
 		}
 
 		final JFrame frame = new JFrame();
+		final JPanel panel = new JPanel(new FlowLayout());
+		final JLabel counter = new JLabel();
+		counter.setText("Number of lines: " + counterValue);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setSize(1000, 100);
+		frame.setSize(1000, 110);
 		frame.setVisible(true);
 		frame.setTitle("File data to Storm object");
 		final DefaultBoundedRangeModel model = new DefaultBoundedRangeModel();
 		final JProgressBar progressBar = new JProgressBar(model);
+		Dimension prefSize = progressBar.getPreferredSize();
+		prefSize.width = 860;
+		prefSize.height = 60;
+		progressBar.setPreferredSize(prefSize);
 		progressBar.setStringPainted(true);
-		frame.add(progressBar);
 		progressBar.setValue(0);
+		panel.add(progressBar);
+		panel.add(counter);
+		frame.add(panel);
+		
 		int progressValue = 0;
+
+		try {
+			InputStream is = new BufferedInputStream(new FileInputStream(fileName));
+		    byte[] c = new byte[1024];
+		    int count = 0;
+		    int readChars = 0;
+		    boolean empty = true;
+		    while ((readChars = is.read(c)) != -1) {
+		        empty = false;
+		        for (int i = 0; i < readChars; ++i) {
+		            if (c[i] == '\n') {
+		                ++count;
+		            }
+		        }
+		    }
+
+		    
+		    is.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		/*
+		try {
+			CSVReader csvr = new CSVReader(new FileReader(fileName));
+			while(csvr.readNext() != null){
+				counterValue++;
+				counter.setText("Number of lines: " + counterValue);
+			}
+			csvr.close();
+			lines =  (int) csvr.getRecordsRead();
+		} catch (Exception e){
+			e.printStackTrace();
+		}*/
+	
+
 
 		try (CSVReader csvr = new CSVReader(new InputStreamReader(new FileInputStream(fileName)))){
 
