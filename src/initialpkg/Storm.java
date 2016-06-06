@@ -30,7 +30,7 @@ public class Storm {
 	
 	}
 	
-	private int monthIndex;
+	private int monthIndex, customPropertyDmg, customCropDmg;
 	private double indexFullDateTime;
 	private String customTime, customDate;
 	
@@ -174,7 +174,7 @@ public class Storm {
 		
 		
 		
-		//-----Custom Data Manipulation variables and initializing------
+		//-----Custom Data Manipulation variables and initializing------//
 		this.monthIndex = months.get(this.month.trim().toLowerCase());
 		
 		if (String.valueOf(beginTime).length() < 4){
@@ -187,6 +187,20 @@ public class Storm {
 		this.customDate = this.customDate.replaceAll("/", "");
 		
 		this.indexFullDateTime = Double.parseDouble(this.customDate) + Double.parseDouble(this.customTime);
+		
+		if (this.propertyDmg.contains("K")){
+			this.customPropertyDmg = Integer.parseInt(this.propertyDmg.replaceAll(".", "") + "0");	
+		}
+		else if (this.propertyDmg.contains("M")){
+			this.customPropertyDmg = Integer.parseInt(this.propertyDmg.replaceAll(".", "") + "0000");
+		}
+		
+		if (this.cropDmg.contains("K")){
+			this.customCropDmg = Integer.parseInt(this.cropDmg.replaceAll(".", "") + "0");
+		}
+		else if (this.cropDmg.contains("M")){
+			this.customCropDmg = Integer.parseInt(this.cropDmg.replaceAll(".", "") + "0000");
+		}
 		
 	}
 	
@@ -233,10 +247,10 @@ public class Storm {
 			return this.endDateTime.getClass().getSimpleName();
 			
 		case "propertydmg":
-			return this.propertyDmg.getClass().getSimpleName();
+			return ((Object)this.customPropertyDmg).getClass().getSimpleName();
 			
 		case "cropdmg":
-			return this.cropDmg.getClass().getSimpleName();
+			return ((Object)this.customCropDmg).getClass().getSimpleName();
 		
 		case "sourcetype":
 			return this.sourceType.getClass().getSimpleName();
@@ -439,6 +453,12 @@ public class Storm {
 			
 		case "torfips":
 			return this.torFIPS;
+			
+		case "propertydmg":
+			return this.customPropertyDmg;
+			
+		case "cropdmg":
+			return this.customCropDmg;
 		}
 		return -1;
 	}
@@ -518,12 +538,6 @@ public class Storm {
 			
 		case "enddatetime":
 			return this.endDateTime.trim();
-			
-		case "propertydmg":
-			return this.propertyDmg.trim();
-			
-		case "cropdmg":
-			return this.cropDmg.trim();
 		
 		case "sourcetype":
 			return this.sourceType.trim();

@@ -293,6 +293,43 @@ public class Main {
 	
 
 
+		try {
+			InputStream is = new BufferedInputStream(new FileInputStream(fileName));
+		    byte[] c = new byte[1024];
+		    int count = 0;
+		    int readChars = 0;
+		    boolean empty = true;
+		    while ((readChars = is.read(c)) != -1) {
+		        empty = false;
+		        for (int i = 0; i < readChars; ++i) {
+		            if (c[i] == '\n') {
+		                ++count;
+		            }
+		        }
+		    }
+
+		    
+		    is.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		/*
+		try {
+			CSVReader csvr = new CSVReader(new FileReader(fileName));
+			while(csvr.readNext() != null){
+				counterValue++;
+				counter.setText("Number of lines: " + counterValue);
+			}
+			csvr.close();
+			lines =  (int) csvr.getRecordsRead();
+		} catch (Exception e){
+			e.printStackTrace();
+		}*/
+	
+
+
 		try (CSVReader csvr = new CSVReader(new InputStreamReader(new FileInputStream(fileName)))){
 
 			String [] thisLine = null;
