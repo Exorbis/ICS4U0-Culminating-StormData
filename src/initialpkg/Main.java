@@ -50,7 +50,7 @@ public class Main {
 		Thread nt = new Thread(new Runnable () {
 			public void run () {
 
-				fileData = fileToStorm(FileOpen.getPath(), countLines(FileOpen.getPath()));
+				fileData = fileToStorm(FileOpen.getPath());
 
 			}
 		});
@@ -226,8 +226,10 @@ public class Main {
 	 * @param lines the number of lines in the file that is inputed that will most likely be calculated by countLines method
 	 * @return the array of Storm objects with all relevant parameters inputed
 	 */
-	public static ArrayList<Storm> fileToStorm(String fileName, int lines){
+	public static ArrayList<Storm> fileToStorm(String fileName){
 		ArrayList<Storm> array = new ArrayList<Storm>();
+		int counterValue = 0;
+		int lines = 0;
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -236,6 +238,9 @@ public class Main {
 		}
 
 		final JFrame frame = new JFrame();
+		final JPanel panel = new JPanel();
+		final JLabel counter = new JLabel();
+		counter.setText("Number of lines: " + counterValue);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(1000, 100);
 		frame.setVisible(true);
@@ -243,9 +248,25 @@ public class Main {
 		final DefaultBoundedRangeModel model = new DefaultBoundedRangeModel();
 		final JProgressBar progressBar = new JProgressBar(model);
 		progressBar.setStringPainted(true);
+		panel.add(counter);
 		frame.add(progressBar);
+		frame.add(panel);
 		progressBar.setValue(0);
 		int progressValue = 0;
+
+		try {
+			CSVReader csvr = new CSVReader(new FileReader(fileName));
+			while(csvr.readNext() != null){
+				counterValue++;
+				counter.setText("Number of lines: " + counterValue);
+			}
+			csvr.close();
+			lines =  (int) csvr.getRecordsRead();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	
+
 
 		try (CSVReader csvr = new CSVReader(new InputStreamReader(new FileInputStream(fileName)))){
 
