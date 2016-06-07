@@ -14,11 +14,11 @@ import javax.swing.JPanel;
 
 public class TimelineCircle extends JPanel {
 
-    private Shape cirlce = new Ellipse2D.Double(260, 100, 100, 100);
+    private Shape cirlce = new Ellipse2D.Double(260, 100, 50, 50);
     private Dimension dim = new Dimension(450, 300);
     private final ArrayList<Shape> shapes;
 
-    public TimelineCircle() {
+    public TimelineCircle(Storm datum) {
         shapes = new ArrayList<>();
         shapes.add(cirlce);
         addMouseListener(new MouseAdapter() {
