@@ -1,7 +1,6 @@
 package initialpkg;
 
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.BufferedReader;
@@ -38,10 +37,49 @@ import com.opencsv.CSVReader;
 //Used Andrew Seidel's loading bar
 
 public class Main {
+	
+	 
+	
 
 	public static ArrayList<Storm> fileData = new ArrayList<Storm>();
-	final static JFrame frame = new JFrame();
-	final static JPanel panel = new JPanel(new FlowLayout());
+	
+	static ArrayList<ArrayList<Storm>> sortedLists = new ArrayList<ArrayList<Storm>>();
+	
+	static ArrayList<Storm> sorted_beginYearMonth = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_beginDay = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_beginTime = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_episodeID = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_eventID = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_state = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_stateFIPS = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_year = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_month = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_eventType = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_czType = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_czName = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_wfo = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_beginDateTime = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_timezone = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_directInj = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_indirectInj = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_directDeaths = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_indirectDeaths = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_propertyDmg = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_cropDmg = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_magnitude = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_magnitudeType = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_floodCause = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_torFScale = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_torLength = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_torWidth = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_torState = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_torName = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_beginLocation = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_beginLatitude = new ArrayList<Storm>();
+	static ArrayList<Storm> sorted_beginLongitude = new ArrayList<Storm>();
+
+	static double progressValue = 0;
+	static double totalValue = 0;
 
 	public static void main(String[] args) {
 		
@@ -51,14 +89,38 @@ public class Main {
 			ex.printStackTrace();
 		} 
 
-		ArrayList<Storm> sorted_beginYearMonth, sorted_beginDay, sorted_beginTime, sorted_episodeID, sorted_eventID, sorted_state, 
-		sorted_stateFIPS, sorted_year, sorted_month, sorted_eventType, sorted_czType, sorted_czName, sorted_wfo, sorted_beginDateTime, 
-		sorted_timezone, sorted_directInj, sorted_indirectInj, sorted_directDeaths, sorted_indirectDeaths, sorted_propertyDmg, sorted_cropDmg,
-		sorted_magnitude, sorted_magnitudeType, sorted_floodCause, sorted_torFScale, sorted_torLength, sorted_torWidth, sorted_torState, sorted_torName,
-		sorted_beginLocation, sorted_beginLatitude, sorted_beginLongitude;
-
-	
-		
+	sortedLists.add(sorted_beginYearMonth);
+	sortedLists.add(sorted_beginDay);
+	sortedLists.add(sorted_beginTime);
+	sortedLists.add(sorted_episodeID);
+	sortedLists.add(sorted_eventID);
+	sortedLists.add(sorted_state);
+	sortedLists.add(sorted_stateFIPS);
+	sortedLists.add(sorted_year);
+	sortedLists.add(sorted_month);
+	sortedLists.add(sorted_eventType);
+	sortedLists.add(sorted_czType);
+	sortedLists.add(sorted_czName);
+	sortedLists.add(sorted_wfo);
+	sortedLists.add(sorted_beginDateTime);
+	sortedLists.add(sorted_timezone);
+	sortedLists.add(sorted_directInj);
+	sortedLists.add(sorted_indirectInj);
+	sortedLists.add(sorted_directDeaths);
+	sortedLists.add(sorted_indirectDeaths);
+	sortedLists.add(sorted_propertyDmg);
+	sortedLists.add(sorted_cropDmg);
+	sortedLists.add(sorted_magnitude);
+	sortedLists.add(sorted_magnitudeType);
+	sortedLists.add(sorted_floodCause);
+	sortedLists.add(sorted_torFScale);
+	sortedLists.add(sorted_torLength);
+	sortedLists.add(sorted_torWidth);
+	sortedLists.add(sorted_torState);
+	sortedLists.add(sorted_torName);
+	sortedLists.add(sorted_beginLocation);
+	sortedLists.add(sorted_beginLatitude);
+	sortedLists.add(sorted_beginLongitude);
 	
 		Thread openFile = new Thread(new Runnable (){
 
@@ -77,11 +139,6 @@ public class Main {
 			}
 		});
 		
-		Thread sortData = new Thread(new Runnable () {
-			public void run () {
-				
-			}
-		});
 		
 
 		openFile.start();
@@ -260,23 +317,26 @@ public class Main {
 		int counterValue = 0;
 		int lines = 0;
 
+
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		//final JFrame frame = new JFrame();
-		//final JPanel panel = new JPanel(new FlowLayout());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} 
+		
+		
+		final  JFrame frame = new JFrame();
+		final  JPanel panel = new JPanel(new FlowLayout());
+		final  DefaultBoundedRangeModel model = new DefaultBoundedRangeModel();
+		final  JProgressBar progressBar = new JProgressBar(model);
+		final  Dimension prefSize = progressBar.getPreferredSize();
 		final JLabel counter = new JLabel();
+		
 		counter.setText("Number of lines: " + counterValue);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(1000, 110);
 		frame.setVisible(true);
 		frame.setTitle("File data to Storm object");
-		final DefaultBoundedRangeModel model = new DefaultBoundedRangeModel();
-		final JProgressBar progressBar = new JProgressBar(model);
-		Dimension prefSize = progressBar.getPreferredSize();
 		prefSize.width = 830;
 		prefSize.height = 63;
 		progressBar.setPreferredSize(prefSize);
@@ -290,14 +350,16 @@ public class Main {
 
 		
 	    try {
-	    	BufferedReader br = new BufferedReader(new FileReader(fileName));
+	    	BufferedReader reader = new BufferedReader(new FileReader(fileName));
 	    	String input;
-	    	while ((input = br.readLine()) != null){
+	    	while ((input = reader.readLine()) != null){
 	    		if (input.startsWith("19") || input.startsWith("20")){
 	    			lines++;
 	    			counter.setText("Number of lines: " + lines);
 	    		}	    		
 	    	}
+	    	
+	    	totalValue = lines;
 	    	
 	    } catch (Exception e){
 	    	e.printStackTrace();
@@ -327,7 +389,7 @@ public class Main {
 				
 				try {
 					progressValue++;
-					final int setValue = (int)((1.0 * progressValue)/(lines * 1.0)*100.0);	//updates progress bar and shows
+					final int setValue = (int)((1.0 * progressValue)/(totalValue * 1.0)*100.0);	//updates progress bar and shows
 					SwingUtilities.invokeLater(new Runnable() {								//the text.  This runs in another 
 						public void run() {													//Thread.
 							progressBar.setValue(setValue);
@@ -340,11 +402,15 @@ public class Main {
 				}
 			}
 			
+			csvr.close();
+			
+			
+			/*
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run(){
 					frame.dispose();
 				}
-			});
+			});*/
 
 		} catch (Exception e){
 			e.printStackTrace();
