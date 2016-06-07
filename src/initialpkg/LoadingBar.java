@@ -1,6 +1,6 @@
 package initialpkg;
 
-public class LoadingBar.java {
+public class LoadingBar{
   
   public LoadingBar(){
     
