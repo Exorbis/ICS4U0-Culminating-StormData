@@ -1,10 +1,18 @@
 package initialpkg;
 
+
+import com.opencsv.CSVReader;
+
 public class StormController {
   
-  private ArrayList<Storm> sorted
+  private ArrayList<Storm> data;
   
-  public StormController(){
+  public StormController(ArrayList<Storm> data){
+    
+    this.data = data;
     
   }
+  
+    
+ 
 }
