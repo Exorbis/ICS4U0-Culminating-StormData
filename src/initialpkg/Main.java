@@ -41,15 +41,24 @@ public class Main {
 	public static ArrayList<Storm> fileData = new ArrayList<Storm>();
 
 	public static void main(String[] args) {
-
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} 
 
+		ArrayList<Storm> sortedBeginYearMonth;
+		ArrayList<Storm> sortedBeginDay;
+		ArrayList<Storm> sortedBeginTime;
+		ArrayList<Storm> sortedEndYearMonth;
+		ArrayList<Storm> sortedEndDay;
+		ArrayList<Storm> sortedEndTime;
+		
+
+		
 	
-		Thread t = new Thread(new Runnable (){
+		Thread openFile = new Thread(new Runnable (){
 
 			public void run() {
 				FileOpen.createAndShowGUI();
@@ -58,15 +67,22 @@ public class Main {
 		});
 
 
-		Thread nt = new Thread(new Runnable () {
+		Thread convertData = new Thread(new Runnable () {
 			public void run () {
 
 				fileData = fileToStorm(FileOpen.getPath());
 
 			}
 		});
+		
+		Thread sortData = new Thread(new Runnable () {
+			public void run () {
+				
+			}
+		});
+		
 
-		t.start();
+		openFile.start();
 
 
 
@@ -78,7 +94,7 @@ public class Main {
 			}
 		}
 
-		nt.start();
+		convertData.start();
 
 		while(fileData.size() == 0) {
 			try {
@@ -87,7 +103,7 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
-
+		
 		StormView frame = new StormView();
 		frame.setVisible(true);
 		
