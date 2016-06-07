@@ -1,6 +1,7 @@
 package initialpkg;
 
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.BufferedReader;
@@ -39,6 +40,8 @@ import com.opencsv.CSVReader;
 public class Main {
 
 	public static ArrayList<Storm> fileData = new ArrayList<Storm>();
+	final static JFrame frame = new JFrame();
+	final static JPanel panel = new JPanel(new FlowLayout());
 
 	public static void main(String[] args) {
 		
@@ -48,14 +51,13 @@ public class Main {
 			ex.printStackTrace();
 		} 
 
-		ArrayList<Storm> sortedBeginYearMonth;
-		ArrayList<Storm> sortedBeginDay;
-		ArrayList<Storm> sortedBeginTime;
-		ArrayList<Storm> sortedEndYearMonth;
-		ArrayList<Storm> sortedEndDay;
-		ArrayList<Storm> sortedEndTime;
-		
+		ArrayList<Storm> sorted_beginYearMonth, sorted_beginDay, sorted_beginTime, sorted_episodeID, sorted_eventID, sorted_state, 
+		sorted_stateFIPS, sorted_year, sorted_month, sorted_eventType, sorted_czType, sorted_czName, sorted_wfo, sorted_beginDateTime, 
+		sorted_timezone, sorted_directInj, sorted_indirectInj, sorted_directDeaths, sorted_indirectDeaths, sorted_propertyDmg, sorted_cropDmg,
+		sorted_magnitude, sorted_magnitudeType, sorted_floodCause, sorted_torFScale, sorted_torLength, sorted_torWidth, sorted_torState, sorted_torName,
+		sorted_beginLocation, sorted_beginLatitude, sorted_beginLongitude;
 
+	
 		
 	
 		Thread openFile = new Thread(new Runnable (){
@@ -264,8 +266,8 @@ public class Main {
 			e.printStackTrace();
 		}
 
-		final JFrame frame = new JFrame();
-		final JPanel panel = new JPanel(new FlowLayout());
+		//final JFrame frame = new JFrame();
+		//final JPanel panel = new JPanel(new FlowLayout());
 		final JLabel counter = new JLabel();
 		counter.setText("Number of lines: " + counterValue);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -275,8 +277,8 @@ public class Main {
 		final DefaultBoundedRangeModel model = new DefaultBoundedRangeModel();
 		final JProgressBar progressBar = new JProgressBar(model);
 		Dimension prefSize = progressBar.getPreferredSize();
-		prefSize.width = 860;
-		prefSize.height = 60;
+		prefSize.width = 830;
+		prefSize.height = 63;
 		progressBar.setPreferredSize(prefSize);
 		progressBar.setStringPainted(true);
 		progressBar.setValue(0);
@@ -301,6 +303,7 @@ public class Main {
 	    	e.printStackTrace();
 	    }
 	    
+	    
 		
 		try (CSVReader csvr = new CSVReader(new InputStreamReader(new FileInputStream(fileName)))){
 
@@ -321,7 +324,7 @@ public class Main {
 							thisLine[51], thisLine[52], thisLine[53], thisLine[54], thisLine[55], thisLine[56], thisLine[57]));
 				}
 
-
+				
 				try {
 					progressValue++;
 					final int setValue = (int)((1.0 * progressValue)/(lines * 1.0)*100.0);	//updates progress bar and shows
@@ -336,7 +339,7 @@ public class Main {
 					e.printStackTrace();
 				}
 			}
-
+			
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run(){
 					frame.dispose();

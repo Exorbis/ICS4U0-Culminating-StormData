@@ -17,10 +17,12 @@ public class TimelineCircle extends JPanel {
     private Shape cirlce = new Ellipse2D.Double(260, 100, 50, 50);
     private Dimension dim = new Dimension(450, 300);
     private final ArrayList<Shape> shapes;
+    private static Storm datum;
 
     public TimelineCircle(Storm datum) {
         shapes = new ArrayList<>();
         shapes.add(cirlce);
+        
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -39,7 +41,7 @@ public class TimelineCircle extends JPanel {
     }
     
     public static void initComponents(JFrame frame){
-    	frame.add(new TimelineCircle());
+    	frame.add(new TimelineCircle(datum));
     }
     
     @Override
