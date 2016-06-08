@@ -313,46 +313,46 @@ public class Storm {
 			return this.addCorrDate.getClass().getSimpleName();
 			
 		case "beginday":
-			return ((Object)this.beginDay).getClass().getSimpleName();
+			return ((Object)(int)this.beginDay).getClass().getSimpleName();
 		
 		case "begintime":
-			return ((Object)this.beginTime).getClass().getSimpleName();
+			return ((Object)(int)this.beginTime).getClass().getSimpleName();
 			
 		case "endday":
-			return ((Object)this.endDay).getClass().getSimpleName();
+			return ((Object)(int)this.endDay).getClass().getSimpleName();
 			
 		case "endtime":
-			return ((Object)this.endTime).getClass().getSimpleName();
+			return ((Object)(int)this.endTime).getClass().getSimpleName();
 			
 		case "episodeid":
-			return ((Object)this.episodeID).getClass().getSimpleName();
+			return ((Object)(int)this.episodeID).getClass().getSimpleName();
 			
 		case "eventid":
-			return ((Object)this.eventID).getClass().getSimpleName();
+			return ((Object)(int)this.eventID).getClass().getSimpleName();
 			
 		case "statefips":
-			return ((Object)this.stateFIPS).getClass().getSimpleName();
+			return ((Object)(int)this.stateFIPS).getClass().getSimpleName();
 			
 		case "year":
-			return ((Object)this.year).getClass().getSimpleName();
+			return ((Object)(int)this.year).getClass().getSimpleName();
 			
 		case "czfips":
-			return ((Object)this.czFips).getClass().getSimpleName();
+			return ((Object)(int)this.czFips).getClass().getSimpleName();
 		
 		case "directinj":
-			return ((Object)this.directInj).getClass().getSimpleName();
+			return ((Object)(int)this.directInj).getClass().getSimpleName();
 			
 		case "indirectinj":
-			return ((Object)this.indirectInj).getClass().getSimpleName();
+			return ((Object)(int)this.indirectInj).getClass().getSimpleName();
 			
 		case "directdeaths":
-			return ((Object)this.directDeaths).getClass().getSimpleName();
+			return ((Object)(int)this.directDeaths).getClass().getSimpleName();
 			
 		case "indirectdeaths":
-			return ((Object)this.indirectDeaths).getClass().getSimpleName();
+			return ((Object)(int)this.indirectDeaths).getClass().getSimpleName();
 			
 		case "torfips":
-			return ((Object)this.torFIPS).getClass().getSimpleName();
+			return ((Object)(int)this.torFIPS).getClass().getSimpleName();
 			
 		case "magnitude":
 			return ((Object)this.magnitude).getClass().getSimpleName();
