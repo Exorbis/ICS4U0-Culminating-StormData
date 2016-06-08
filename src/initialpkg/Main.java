@@ -1,6 +1,7 @@
 package initialpkg;
 
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.BufferedReader;
@@ -43,8 +44,6 @@ public class Main {
 
 	public static ArrayList<Storm> fileData = new ArrayList<Storm>();
 	
-	static ArrayList<ArrayList<Storm>> sortedLists = new ArrayList<ArrayList<Storm>>();
-	
 	static ArrayList<Storm> sorted_beginYearMonth = new ArrayList<Storm>();
 	static ArrayList<Storm> sorted_beginDay = new ArrayList<Storm>();
 	static ArrayList<Storm> sorted_beginTime = new ArrayList<Storm>();
@@ -58,7 +57,6 @@ public class Main {
 	static ArrayList<Storm> sorted_czType = new ArrayList<Storm>();
 	static ArrayList<Storm> sorted_czName = new ArrayList<Storm>();
 	static ArrayList<Storm> sorted_wfo = new ArrayList<Storm>();
-	static ArrayList<Storm> sorted_beginDateTime = new ArrayList<Storm>();
 	static ArrayList<Storm> sorted_timezone = new ArrayList<Storm>();
 	static ArrayList<Storm> sorted_directInj = new ArrayList<Storm>();
 	static ArrayList<Storm> sorted_indirectInj = new ArrayList<Storm>();
@@ -78,9 +76,15 @@ public class Main {
 	static ArrayList<Storm> sorted_beginLatitude = new ArrayList<Storm>();
 	static ArrayList<Storm> sorted_beginLongitude = new ArrayList<Storm>();
 
-	static double progressValue = 0;
-	static double totalValue = 0;
+	static double progressValue = 0, sortBarValue = 0;
+	static double totalValue = 0, sortBarTotal = 0;
+	static JLabel counter = new JLabel();
+	static String category;
 
+	static boolean finishedSort = false;
+
+	
+	
 	public static void main(String[] args) {
 		
 		try {
@@ -89,38 +93,6 @@ public class Main {
 			ex.printStackTrace();
 		} 
 
-	sortedLists.add(sorted_beginYearMonth);
-	sortedLists.add(sorted_beginDay);
-	sortedLists.add(sorted_beginTime);
-	sortedLists.add(sorted_episodeID);
-	sortedLists.add(sorted_eventID);
-	sortedLists.add(sorted_state);
-	sortedLists.add(sorted_stateFIPS);
-	sortedLists.add(sorted_year);
-	sortedLists.add(sorted_month);
-	sortedLists.add(sorted_eventType);
-	sortedLists.add(sorted_czType);
-	sortedLists.add(sorted_czName);
-	sortedLists.add(sorted_wfo);
-	sortedLists.add(sorted_beginDateTime);
-	sortedLists.add(sorted_timezone);
-	sortedLists.add(sorted_directInj);
-	sortedLists.add(sorted_indirectInj);
-	sortedLists.add(sorted_directDeaths);
-	sortedLists.add(sorted_indirectDeaths);
-	sortedLists.add(sorted_propertyDmg);
-	sortedLists.add(sorted_cropDmg);
-	sortedLists.add(sorted_magnitude);
-	sortedLists.add(sorted_magnitudeType);
-	sortedLists.add(sorted_floodCause);
-	sortedLists.add(sorted_torFScale);
-	sortedLists.add(sorted_torLength);
-	sortedLists.add(sorted_torWidth);
-	sortedLists.add(sorted_torState);
-	sortedLists.add(sorted_torName);
-	sortedLists.add(sorted_beginLocation);
-	sortedLists.add(sorted_beginLatitude);
-	sortedLists.add(sorted_beginLongitude);
 	
 		Thread openFile = new Thread(new Runnable (){
 
@@ -134,7 +106,7 @@ public class Main {
 		Thread convertData = new Thread(new Runnable () {
 			public void run () {
 
-				fileData = fileToStorm(FileOpen.getPath());
+				fileToStorm(FileOpen.getPath());
 
 			}
 		});
@@ -155,7 +127,7 @@ public class Main {
 
 		convertData.start();
 
-		while(fileData.size() == 0) {
+		while(finishedSort == false) {
 			try {
 				Thread.sleep(0);
 			} catch (Exception e){
@@ -181,6 +153,8 @@ public class Main {
 	 * @return the sorted array
 	 */
 	public static ArrayList<Storm> mergeSort(ArrayList<Storm> array, String type){
+		sortBarTotal = fileData.size();
+		
 		if (array.size() <= 1) return array;
 
 		int midpoint = array.size()/2;
@@ -191,6 +165,8 @@ public class Main {
 		firstHalf = mergeSort(firstHalf, type);
 		secondHalf = mergeSort(secondHalf, type);
 
+		sortBarValue++;
+		counter.setText(category + ": " + (int) sortBarValue + "/" + (int) sortBarTotal);
 		return merge(firstHalf, secondHalf, type);
 	}
 
@@ -299,7 +275,7 @@ public class Main {
 				array2.remove(0);
 			}
 		}
-
+		
 
 
 		return array3;
@@ -312,7 +288,7 @@ public class Main {
 	 * @param lines the number of lines in the file that is inputed that will most likely be calculated by countLines method
 	 * @return the array of Storm objects with all relevant parameters inputed
 	 */
-	public static ArrayList<Storm> fileToStorm(String fileName){
+	public static void fileToStorm(String fileName){
 		ArrayList<Storm> array = new ArrayList<Storm>();
 		int counterValue = 0;
 		int lines = 0;
@@ -325,19 +301,19 @@ public class Main {
 		} 
 		
 		
-		final  JFrame frame = new JFrame();
-		final  JPanel panel = new JPanel(new FlowLayout());
-		final  DefaultBoundedRangeModel model = new DefaultBoundedRangeModel();
-		final  JProgressBar progressBar = new JProgressBar(model);
-		final  Dimension prefSize = progressBar.getPreferredSize();
-		final JLabel counter = new JLabel();
+		final JFrame frame = new JFrame();
+		final JPanel panel = new JPanel(new FlowLayout());
+		final DefaultBoundedRangeModel model = new DefaultBoundedRangeModel();
+		final JProgressBar progressBar = new JProgressBar(model);
+		final Dimension prefSize = progressBar.getPreferredSize();
+		
 		
 		counter.setText("Number of lines: " + counterValue);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(1000, 110);
 		frame.setVisible(true);
 		frame.setTitle("File data to Storm object");
-		prefSize.width = 830;
+		prefSize.width = 800;
 		prefSize.height = 63;
 		progressBar.setPreferredSize(prefSize);
 		progressBar.setStringPainted(true);
@@ -346,7 +322,6 @@ public class Main {
 		panel.add(counter);
 		frame.add(panel);
 		
-		int progressValue = 0;
 
 		
 	    try {
@@ -358,8 +333,10 @@ public class Main {
 	    			counter.setText("Number of lines: " + lines);
 	    		}	    		
 	    	}
-	    	
+	    	reader.close();
+	    	progressValue = 0;
 	    	totalValue = lines;
+	    	
 	    	
 	    } catch (Exception e){
 	    	e.printStackTrace();
@@ -387,40 +364,220 @@ public class Main {
 				}
 
 				
-				try {
-					progressValue++;
-					final int setValue = (int)((1.0 * progressValue)/(totalValue * 1.0)*100.0);	//updates progress bar and shows
-					SwingUtilities.invokeLater(new Runnable() {								//the text.  This runs in another 
-						public void run() {													//Thread.
-							progressBar.setValue(setValue);
-							progressBar.setString("Reading file - [" + setValue + "%]");
-						}
-					});
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				update(progressBar);
 			}
 			
 			csvr.close();
 			
-			
-			/*
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run(){
-					frame.dispose();
-				}
-			});*/
 
 		} catch (Exception e){
 			e.printStackTrace();
 		}
 
+		
+		fileData = array;
+		progressValue = 0;
+		totalValue = 31;
+		
+		category = "beginyearmonth";
+		sorted_beginYearMonth = mergeSort(array, "beginyearmonth");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "beginday";
+		sorted_beginDay = mergeSort(array, "beginday");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "begintime";
+		sorted_beginTime = mergeSort(array, "begintime");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "episodeid";
+		sorted_episodeID = mergeSort(array, "episodeid");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "eventid";
+		sorted_eventID = mergeSort(array, "eventid");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "state";
+		sorted_state = mergeSort(array, "state");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "statefips";
+		sorted_stateFIPS = mergeSort(array, "statefips");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "year";
+		sorted_year = mergeSort(array, "year");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "month";
+		sorted_month = mergeSort(array, "month");
+		update(progressBar);
 
-		return array;
+		sortBarValue = 0;
+		category = "eventtype";
+		sorted_eventType = mergeSort(array, "eventtype");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "cztype";
+		sorted_czType = mergeSort(array, "cztype");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "czname";
+		sorted_czName = mergeSort(array, "czname");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "wfo";
+		sorted_wfo = mergeSort(array, "wfo");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "timezone";
+		sorted_timezone = mergeSort(array, "timezone");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "directinj";
+		sorted_directInj = mergeSort(array, "directinj");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "indirectinj";
+		sorted_indirectInj = mergeSort(array, "indirectinj");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "directdeaths";
+		sorted_directDeaths = mergeSort(array, "directdeaths");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "indirectdeaths";
+		sorted_indirectDeaths = mergeSort(array, "indirectdeaths");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "propertydmg";
+		sorted_propertyDmg = mergeSort(array, "propertydmg");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "cropdmg";
+		sorted_cropDmg = mergeSort(array, "cropdmg");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "magnitude";
+		sorted_magnitude = mergeSort(array, "magnitude");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "magnitudetype";
+		sorted_magnitudeType = mergeSort(array, "magnitudetype");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "floodcause";
+		sorted_floodCause = mergeSort(array, "floodcause");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "torfscale";
+		sorted_torFScale = mergeSort(array, "torfscale");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "torlength";
+		sorted_torLength = mergeSort(array, "torlength");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "torwidth";
+		sorted_torWidth = mergeSort(array, "torwidth");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "torstate";
+		sorted_torState = mergeSort(array, "torstate");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "torname";
+		sorted_torName = mergeSort(array, "torname");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "beginlocation";
+		sorted_beginLocation = mergeSort(array, "beginlocation");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "beginlatitude";
+		sorted_beginLatitude = mergeSort(array, "beginlatitude");
+		update(progressBar);
+		
+		sortBarValue = 0;
+		category = "beginlongitude";
+		sorted_beginLongitude = mergeSort(array, "beginlongitude");
+		update(progressBar);
+		
+		dispose(frame);
+		finishedSort = true;
 	}
 
 
+	public static void update(JProgressBar progressBar){
+		try {
+			progressValue++;
+			final int setValue = (int)((1.0 * progressValue)/(totalValue * 1.0)*100.0);	//updates progress bar and shows
+			SwingUtilities.invokeLater(new Runnable() {								//the text.  This runs in another 
+				public void run() {													//Thread.
+					progressBar.setValue(setValue);
+					progressBar.setString("Reading file - [" + setValue + "%]");
+				}
+			});
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void updateSortBar(JProgressBar progressBar){
+		try {
+			progressValue++;
+			final int setValue = (int)((1.0 * progressValue)/(totalValue * 1.0)*100.0);	//updates progress bar and shows
+			SwingUtilities.invokeLater(new Runnable() {								//the text.  This runs in another 
+				public void run() {													//Thread.
+					progressBar.setValue(setValue);
+					progressBar.setString("Reading file - [" + setValue + "%]");
+				}
+			});
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void dispose(JFrame frame){
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run(){
+				frame.dispose();
+			}
+		});
+	}
+	
 	/**
 	 * This method returns the integer value of the string if it is not empty, if it is empty the method returns -1
 	 * 
@@ -453,5 +610,132 @@ public class Main {
 	public static ArrayList<Storm> getStorms() {
 		return fileData;
 	}
+	
+
+	
+	public static ArrayList<Storm> getSortedBeginYearMonth(){
+		return sorted_beginYearMonth;
+	}
+
+	public static ArrayList<Storm> getSortedBeginDay(){
+		return sorted_beginDay;
+	}
+	
+	public static ArrayList<Storm> getSortedBeginTime(){
+		return sorted_beginTime;
+	}
+	
+	public static ArrayList<Storm> getSortedEpisodeID(){
+		return sorted_episodeID;
+	}
+	
+	public static ArrayList<Storm> getSortedEventID(){
+		return sorted_eventID;
+	}
+	
+	public static ArrayList<Storm> getSortedState(){
+		return sorted_state;
+	}
+	
+	public static ArrayList<Storm> getSortedStateFIPS(){
+		return sorted_stateFIPS;
+	}
+	
+	public static ArrayList<Storm> getSortedYear(){
+		return sorted_year;
+	}
+	
+	public static ArrayList<Storm> getSortedMonth(){
+		return sorted_month;
+	}
+	
+	public static ArrayList<Storm> getSortedEventType(){
+		return sorted_eventType;
+	}
+	
+	public static ArrayList<Storm> getSortedCzType(){
+		return sorted_czType;
+	}
+	
+	public static ArrayList<Storm> getSortedCzName(){
+		return sorted_czName;
+	}
+	
+	public static ArrayList<Storm> getSortedWfo(){
+		return sorted_wfo;
+	}
+	
+	public static ArrayList<Storm> getSortedTimezone(){
+		return sorted_timezone;
+	}
+	
+	public static ArrayList<Storm> getSortedDirectInj(){
+		return sorted_directInj;
+	}
+	
+	public static ArrayList<Storm> getSortedIndirectInj(){
+		return sorted_indirectInj;
+	}
+
+	public static ArrayList<Storm> getSortedDirectDeaths(){
+		return sorted_directDeaths;
+	}
+	
+	public static ArrayList<Storm> getSortedIndirectDeaths(){
+		return sorted_indirectDeaths;
+	}
+	
+	public static ArrayList<Storm> getSortedPropertyDmg(){
+		return sorted_propertyDmg;
+	}
+	
+	public static ArrayList<Storm> getSortedCropDmg(){
+		return sorted_cropDmg;
+	}
+	
+	public static ArrayList<Storm> getSortedMagnitude(){
+		return sorted_magnitude;
+	}
+	
+	public static ArrayList<Storm> getSortedMagnitudeType(){
+		return sorted_magnitudeType;
+	}
+	
+	public static ArrayList<Storm> getSortedFloodCause(){
+		return sorted_floodCause;
+	}
+
+	public static ArrayList<Storm> getsortedTorFSCale(){
+		return sorted_torFScale;
+	}
+	
+	public static ArrayList<Storm> getSortedTorLength(){
+		return sorted_torLength;
+	}
+	
+	public static ArrayList<Storm> getSortedTorWidth(){
+		return sorted_torWidth;
+	}
+	
+	public static ArrayList<Storm> getSortedTorState(){
+		return sorted_torState;
+	}
+	
+	public static ArrayList<Storm> getSortedTorName(){
+		return sorted_torName;
+	}
+	
+	public static ArrayList<Storm> getSortedBeginLocation(){
+		return sorted_beginLocation;
+	}
+	
+	public static ArrayList<Storm> getSortedBeginLatitude(){
+		return sorted_beginLatitude;
+	}
+	
+	public static ArrayList<Storm> getSortedBeginLongitude(){
+		return sorted_beginLongitude;
+	}
+	
 
 }

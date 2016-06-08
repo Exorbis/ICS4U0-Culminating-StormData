@@ -58,12 +58,11 @@ public class StormView extends JFrame implements ActionListener{
 	 * @return the categories non repeated in an arraylist of strings
 	 */
 	public ArrayList<String> returnNonRepeats(ArrayList<Storm> array, String type){
-		ArrayList<Storm> workArray = Main.mergeSort(array, type);
 		ArrayList<String> nonRepeats = new ArrayList<String>();
 		
-		for (int i = 0; i < workArray.size(); i++){
-			if (!(nonRepeats.contains(workArray.get(i).displayData(type)))){
-				nonRepeats.add(workArray.get(i).displayData(type));
+		for (int i = 0; i < array.size(); i++){
+			if (!(nonRepeats.contains(array.get(i).displayData(type)))){
+				nonRepeats.add(array.get(i).displayData(type));
 			} 
 		}
 		
@@ -87,7 +86,7 @@ public class StormView extends JFrame implements ActionListener{
 			switch (category.toLowerCase()){
 			
 			case "beginyearmonth":
-				categoryValue = returnNonRepeats(storms, "beginyearmonth");
+				categoryValue = returnNonRepeats(Main.getSortedBeginYearMonth(), "beginyearmonth");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -95,7 +94,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "beginday":
-				categoryValue = returnNonRepeats(storms, "beginday");
+				categoryValue = returnNonRepeats(Main.getSortedBeginDay(), "beginday");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -103,7 +102,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 			
 			case "begintime":
-				categoryValue = returnNonRepeats(storms, "begintime");
+				categoryValue = returnNonRepeats(Main.getSortedBeginTime(), "begintime");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -111,47 +110,33 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "endyearmonth":
-				categoryValue = returnNonRepeats(storms, "endyearmonth");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "endday":
-				categoryValue = returnNonRepeats(storms, "endday");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 			
 			case "endtime":
-				categoryValue = returnNonRepeats(storms, "endtime");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break; 
 				
 			case "episodeid":
-				categoryValue = returnNonRepeats(storms, "episodeid");
 				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
+				for (int i = 0; i < Main.getSortedEpisodeID().size(); i++){
+					sortBy2.addItem(Main.getSortedEpisodeID().get(i).displayData("episodeid"));
 				}
 				break;
 				
 			case "eventid":
-				categoryValue = returnNonRepeats(storms, "eventid");
 				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
+				for (int i = 0; i < Main.getSortedEventID().size(); i++){
+					sortBy2.addItem(Main.getSortedEventID().get(i).displayData("eventid"));
 				}
 				break;
 				
 			case "state":
-				categoryValue = returnNonRepeats(storms, "state");
+				categoryValue = returnNonRepeats(Main.getSortedState(), "state");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -159,7 +144,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 			
 			case "statefips":
-				categoryValue = returnNonRepeats(storms, "statefips");
+				categoryValue = returnNonRepeats(Main.getSortedStateFIPS(), "statefips");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -167,7 +152,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "year":
-				categoryValue = returnNonRepeats(storms, "year");
+				categoryValue = returnNonRepeats(Main.getSortedYear(), "year");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -175,7 +160,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "month":
-				categoryValue = returnNonRepeats(storms, "month");
+				categoryValue = returnNonRepeats(Main.getSortedMonth(), "month");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -183,7 +168,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "eventtype":
-				categoryValue = returnNonRepeats(storms, "eventtype");
+				categoryValue = returnNonRepeats(Main.getSortedEventType(), "eventtype");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -191,7 +176,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "cztype":
-				categoryValue = returnNonRepeats(storms, "cztype");
+				categoryValue = returnNonRepeats(Main.getSortedCzType(), "cztype");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -199,15 +184,11 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "czfips":
-				categoryValue = returnNonRepeats(storms, "czfips");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "czName":
-				categoryValue = returnNonRepeats(storms, "czName");
+				categoryValue = returnNonRepeats(Main.getSortedCzName(), "czName");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -215,7 +196,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "wfo":
-				categoryValue = returnNonRepeats(storms, "wfo");
+				categoryValue = returnNonRepeats(Main.getSortedWfo(), "wfo");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -223,15 +204,11 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "begindatetime":
-				categoryValue = returnNonRepeats(storms, "begindatetime");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "timezone":
-				categoryValue = returnNonRepeats(storms, "timezone");
+				categoryValue = returnNonRepeats(Main.getSortedTimezone(), "timezone");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -239,15 +216,11 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "enddatetime":
-				categoryValue = returnNonRepeats(storms, "enddatetime");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "directinj":
-				categoryValue = returnNonRepeats(storms, "directinj");
+				categoryValue = returnNonRepeats(Main.getSortedDirectInj(), "directinj");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -255,7 +228,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "indirectinj":
-				categoryValue = returnNonRepeats(storms, "indirectinj");
+				categoryValue = returnNonRepeats(Main.getSortedIndirectInj(), "indirectinj");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -263,7 +236,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "directdeaths":
-				categoryValue = returnNonRepeats(storms, "directdeaths");
+				categoryValue = returnNonRepeats(Main.getSortedDirectDeaths(), "directdeaths");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -271,7 +244,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "indirectDeaths":
-				categoryValue = returnNonRepeats(storms, "indirectDeaths");
+				categoryValue = returnNonRepeats(Main.getSortedIndirectDeaths(), "indirectDeaths");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -279,7 +252,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "propertydmg":
-				categoryValue = returnNonRepeats(storms, "propertydmg");
+				categoryValue = returnNonRepeats(Main.getSortedPropertyDmg(), "propertydmg");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -287,7 +260,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "cropdmg":
-				categoryValue = returnNonRepeats(storms, "cropdmg");
+				categoryValue = returnNonRepeats(Main.getSortedCropDmg(), "cropdmg");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -295,15 +268,11 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "sourcetype":
-				categoryValue = returnNonRepeats(storms, "sourcetype");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "magnitude":
-				categoryValue = returnNonRepeats(storms, "magnitude");
+				categoryValue = returnNonRepeats(Main.getSortedMagnitude(), "magnitude");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -311,7 +280,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "magnitudetype":
-				categoryValue = returnNonRepeats(storms, "magnitudetype");
+				categoryValue = returnNonRepeats(Main.getSortedMagnitudeType(), "magnitudetype");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -319,7 +288,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "floodcause":
-				categoryValue = returnNonRepeats(storms, "floodcause");
+				categoryValue = returnNonRepeats(Main.getSortedFloodCause(), "floodcause");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -327,15 +296,11 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "category":
-				categoryValue = returnNonRepeats(storms, "category");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "torfscale":
-				categoryValue = returnNonRepeats(storms, "torfscale");
+				categoryValue = returnNonRepeats(Main.getsortedTorFSCale(), "torfscale");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -343,7 +308,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "torlength":
-				categoryValue = returnNonRepeats(storms, "torlength");
+				categoryValue = returnNonRepeats(Main.getSortedTorLength(), "torlength");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -351,7 +316,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 			
 			case "torwidth":
-				categoryValue = returnNonRepeats(storms, "torwidth");
+				categoryValue = returnNonRepeats(Main.getSortedTorWidth(), "torwidth");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -359,15 +324,11 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "torwfo":
-				categoryValue = returnNonRepeats(storms, "torwfo");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "torstate":
-				categoryValue = returnNonRepeats(storms, "torstate");
+				categoryValue = returnNonRepeats(Main.getSortedTorState(), "torstate");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -375,15 +336,11 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "torfips":
-				categoryValue = returnNonRepeats(storms, "torfips");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "torname":
-				categoryValue = returnNonRepeats(storms, "torname");
+				categoryValue = returnNonRepeats(Main.getSortedTorName(), "torname");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -391,23 +348,15 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case  "beginrange":
-				categoryValue = returnNonRepeats(storms, "beginrange");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "beginazimuth":
-				categoryValue = returnNonRepeats(storms, "beginazimuth");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+			
 				break;
 				
 			case "beginlocation":
-				categoryValue = returnNonRepeats(storms, "beginlocation");
+				categoryValue = returnNonRepeats(Main.getSortedBeginLocation(), "beginlocation");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -415,24 +364,15 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "endrange":
-				categoryValue = returnNonRepeats(storms, "endrange");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "endazimuth":
-				categoryValue = returnNonRepeats(storms, "endazimuth");
-				sortBy2.removeAllItems();
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "beginlatitude":
-				categoryValue = returnNonRepeats(storms, "beginlatitude");
+				categoryValue = returnNonRepeats(Main.getSortedBeginLatitude(), "beginlatitude");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -440,7 +380,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "beginlongitude":
-				categoryValue = returnNonRepeats(storms, "beginlongitude");
+				categoryValue = returnNonRepeats(Main.getSortedBeginLongitude(), "beginlongitude");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -448,99 +388,51 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "endlatitude":
-				categoryValue = returnNonRepeats(storms, "endlatitude");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "endlongitude":
-				categoryValue = returnNonRepeats(storms, "endlongitude");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "episodenarrrative":
-				categoryValue = returnNonRepeats(storms, "episodenarrrative");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "eventnarrative":
-				categoryValue = returnNonRepeats(storms, "eventnarrative");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "lastmoddate":
-				categoryValue = returnNonRepeats(storms, "lastmoddate");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "lastmodtime":
-				categoryValue = returnNonRepeats(storms, "lastmodtime");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "lastcertdate":
-				categoryValue = returnNonRepeats(storms, "lastcertdate");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "lastcerttime":
-				categoryValue = returnNonRepeats(storms, "lastcerttime");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "lastmod":
-				categoryValue = returnNonRepeats(storms, "lastmod");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "lastcert":
-				categoryValue = returnNonRepeats(storms, "lastcert");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "addcorrflg":
-				categoryValue = returnNonRepeats(storms, "addcorrflg");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 				
 			case "addcorrdate":
-				categoryValue = returnNonRepeats(storms, "addcorrdate");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
+				
 				break;
 			}
 		}
