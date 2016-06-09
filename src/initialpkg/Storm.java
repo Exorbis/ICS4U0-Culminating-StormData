@@ -211,7 +211,7 @@ public class Storm {
 	 * @return the data type of the parameter
 	 */
 	public String checkType(String type){
-		switch (type.toLowerCase()) {
+		switch (type.toLowerCase().trim()) {
 		
 		case "cztype":
 			return ((Object)this.czType).getClass().getSimpleName();
@@ -340,6 +340,7 @@ public class Storm {
 			return ((Object)(int)this.czFips).getClass().getSimpleName();
 		
 		case "directinj":
+			if (this.directInj == 0) return "integer";
 			return ((Object)(int)this.directInj).getClass().getSimpleName();
 			
 		case "indirectinj":
@@ -380,6 +381,9 @@ public class Storm {
 			
 		case "torwidth":
 			return ((Object)this.torWidth).getClass().getSimpleName();
+			
+		case "hello":
+			return "integer";
 		}
 		
 		return "-1";
@@ -407,7 +411,10 @@ public class Storm {
 	 * @return the integer mentioned by the inputed string
 	 */
 	public int getDataInt(String type){
-		switch (type.toLowerCase()){
+		switch (type.toLowerCase().trim()){
+		
+		case "hello":
+			return this.directInj;
 		
 		case "month":
 			return this.monthIndex;
@@ -440,10 +447,11 @@ public class Storm {
 			return this.czFips;
 		
 		case "directinj":
-			return this.directInj;
+			if (this.directInj == 0) return -1;
+			return (int) this.directInj;
 			
 		case "indirectinj":
-			return this.indirectInj;
+			return (int) this.indirectInj;
 			
 		case "directdeaths":
 			return this.directDeaths;
@@ -611,6 +619,9 @@ public class Storm {
 	 */
 	public String displayData(String type){
 		switch (type.toLowerCase()){
+		
+		case "hello":
+			return String.valueOf(this.directInj);
 		
 		case "beginyearmonth":
 			return this.beginYearMonth;

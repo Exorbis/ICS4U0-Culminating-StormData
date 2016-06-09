@@ -76,12 +76,13 @@ public class Main {
 	static ArrayList<Storm> sorted_beginLatitude = new ArrayList<Storm>();
 	static ArrayList<Storm> sorted_beginLongitude = new ArrayList<Storm>();
 
-	static double progressValue = 0, sortBarValue = 0;
+	static double progressValue = 0, sortBarValue1 = 0, sortBarValue2 = 0;
 	static double totalValue = 0, sortBarTotal = 0;
-	static JLabel counter = new JLabel();
-	static String category;
+	static JLabel counter1 = new JLabel();
+	static JLabel counter2 = new JLabel();
+	static String category1, category2;
 
-	static boolean finishedSort = false;
+	static boolean finishedSort1 = false, finishedSort2 = false, finishedSort3 = false;
 
 	
 	
@@ -127,7 +128,7 @@ public class Main {
 
 		convertData.start();
 
-		while(finishedSort == false) {
+		while(finishedSort1 == false && finishedSort2 == false && finishedSort3 == false) {
 			try {
 				Thread.sleep(0);
 			} catch (Exception e){
@@ -152,9 +153,9 @@ public class Main {
 	 * @param type is what the method is going to sort based off of
 	 * @return the sorted array
 	 */
-	public static ArrayList<Storm> mergeSort(ArrayList<Storm> array, String type){
-		sortBarTotal = fileData.size();
-		
+	public static ArrayList<Storm> mergeSort(ArrayList<Storm> array, String type, int thread){
+		sortBarTotal = fileData.size() - 1;
+	 	
 		if (array.size() <= 1) return array;
 
 		int midpoint = array.size()/2;
@@ -162,11 +163,13 @@ public class Main {
 		ArrayList<Storm> firstHalf = new ArrayList<Storm>(array.subList(0, midpoint));
 		ArrayList<Storm> secondHalf = new ArrayList<Storm>(array.subList(midpoint, array.size()));
 
-		firstHalf = mergeSort(firstHalf, type);
-		secondHalf = mergeSort(secondHalf, type);
-
-		sortBarValue++;
-		counter.setText(category + ": " + (int) sortBarValue + "/" + (int) sortBarTotal);
+		firstHalf = mergeSort(firstHalf, type, thread);
+		secondHalf = mergeSort(secondHalf, type, thread);
+		
+		if (thread == 1) sortBarValue1++; counter1.setText(category1 + ": " + (int) sortBarValue1 + "/" + (int) sortBarTotal + "  -  ");
+		if (thread == 2) sortBarValue2++; counter2.setText(category2 + ": " + (int) sortBarValue2 + "/" + (int) sortBarTotal);
+		
+		
 		return merge(firstHalf, secondHalf, type);
 	}
 
@@ -289,7 +292,7 @@ public class Main {
 	 * @return the array of Storm objects with all relevant parameters inputed
 	 */
 	public static void fileToStorm(String fileName){
-		ArrayList<Storm> array = new ArrayList<Storm>();
+		final ArrayList<Storm> array = new ArrayList<Storm>();
 		int counterValue = 0;
 		int lines = 0;
 
@@ -308,18 +311,18 @@ public class Main {
 		final Dimension prefSize = progressBar.getPreferredSize();
 		
 		
-		counter.setText("Number of lines: " + counterValue);
+		counter1.setText("Number of lines: " + counterValue);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(1000, 110);
 		frame.setVisible(true);
-		frame.setTitle("File data to Storm object");
+		frame.setTitle("Converting file to Storm");
 		prefSize.width = 800;
 		prefSize.height = 63;
 		progressBar.setPreferredSize(prefSize);
 		progressBar.setStringPainted(true);
 		progressBar.setValue(0);
 		panel.add(progressBar);
-		panel.add(counter);
+		panel.add(counter1);
 		frame.add(panel);
 		
 
@@ -330,7 +333,7 @@ public class Main {
 	    	while ((input = reader.readLine()) != null){
 	    		if (input.startsWith("19") || input.startsWith("20")){
 	    			lines++;
-	    			counter.setText("Number of lines: " + lines);
+	    			counter1.setText("Number of lines: " + lines);
 	    		}	    		
 	    	}
 	    	reader.close();
@@ -375,170 +378,201 @@ public class Main {
 		}
 
 		
+		
+		
 		fileData = array;
 		progressValue = 0;
-		totalValue = 31;
+		totalValue = 30;
+		panel.add(counter2);
 		
-		category = "beginyearmonth";
-		sorted_beginYearMonth = mergeSort(array, "beginyearmonth");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "beginday";
-		sorted_beginDay = mergeSort(array, "beginday");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "begintime";
-		sorted_beginTime = mergeSort(array, "begintime");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "episodeid";
-		sorted_episodeID = mergeSort(array, "episodeid");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "eventid";
-		sorted_eventID = mergeSort(array, "eventid");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "state";
-		sorted_state = mergeSort(array, "state");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "statefips";
-		sorted_stateFIPS = mergeSort(array, "statefips");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "year";
-		sorted_year = mergeSort(array, "year");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "month";
-		sorted_month = mergeSort(array, "month");
-		update(progressBar);
+		Thread sort1 = new Thread(new Runnable () {
+			public void run () {
 
-		sortBarValue = 0;
-		category = "eventtype";
-		sorted_eventType = mergeSort(array, "eventtype");
-		update(progressBar);
+				sortBarValue1 = 0;
+				update(progressBar);
+				frame.setTitle("Sorting by type...");
+				category1 = "beginyearmonth";
+				sorted_beginYearMonth = mergeSort(array, "beginyearmonth", 1);
+				update(progressBar);
+				
+				sortBarValue1 = 0;
+				update(progressBar);
+				category1 = "directInj";
+				sorted_indirectInj = mergeSort(array, "hello", 1);
+				
+				
+				
+				sortBarValue1 = 0;
+				category1 = "beginday";
+				sorted_beginDay = mergeSort(array, "beginday", 1);
+				update(progressBar);
+				
+				sortBarValue1 = 0;
+				category1 = "begintime";
+				sorted_beginTime = mergeSort(array, "begintime", 1);
+				update(progressBar);
+				
+				sortBarValue1 = 0;
+				category1 = "episodeid";
+				sorted_episodeID = mergeSort(array, "episodeid", 1);
+				update(progressBar);
+				
+	
+				
+				sortBarValue1 = 0;
+				category1 = "state";
+				sorted_state = mergeSort(array, "state", 1);
+				update(progressBar);
+				
+				sortBarValue1 = 0;
+				category1 = "statefips";
+				sorted_stateFIPS = mergeSort(array, "statefips", 1);
+				update(progressBar);
+				
+				sortBarValue1 = 0;
+				category1 = "year";
+				sorted_year = mergeSort(array, "year", 1);
+				update(progressBar);
+				
+				sortBarValue1 = 0;
+				category1 = "month";
+				sorted_month = mergeSort(array, "month", 1);
+				update(progressBar);
+				
+
+				sortBarValue1 = 0;
+				category1 = "magnitudetype";
+				sorted_magnitudeType = mergeSort(array, "magnitudetype", 1);
+				update(progressBar);
+				
+
+				
+				sortBarValue1 = 0;
+				category1 = "torstate";
+				sorted_torState = mergeSort(array, "torstate", 1);
+				update(progressBar);
+				
+				sortBarValue1 = 0;
+				category1 = "torname";
+				sorted_torName = mergeSort(array, "torname", 1);
+				update(progressBar);
+				
+				sortBarValue1 = 0;
+				category1 = "beginlocation";
+				sorted_beginLocation = mergeSort(array, "beginlocation", 1);
+				update(progressBar);
+				
+				sortBarValue1 = 0;
+				category1 = "beginlatitude";
+				sorted_beginLatitude = mergeSort(array, "beginlatitude", 1);
+				update(progressBar);
+				
+				sortBarValue1 = 0;
+				category1 = "beginlongitude";
+				sorted_beginLongitude = mergeSort(array, "beginlongitude", 1);
+				update(progressBar);
+
+				finishedSort1 = true;
+				
+			}
+		});
 		
-		sortBarValue = 0;
-		category = "cztype";
-		sorted_czType = mergeSort(array, "cztype");
-		update(progressBar);
+		Thread sort2 = new Thread(new Runnable () {
+			public void run () {
+				
+				
+				sortBarValue2 = 0;
+				category2 = "floodcause";
+				sorted_floodCause = mergeSort(array, "floodcause", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "torfscale";
+				sorted_torFScale = mergeSort(array, "torfscale", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "torlength";
+				sorted_torLength = mergeSort(array, "torlength", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "torwidth";
+				sorted_torWidth = mergeSort(array, "torwidth", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "eventid";
+				sorted_eventID = mergeSort(array, "eventid", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "eventtype";
+				sorted_eventType = mergeSort(array, "eventtype", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "cztype";
+				sorted_czType = mergeSort(array, "cztype", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "czname";
+				sorted_czName = mergeSort(array, "czname", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "wfo";
+				sorted_wfo = mergeSort(array, "wfo", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "timezone";
+				sorted_timezone = mergeSort(array, "timezone", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "directdeaths";
+				sorted_directDeaths = mergeSort(array, "directdeaths", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "indirectdeaths";
+				sorted_indirectDeaths = mergeSort(array, "indirectdeaths", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "propertydmg";
+				sorted_propertyDmg = mergeSort(array, "propertydmg", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "cropdmg";
+				sorted_cropDmg = mergeSort(array, "cropdmg", 2);
+				update(progressBar);
+				
+				sortBarValue2 = 0;
+				category2 = "magnitude";
+				sorted_magnitude = mergeSort(array, "magnitude", 2);
+				update(progressBar);
+
+				finishedSort2 = true;
+				
+			}
+		});
+	
+		frame.setSize(1150, 110);
+		sort1.start();
+		sort2.start();
 		
-		sortBarValue = 0;
-		category = "czname";
-		sorted_czName = mergeSort(array, "czname");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "wfo";
-		sorted_wfo = mergeSort(array, "wfo");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "timezone";
-		sorted_timezone = mergeSort(array, "timezone");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "directinj";
-		sorted_directInj = mergeSort(array, "directinj");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "indirectinj";
-		sorted_indirectInj = mergeSort(array, "indirectinj");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "directdeaths";
-		sorted_directDeaths = mergeSort(array, "directdeaths");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "indirectdeaths";
-		sorted_indirectDeaths = mergeSort(array, "indirectdeaths");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "propertydmg";
-		sorted_propertyDmg = mergeSort(array, "propertydmg");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "cropdmg";
-		sorted_cropDmg = mergeSort(array, "cropdmg");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "magnitude";
-		sorted_magnitude = mergeSort(array, "magnitude");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "magnitudetype";
-		sorted_magnitudeType = mergeSort(array, "magnitudetype");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "floodcause";
-		sorted_floodCause = mergeSort(array, "floodcause");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "torfscale";
-		sorted_torFScale = mergeSort(array, "torfscale");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "torlength";
-		sorted_torLength = mergeSort(array, "torlength");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "torwidth";
-		sorted_torWidth = mergeSort(array, "torwidth");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "torstate";
-		sorted_torState = mergeSort(array, "torstate");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "torname";
-		sorted_torName = mergeSort(array, "torname");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "beginlocation";
-		sorted_beginLocation = mergeSort(array, "beginlocation");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "beginlatitude";
-		sorted_beginLatitude = mergeSort(array, "beginlatitude");
-		update(progressBar);
-		
-		sortBarValue = 0;
-		category = "beginlongitude";
-		sorted_beginLongitude = mergeSort(array, "beginlongitude");
-		update(progressBar);
-		
+		while (finishedSort1 == false && finishedSort2 == false){}
 		dispose(frame);
-		finishedSort = true;
+		
+		
 	}
 
 
-	public static void update(JProgressBar progressBar){
+	public static void update(final JProgressBar progressBar){
 		try {
 			progressValue++;
 			final int setValue = (int)((1.0 * progressValue)/(totalValue * 1.0)*100.0);	//updates progress bar and shows
@@ -554,7 +588,7 @@ public class Main {
 		}
 	}
 	
-	public static void updateSortBar(JProgressBar progressBar){
+	public static void updateSortBar(final JProgressBar progressBar){
 		try {
 			progressValue++;
 			final int setValue = (int)((1.0 * progressValue)/(totalValue * 1.0)*100.0);	//updates progress bar and shows
@@ -570,7 +604,7 @@ public class Main {
 		}
 	}
 	
-	public static void dispose(JFrame frame){
+	public static void dispose(final JFrame frame){
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run(){
 				frame.dispose();

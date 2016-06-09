@@ -66,10 +66,23 @@ public class StormView extends JFrame implements ActionListener{
 			} 
 		}
 		
-		while (nonRepeats.remove("-1") || nonRepeats.remove("-1.0")){}
 		
 		return nonRepeats;
 		
+	}
+	
+	public static ArrayList<Storm> returnNonRepeatsStorm(ArrayList<Storm> array, String type){
+		ArrayList<Storm> nonRepeats = new ArrayList<Storm>();
+		
+		for (int i = 0; i < array.size(); i++){
+			for (int j = 0; j < nonRepeats.size(); j++){
+				if (!(nonRepeats.get(j).displayData(type).equals(array.get(i).displayData(type)))){
+					nonRepeats.add(array.get(i));
+				}
+			}
+		}
+		
+		return nonRepeats;
 	}
 	
 	/**
@@ -220,7 +233,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "directinj":
-				categoryValue = returnNonRepeats(Main.getSortedDirectInj(), "directinj");
+				categoryValue = returnNonRepeats(Main.getSortedDirectInj(), "hello");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
