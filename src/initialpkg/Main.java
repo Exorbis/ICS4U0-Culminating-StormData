@@ -143,8 +143,104 @@ public class Main {
 
 
 	}
+	public static String multipleValueRight(ArrayList<Storm> array, String type, int input, int index, String output){
+		if (array.get(index).getDataInt(type) != input) return output;
+		else return multipleValue(array, type, input, index + 1, output + ", " + index);
+	}
+	
+	public static String multipleValueLeft(ArrayList<Storm> array, String type, int input, int index, String output){
+		if (array.get(index).getDataInt(type) != input) return output;
+		else return multipleValue(array, type, input, index - 1, output + ", " + index);
+	}
+	
+	public static String multipleValueRight(ArrayList<Storm> array, String type, double input, int index, String output){
+		if (array.get(index).getDataDouble(type) != input) return output;
+		else return multipleValue(array, type, input, index + 1, output + ", " + index);
+	}
+	
+	public static String multipleValueLeft(ArrayList<Storm> array, String type, double input, int index, String output){
+		if (array.get(index).getDataDouble(type) != input) return output;
+		else return multipleValue(array, type, input, index - 1, output + ", " + index);
+	}
+	
+	public static String multipleValueRight(ArrayList<Storm> array, String type, String input, int index, String output){
+		if (!array.get(index).getDataString(type).toLowerCase().equals(input.toLowerCase())) return output;
+		else return multipleValue(array, type, input, index + 1, output + ", " + index);
+	}
+	
+	public static String multipleValueLeft(ArrayList<Storm> array, String type, String input, int index, String output){
+		if (!array.get(index).getDataString(type).toLowerCase().equals(input.toLowerCase())) return output;
+		else return multipleValue(array, type, input, index - 1, output + ", " + index);
+	}
+	
+	public static String multipleValueRight(ArrayList<Storm> array, String type, char input, int index, String output){
+		if (array.get(index).getDataInt(type) != input) return output;
+		else return multipleValue(array, type, input, index + 1, output + ", " + index);
+	}
+	
+	public static String multipleValueLeft(ArrayList<Storm> array, String type, char input, int index, String output){
+		if (array.get(index).getDataInt(type) != input) return output;
+		else return multipleValue(array, type, input, index - 1, output + ", " + index);
+	}
+	
+	
 
-
+	public static String binarySearch(ArrayList<Storm> array, String type, int input){
+		int maximum = array.size();
+		int minimum = 0;
+		int middle;
+		
+		while (minimum < maximum){
+			middle = (int) Math.floor((maximum + minimum)/2);
+			if (array.get(middle).getDataInt(type) < input)	minimum = middle + 1;
+			else maximum = middle;
+		}
+		if (minimum == maximum && array.get(minimum).getDataInt(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " multipleValueRight(array, type, input, minimum, "");
+		else return "-1";
+	}
+	
+	public static String binarySearch(ArrayList<Storm> array, String type, String input){
+		int maximum = array.size();
+		int minimum = 0;
+		int middle;
+		
+		while (minimum < maximum){
+			middle = (int) Math.floor((maximum + minimum)/2);
+			if (array.get(middle).getDataString(type).toLowerCase().compareTo(input.toLowerCase()) < 0) minimum = middle + 1;
+			else maximum = middle;
+		}
+		if (minimum == maximum && array.get(minimum).getDataString(type).toLowerCase().compareTo(input.toLowerCase()) < 0) return multipleValueLeft(array, type, input, minimum, "") + ", " multipleValueRight(array, type, input, minimum, "");
+		else return "-1";
+	}
+	
+	public static String binarySearch(ArrayList<Storm> array, String type, double input){
+		int maximum = array.size();
+		int minimum = 0;
+		int middle;
+		
+		while (minimum < maximum){
+			middle = (int) Math.floor((maximum + minimum)/2);
+			if (array.get(middle).getDataDouble(type) < input) minimum = middle + 1;
+			else maximum = middle;
+		}
+		if (minimum == maximum && array.get(minimum).getDataDouble(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " multipleValueRight(array, type, input, minimum, "");
+		else return "-1";
+	}
+	
+	public static String binarySearch(ArrayList<Storm> array, String type, char input){
+		int maximum = array.size();
+		int minimum = 0;
+		int middle;
+		
+		while (minimum < maximum){
+			middle = (int) Math.floor((maximum + minimum)/2);
+			if (array.get(middle).getDataChar(type) < input) minimum = middle + 1;
+			else maximum = middle;
+		}
+		if (minimum == maximum && array.get(minimum).getDataChar(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " multipleValueRight(array, type, input, minimum, "");
+		else return "-1";
+	}
+	
 
 	/**
 	 * This method sorts an array of Storm objects based off the specified data type in a recursive-top down format
