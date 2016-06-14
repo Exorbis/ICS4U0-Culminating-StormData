@@ -52,9 +52,10 @@ public class StormView extends JFrame implements ActionListener{
 		this.add(dropDown, BorderLayout.PAGE_START);
 		this.add(stormInfoScroll, BorderLayout.CENTER);
 		
-		
+		int spacing = 0;
 		for (int i = 0; i < StormController.getFile().size(); i++){
-			new TimelineCircle(StormController.getFile().get(i)
+			new TimelineCircle(StormController.getFile().get(i), spacing);
+			spacing += 5;
 		}
 
 	}
