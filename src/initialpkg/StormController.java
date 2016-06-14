@@ -1,8 +1,27 @@
 package initialpkg;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import com.opencsv.CSVReader;
+
 public class StormController{
   
-  private ArrayList<Storm> sorted_beginYearMonth = new ArrayList<Storm>();
+  	private ArrayList<Storm> sorted_beginYearMonth = new ArrayList<Storm>();
 	private ArrayList<Storm> sorted_beginDay = new ArrayList<Storm>();
 	private ArrayList<Storm> sorted_beginTime = new ArrayList<Storm>();
 	private ArrayList<Storm> sorted_episodeID = new ArrayList<Storm>();
@@ -82,7 +101,7 @@ public class StormController{
 	 * @return array3 is the finalized merged array of the first half and second half 
 	 */
 	public ArrayList<Storm> merge(ArrayList<Storm> array1, ArrayList<Storm> array2, String type){
-		ArrayList<Storm> array3 =  new ArrayList<Storm>();
+		ArrayList<Storm> array3 = new ArrayList<Storm>();
 
 		
 		String checkType = array1.get(0).checkType(type).toLowerCase();
@@ -472,7 +491,7 @@ public class StormController{
 	}
 
 
-	public  void update(final JProgressBar progressBar){
+	public void update(final JProgressBar progressBar){
 		try {
 			progressValue++;
 			final int setValue = (int)((1.0 * progressValue)/(totalValue * 1.0)*100.0);	//updates progress bar and shows
@@ -540,127 +559,127 @@ public class StormController{
 	
 
 	
-	public  ArrayList<Storm> getSortedBeginYearMonth(){
+	public ArrayList<Storm> getSortedBeginYearMonth(){
 		return sorted_beginYearMonth;
 	}
 
-	public  ArrayList<Storm> getSortedBeginDay(){
+	public ArrayList<Storm> getSortedBeginDay(){
 		return sorted_beginDay;
 	}
 	
-	public  ArrayList<Storm> getSortedBeginTime(){
+	public ArrayList<Storm> getSortedBeginTime(){
 		return sorted_beginTime;
 	}
 	
-	public  ArrayList<Storm> getSortedEpisodeID(){
+	public ArrayList<Storm> getSortedEpisodeID(){
 		return sorted_episodeID;
 	}
 	
-	public  ArrayList<Storm> getSortedEventID(){
+	public ArrayList<Storm> getSortedEventID(){
 		return sorted_eventID;
 	}
 	
-	public  ArrayList<Storm> getSortedState(){
+	public ArrayList<Storm> getSortedState(){
 		return sorted_state;
 	}
 	
-	public  ArrayList<Storm> getSortedStateFIPS(){
+	public ArrayList<Storm> getSortedStateFIPS(){
 		return sorted_stateFIPS;
 	}
 	
-	public  ArrayList<Storm> getSortedYear(){
+	public ArrayList<Storm> getSortedYear(){
 		return sorted_year;
 	}
 	
-	public  ArrayList<Storm> getSortedMonth(){
+	public ArrayList<Storm> getSortedMonth(){
 		return sorted_month;
 	}
 	
-	public  ArrayList<Storm> getSortedEventType(){
+	public ArrayList<Storm> getSortedEventType(){
 		return sorted_eventType;
 	}
 	
-	public  ArrayList<Storm> getSortedCzType(){
+	public ArrayList<Storm> getSortedCzType(){
 		return sorted_czType;
 	}
 	
-	public  ArrayList<Storm> getSortedCzName(){
+	public ArrayList<Storm> getSortedCzName(){
 		return sorted_czName;
 	}
 	
-	public  ArrayList<Storm> getSortedWfo(){
+	public ArrayList<Storm> getSortedWfo(){
 		return sorted_wfo;
 	}
 	
-	public  ArrayList<Storm> getSortedTimezone(){
+	public ArrayList<Storm> getSortedTimezone(){
 		return sorted_timezone;
 	}
 	
-	public  ArrayList<Storm> getSortedDirectInj(){
+	public ArrayList<Storm> getSortedDirectInj(){
 		return sorted_directInj;
 	}
 	
-	public  ArrayList<Storm> getSortedIndirectInj(){
+	public ArrayList<Storm> getSortedIndirectInj(){
 		return sorted_indirectInj;
 	}
 
-	public  ArrayList<Storm> getSortedDirectDeaths(){
+	public ArrayList<Storm> getSortedDirectDeaths(){
 		return sorted_directDeaths;
 	}
 	
-	public  ArrayList<Storm> getSortedIndirectDeaths(){
+	public ArrayList<Storm> getSortedIndirectDeaths(){
 		return sorted_indirectDeaths;
 	}
 	
-	public  ArrayList<Storm> getSortedPropertyDmg(){
+	public ArrayList<Storm> getSortedPropertyDmg(){
 		return sorted_propertyDmg;
 	}
 	
-	public  ArrayList<Storm> getSortedCropDmg(){
+	public ArrayList<Storm> getSortedCropDmg(){
 		return sorted_cropDmg;
 	}
 	
-	public  ArrayList<Storm> getSortedMagnitude(){
+	public ArrayList<Storm> getSortedMagnitude(){
 		return sorted_magnitude;
 	}
 	
-	public  ArrayList<Storm> getSortedMagnitudeType(){
+	public ArrayList<Storm> getSortedMagnitudeType(){
 		return sorted_magnitudeType;
 	}
 	
-	public  ArrayList<Storm> getSortedFloodCause(){
+	public ArrayList<Storm> getSortedFloodCause(){
 		return sorted_floodCause;
 	}
 
-	public  ArrayList<Storm> getsortedTorFSCale(){
+	public ArrayList<Storm> getsortedTorFSCale(){
 		return sorted_torFScale;
 	}
 	
-	public  ArrayList<Storm> getSortedTorLength(){
+	public ArrayList<Storm> getSortedTorLength(){
 		return sorted_torLength;
 	}
 	
-	public  ArrayList<Storm> getSortedTorWidth(){
+	public ArrayList<Storm> getSortedTorWidth(){
 		return sorted_torWidth;
 	}
 	
-	public  ArrayList<Storm> getSortedTorState(){
+	public ArrayList<Storm> getSortedTorState(){
 		return sorted_torState;
 	}
 	
-	public  ArrayList<Storm> getSortedTorName(){
+	public ArrayList<Storm> getSortedTorName(){
 		return sorted_torName;
 	}
 	
-	public  ArrayList<Storm> getSortedBeginLocation(){
+	public ArrayList<Storm> getSortedBeginLocation(){
 		return sorted_beginLocation;
 	}
 	
-	public  ArrayList<Storm> getSortedBeginLatitude(){
+	public ArrayList<Storm> getSortedBeginLatitude(){
 		return sorted_beginLatitude;
 	}
 	
-	public  ArrayList<Storm> getSortedBeginLongitude(){
+	public ArrayList<Storm> getSortedBeginLongitude(){
 		return sorted_beginLongitude;
 	}
 
