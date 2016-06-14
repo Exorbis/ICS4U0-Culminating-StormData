@@ -34,7 +34,7 @@ public class StormController{
 	private ArrayList<Storm> sorted_beginLatitude = new ArrayList<Storm>();
 	private ArrayList<Storm> sorted_beginLongitude = new ArrayList<Storm>();
 
-  private double progressValue = 0, sortBarValue1 = 0, sortBarValue2 = 0;
+  	private double progressValue = 0, sortBarValue1 = 0, sortBarValue2 = 0;
 	private double totalValue = 0, sortBarTotal = 0;
 	private JLabel counter1 = new JLabel();
 	private JLabel counter2 = new JLabel();
@@ -43,11 +43,11 @@ public class StormController{
 	private boolean finishedSort1 = false, finishedSort2 = false, finishedSort3 = false;
   
 
-  public static StormController(){
+  	public static StormController(){
     
-  }
+  	}
   
-  /**
+	 /**
 	 * This method sorts an array of Storm objects based off the specified data type in a recursive-top down format
 	 *
 	 * @param array is the input array that needs to be sorted
@@ -55,7 +55,7 @@ public class StormController{
 	 * @return the sorted array
 	 */
 	public ArrayList<Storm> mergeSort(ArrayList<Storm> array, String type, int thread){
-		sortBarTotal = fileData.size() - 1;
+		sortBarTotal = array.size() - 1;
 	 	
 		if (array.size() <= 1) return array;
 
@@ -85,7 +85,7 @@ public class StormController{
 		ArrayList<Storm> array3 =  new ArrayList<Storm>();
 
 		
-		String checkType = fileData.get(0).checkType(type).toLowerCase();
+		String checkType = array1.get(0).checkType(type).toLowerCase();
 
 		if (checkType.equals("string")){
 
@@ -192,7 +192,7 @@ public class StormController{
 	 * @param lines the number of lines in the file that is inputed that will most likely be calculated by countLines method
 	 * @return the array of Storm objects with all relevant parameters inputed
 	 */
-	public static void fileToStorm(String fileName){
+	public void fileToStorm(String fileName){
 		final ArrayList<Storm> array = new ArrayList<Storm>();
 		int counterValue = 0;
 		int lines = 0;
@@ -281,7 +281,6 @@ public class StormController{
 		
 		
 		
-		fileData = array;
 		progressValue = 0;
 		totalValue = 30;
 		panel.add(counter2);
@@ -473,7 +472,7 @@ public class StormController{
 	}
 
 
-	public static void update(final JProgressBar progressBar){
+	public  void update(final JProgressBar progressBar){
 		try {
 			progressValue++;
 			final int setValue = (int)((1.0 * progressValue)/(totalValue * 1.0)*100.0);	//updates progress bar and shows
@@ -489,7 +488,7 @@ public class StormController{
 		}
 	}
 	
-	public static void updateSortBar(final JProgressBar progressBar){
+	public void updateSortBar(final JProgressBar progressBar){
 		try {
 			progressValue++;
 			final int setValue = (int)((1.0 * progressValue)/(totalValue * 1.0)*100.0);	//updates progress bar and shows
@@ -505,7 +504,7 @@ public class StormController{
 		}
 	}
 	
-	public static void dispose(final JFrame frame){
+	public void dispose(final JFrame frame){
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run(){
 				frame.dispose();
@@ -519,7 +518,7 @@ public class StormController{
 	 * @param input the input string that needs to be changed into an integer
 	 * @return the value -1 or the integer value of the inputed string (int)
 	 */
-	public static int checkParseInt(String input){
+	public int checkParseInt(String input){
 		if (input.equals("")){ return -1; }
 		else { return Integer.parseInt(input); }
 	}
@@ -532,143 +531,136 @@ public class StormController{
 	 * @param input the input string that needs to be changed into an double
 	 * @return the value -1 or the double value of the inputed string (double)
 	 */
-	public static double checkParseDouble(String input){
+	public double checkParseDouble(String input){
 		if (input.equals("")){ return -1; }
 		else { return Double.parseDouble(input); }
 	}
 
-	/**
-	 * This method returns the array of Storm objects that were initiated during the opening process 
-	 * 
-	 * @return the array list of storm objects
-	 */
-	public static ArrayList<Storm> getStorms() {
-		return fileData;
-	}
+
 	
 
 	
-	public static ArrayList<Storm> getSortedBeginYearMonth(){
+	public  ArrayList<Storm> getSortedBeginYearMonth(){
 		return sorted_beginYearMonth;
 	}
 
-	public static ArrayList<Storm> getSortedBeginDay(){
+	public  ArrayList<Storm> getSortedBeginDay(){
 		return sorted_beginDay;
 	}
 	
-	public static ArrayList<Storm> getSortedBeginTime(){
+	public  ArrayList<Storm> getSortedBeginTime(){
 		return sorted_beginTime;
 	}
 	
-	public static ArrayList<Storm> getSortedEpisodeID(){
+	public  ArrayList<Storm> getSortedEpisodeID(){
 		return sorted_episodeID;
 	}
 	
-	public static ArrayList<Storm> getSortedEventID(){
+	public  ArrayList<Storm> getSortedEventID(){
 		return sorted_eventID;
 	}
 	
-	public static ArrayList<Storm> getSortedState(){
+	public  ArrayList<Storm> getSortedState(){
 		return sorted_state;
 	}
 	
-	public static ArrayList<Storm> getSortedStateFIPS(){
+	public  ArrayList<Storm> getSortedStateFIPS(){
 		return sorted_stateFIPS;
 	}
 	
-	public static ArrayList<Storm> getSortedYear(){
+	public  ArrayList<Storm> getSortedYear(){
 		return sorted_year;
 	}
 	
-	public static ArrayList<Storm> getSortedMonth(){
+	public  ArrayList<Storm> getSortedMonth(){
 		return sorted_month;
 	}
 	
-	public static ArrayList<Storm> getSortedEventType(){
+	public  ArrayList<Storm> getSortedEventType(){
 		return sorted_eventType;
 	}
 	
-	public static ArrayList<Storm> getSortedCzType(){
+	public  ArrayList<Storm> getSortedCzType(){
 		return sorted_czType;
 	}
 	
-	public static ArrayList<Storm> getSortedCzName(){
+	public  ArrayList<Storm> getSortedCzName(){
 		return sorted_czName;
 	}
 	
-	public static ArrayList<Storm> getSortedWfo(){
+	public  ArrayList<Storm> getSortedWfo(){
 		return sorted_wfo;
 	}
 	
-	public static ArrayList<Storm> getSortedTimezone(){
+	public  ArrayList<Storm> getSortedTimezone(){
 		return sorted_timezone;
 	}
 	
-	public static ArrayList<Storm> getSortedDirectInj(){
+	public  ArrayList<Storm> getSortedDirectInj(){
 		return sorted_directInj;
 	}
 	
-	public static ArrayList<Storm> getSortedIndirectInj(){
+	public  ArrayList<Storm> getSortedIndirectInj(){
 		return sorted_indirectInj;
 	}
 
-	public static ArrayList<Storm> getSortedDirectDeaths(){
+	public  ArrayList<Storm> getSortedDirectDeaths(){
 		return sorted_directDeaths;
 	}
 	
-	public static ArrayList<Storm> getSortedIndirectDeaths(){
+	public  ArrayList<Storm> getSortedIndirectDeaths(){
 		return sorted_indirectDeaths;
 	}
 	
-	public static ArrayList<Storm> getSortedPropertyDmg(){
+	public  ArrayList<Storm> getSortedPropertyDmg(){
 		return sorted_propertyDmg;
 	}
 	
-	public static ArrayList<Storm> getSortedCropDmg(){
+	public  ArrayList<Storm> getSortedCropDmg(){
 		return sorted_cropDmg;
 	}
 	
-	public static ArrayList<Storm> getSortedMagnitude(){
+	public  ArrayList<Storm> getSortedMagnitude(){
 		return sorted_magnitude;
 	}
 	
-	public static ArrayList<Storm> getSortedMagnitudeType(){
+	public  ArrayList<Storm> getSortedMagnitudeType(){
 		return sorted_magnitudeType;
 	}
 	
-	public static ArrayList<Storm> getSortedFloodCause(){
+	public  ArrayList<Storm> getSortedFloodCause(){
 		return sorted_floodCause;
 	}
 
-	public static ArrayList<Storm> getsortedTorFSCale(){
+	public  ArrayList<Storm> getsortedTorFSCale(){
 		return sorted_torFScale;
 	}
 	
-	public static ArrayList<Storm> getSortedTorLength(){
+	public  ArrayList<Storm> getSortedTorLength(){
 		return sorted_torLength;
 	}
 	
-	public static ArrayList<Storm> getSortedTorWidth(){
+	public  ArrayList<Storm> getSortedTorWidth(){
 		return sorted_torWidth;
 	}
 	
-	public static ArrayList<Storm> getSortedTorState(){
+	public  ArrayList<Storm> getSortedTorState(){
 		return sorted_torState;
 	}
 	
-	public static ArrayList<Storm> getSortedTorName(){
+	public  ArrayList<Storm> getSortedTorName(){
 		return sorted_torName;
 	}
 	
-	public static ArrayList<Storm> getSortedBeginLocation(){
+	public  ArrayList<Storm> getSortedBeginLocation(){
 		return sorted_beginLocation;
 	}
 	
-	public static ArrayList<Storm> getSortedBeginLatitude(){
+	public  ArrayList<Storm> getSortedBeginLatitude(){
 		return sorted_beginLatitude;
 	}
 	
-	public static ArrayList<Storm> getSortedBeginLongitude(){
+	public  ArrayList<Storm> getSortedBeginLongitude(){
 		return sorted_beginLongitude;
 	}
 
