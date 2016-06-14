@@ -1,7 +1,9 @@
 package initialpkg;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +11,8 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  * This StormView will be used as the main client that the user interacts with and where the data is displayed
@@ -30,13 +34,18 @@ public class StormView extends JFrame implements ActionListener{
 	 * This is the default constructor that is called to display the client 
 	 */
 	StormView(){
-		JPanel dropDown = new JPanel();
-		setLayout(new FlowLayout());
+		JPanel dropDown = new JPanel(new FlowLayout());
+		setLayout(new BorderLayout());
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize((int) (screenSize.getWidth() * 0.9), (int) (screenSize.getHeight() * 0.8));
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Storm Data Timeline");
+		
+		JTextArea stormInfo = new JTextArea(15, 40);
+		JScrollPane stormInfoScroll = new JScrollPane(stormInfo);
+		stormInfo.setMargin(new Insets(5,5,5,5));
+		stormInfo.setEditable(false);
 		
 
 		sortBy.setSelectedIndex(0);
@@ -44,9 +53,14 @@ public class StormView extends JFrame implements ActionListener{
 		dropDown.add(sortBy);
 		dropDown.add(sortBy2);
 		
-		this.add(dropDown);
+		this.add(dropDown, BorderLayout.PAGE_START);
+		this.add(stormInfoScroll, BorderLayout.CENTER);
 		
-		TimelineCircle.initComponents(this);
+		int spacing = 0;
+		for (int i = 0; i < StormController.getFile().size(); i++){
+			new TimelineCircle(StormController.getFile().get(i), spacing);
+			spacing += 5;
+		}
 
 	}
 	
@@ -94,12 +108,12 @@ public class StormView extends JFrame implements ActionListener{
 			String category = (String)localSortBy.getSelectedItem();
 			
 			ArrayList<String> categoryValue;
-			ArrayList<Storm> storms = Main.getStorms();
+			ArrayList<Storm> storms = StormController.getFile();
 			
 			switch (category.toLowerCase()){
 			
 			case "beginyearmonth":
-				categoryValue = returnNonRepeats(Main.getSortedBeginYearMonth(), "beginyearmonth");
+				categoryValue = returnNonRepeats(StormController.getSortedBeginYearMonth(), "beginyearmonth");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -107,7 +121,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "beginday":
-				categoryValue = returnNonRepeats(Main.getSortedBeginDay(), "beginday");
+				categoryValue = returnNonRepeats(StormController.getSortedBeginDay(), "beginday");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -115,7 +129,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 			
 			case "begintime":
-				categoryValue = returnNonRepeats(Main.getSortedBeginTime(), "begintime");
+				categoryValue = returnNonRepeats(StormController.getSortedBeginTime(), "begintime");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -136,20 +150,20 @@ public class StormView extends JFrame implements ActionListener{
 				
 			case "episodeid":
 				sortBy2.removeAllItems();
-				for (int i = 0; i < Main.getSortedEpisodeID().size(); i++){
-					sortBy2.addItem(Main.getSortedEpisodeID().get(i).displayData("episodeid"));
+				for (int i = 0; i < StormController.getSortedEpisodeID().size(); i++){
+					sortBy2.addItem(StormController.getSortedEpisodeID().get(i).displayData("episodeid"));
 				}
 				break;
 				
 			case "eventid":
 				sortBy2.removeAllItems();
-				for (int i = 0; i < Main.getSortedEventID().size(); i++){
-					sortBy2.addItem(Main.getSortedEventID().get(i).displayData("eventid"));
+				for (int i = 0; i < StormController.getSortedEventID().size(); i++){
+					sortBy2.addItem(StormController.getSortedEventID().get(i).displayData("eventid"));
 				}
 				break;
 				
 			case "state":
-				categoryValue = returnNonRepeats(Main.getSortedState(), "state");
+				categoryValue = returnNonRepeats(StormController.getSortedState(), "state");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -157,7 +171,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 			
 			case "statefips":
-				categoryValue = returnNonRepeats(Main.getSortedStateFIPS(), "statefips");
+				categoryValue = returnNonRepeats(StormController.getSortedStateFIPS(), "statefips");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -165,7 +179,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "year":
-				categoryValue = returnNonRepeats(Main.getSortedYear(), "year");
+				categoryValue = returnNonRepeats(StormController.getSortedYear(), "year");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -173,7 +187,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "month":
-				categoryValue = returnNonRepeats(Main.getSortedMonth(), "month");
+				categoryValue = returnNonRepeats(StormController.getSortedMonth(), "month");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -181,7 +195,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "eventtype":
-				categoryValue = returnNonRepeats(Main.getSortedEventType(), "eventtype");
+				categoryValue = returnNonRepeats(StormController.getSortedEventType(), "eventtype");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -189,7 +203,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "cztype":
-				categoryValue = returnNonRepeats(Main.getSortedCzType(), "cztype");
+				categoryValue = returnNonRepeats(StormController.getSortedCzType(), "cztype");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -201,7 +215,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "czName":
-				categoryValue = returnNonRepeats(Main.getSortedCzName(), "czName");
+				categoryValue = returnNonRepeats(StormController.getSortedCzName(), "czName");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -209,7 +223,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "wfo":
-				categoryValue = returnNonRepeats(Main.getSortedWfo(), "wfo");
+				categoryValue = returnNonRepeats(StormController.getSortedWfo(), "wfo");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -221,7 +235,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "timezone":
-				categoryValue = returnNonRepeats(Main.getSortedTimezone(), "timezone");
+				categoryValue = returnNonRepeats(StormController.getSortedTimezone(), "timezone");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -233,7 +247,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "directinj":
-				categoryValue = returnNonRepeats(Main.getSortedDirectInj(), "hello");
+				categoryValue = returnNonRepeats(StormController.getSortedDirectInj(), "hello");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -241,7 +255,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "indirectinj":
-				categoryValue = returnNonRepeats(Main.getSortedIndirectInj(), "indirectinj");
+				categoryValue = returnNonRepeats(StormController.getSortedIndirectInj(), "indirectinj");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -249,7 +263,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "directdeaths":
-				categoryValue = returnNonRepeats(Main.getSortedDirectDeaths(), "directdeaths");
+				categoryValue = returnNonRepeats(StormController.getSortedDirectDeaths(), "directdeaths");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -257,7 +271,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "indirectDeaths":
-				categoryValue = returnNonRepeats(Main.getSortedIndirectDeaths(), "indirectDeaths");
+				categoryValue = returnNonRepeats(StormController.getSortedIndirectDeaths(), "indirectDeaths");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -265,7 +279,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "propertydmg":
-				categoryValue = returnNonRepeats(Main.getSortedPropertyDmg(), "propertydmg");
+				categoryValue = returnNonRepeats(StormController.getSortedPropertyDmg(), "propertydmg");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -273,7 +287,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "cropdmg":
-				categoryValue = returnNonRepeats(Main.getSortedCropDmg(), "cropdmg");
+				categoryValue = returnNonRepeats(StormController.getSortedCropDmg(), "cropdmg");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -285,7 +299,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "magnitude":
-				categoryValue = returnNonRepeats(Main.getSortedMagnitude(), "magnitude");
+				categoryValue = returnNonRepeats(StormController.getSortedMagnitude(), "magnitude");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -293,7 +307,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "magnitudetype":
-				categoryValue = returnNonRepeats(Main.getSortedMagnitudeType(), "magnitudetype");
+				categoryValue = returnNonRepeats(StormController.getSortedMagnitudeType(), "magnitudetype");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -301,7 +315,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "floodcause":
-				categoryValue = returnNonRepeats(Main.getSortedFloodCause(), "floodcause");
+				categoryValue = returnNonRepeats(StormController.getSortedFloodCause(), "floodcause");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -313,7 +327,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "torfscale":
-				categoryValue = returnNonRepeats(Main.getsortedTorFSCale(), "torfscale");
+				categoryValue = returnNonRepeats(StormController.getsortedTorFSCale(), "torfscale");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -321,7 +335,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "torlength":
-				categoryValue = returnNonRepeats(Main.getSortedTorLength(), "torlength");
+				categoryValue = returnNonRepeats(StormController.getSortedTorLength(), "torlength");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -329,7 +343,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 			
 			case "torwidth":
-				categoryValue = returnNonRepeats(Main.getSortedTorWidth(), "torwidth");
+				categoryValue = returnNonRepeats(StormController.getSortedTorWidth(), "torwidth");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -341,7 +355,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "torstate":
-				categoryValue = returnNonRepeats(Main.getSortedTorState(), "torstate");
+				categoryValue = returnNonRepeats(StormController.getSortedTorState(), "torstate");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -353,7 +367,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "torname":
-				categoryValue = returnNonRepeats(Main.getSortedTorName(), "torname");
+				categoryValue = returnNonRepeats(StormController.getSortedTorName(), "torname");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -369,7 +383,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "beginlocation":
-				categoryValue = returnNonRepeats(Main.getSortedBeginLocation(), "beginlocation");
+				categoryValue = returnNonRepeats(StormController.getSortedBeginLocation(), "beginlocation");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -385,7 +399,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "beginlatitude":
-				categoryValue = returnNonRepeats(Main.getSortedBeginLatitude(), "beginlatitude");
+				categoryValue = returnNonRepeats(StormController.getSortedBeginLatitude(), "beginlatitude");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
@@ -393,7 +407,7 @@ public class StormView extends JFrame implements ActionListener{
 				break;
 				
 			case "beginlongitude":
-				categoryValue = returnNonRepeats(Main.getSortedBeginLongitude(), "beginlongitude");
+				categoryValue = returnNonRepeats(StormController.getSortedBeginLongitude(), "beginlongitude");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
 					sortBy2.addItem(categoryValue.get(i));
