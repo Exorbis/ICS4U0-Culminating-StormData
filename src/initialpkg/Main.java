@@ -184,19 +184,43 @@ public class Main {
 	}
 	
 	
+	public static int interpolationSearch(ArrayList<Storm> array, int key){
+		int low = 0;
+		int high = array.size() - 1;
+		int mid;
+		
+		while (array.get(high).getDataInt != array.get(low).getDataInt && key >= array.get(low).getDataInt && key <= array.get(high).getDataInt){
+			mid = low + ((key - array.get(low).getDataInt) * (high - low) / (array.get(high).getDataInt - array.get(low).getDataInt));
+			
+			if (array.get(mid).getDataInt < key) low = mid + 1;
+			else if (key < array.get(mid).getDataInt) high = mid - 1;
+			else return mid;
+		}
+		
+		
+		if (key == array.get(low).getDataInt) return low;
+		else return -1;
+	}
+	
 
-	public static String binarySearch(ArrayList<Storm> array, String type, int input){
+	public static int binarySearch(ArrayList<Storm> array, String type, int input){
 		int maximum = array.size();
 		int minimum = 0;
 		int middle;
 		
 		while (minimum < maximum){
-			middle = (int) Math.floor((maximum + minimum)/2);
-			if (array.get(middle).getDataInt(type) < input)	minimum = middle + 1;
-			else maximum = middle;
+			middle = (int) Math.floor((maximum + minimum) / 2);
+			if ((int) array.get(middle).getDataInt(type) < input){
+				minimum = middle + 1;
+			} else {
+				maximum = middle;
+			}
 		}
-		if (minimum == maximum && array.get(minimum).getDataInt(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " multipleValueRight(array, type, input, minimum, "");
-		else return "-1";
+		if (minimum == maximum && array.get(minimum).getDataInt(type) < input){
+			return minimum;
+		} else {
+			return -1;
+		}
 	}
 	
 	public static String binarySearch(ArrayList<Storm> array, String type, String input){
@@ -233,9 +257,12 @@ public class Main {
 		int middle;
 		
 		while (minimum < maximum){
-			middle = (int) Math.floor((maximum + minimum)/2);
-			if (array.get(middle).getDataChar(type) < input) minimum = middle + 1;
-			else maximum = middle;
+			middle = (int) Math.floor((maximum + minimum) / 2);
+			if (array.get(middle).getDataChar(type) < input) {
+				minimum = middle + 1;
+			} else {
+				maximum = middle;
+			}
 		}
 		if (minimum == maximum && array.get(minimum).getDataChar(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " multipleValueRight(array, type, input, minimum, "");
 		else return "-1";
