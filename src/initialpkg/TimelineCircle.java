@@ -24,7 +24,7 @@ public class TimelineCircle extends JPanel {
     	this.xpos = xpos;
         shapes = new ArrayList<>();
         shapes.add(cirlce);
-        circle = new Ellipse2D.Double(xpos, 100, 50, 50);
+        circle = new Ellipse2D.Double(xpos, 100, 10, 10);
         
         addMouseListener(new MouseAdapter() {
             @Override
