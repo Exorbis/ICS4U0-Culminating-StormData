@@ -94,6 +94,51 @@ public class Main {
 			ex.printStackTrace();
 		} 
 
+		/*
+		Thread openFile = new Thread(new Runnable (){
+
+			public void run() {
+				FileOpen.createAndShowGUI();
+
+			}
+		});
+		
+		Thread convertData = new Thread(new Runnable () {
+			public void run () {
+
+				StormController.fileToStorm(FileOpen.getPath());
+
+			}
+		});
+		
+		
+
+		openFile.start();
+
+
+
+		while(FileOpen.getPath() == null){
+			try {
+				Thread.sleep(0);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		convertData.start();
+
+		while(StormController.getStatus(finishedSort1) == false && StormController.getStatus(finishedSort2) == false) {
+			try {
+				Thread.sleep(0);
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+		
+		StormView frame = new StormView();
+		frame.setVisible(true);
+		*/
+		
 	
 		Thread openFile = new Thread(new Runnable (){
 
