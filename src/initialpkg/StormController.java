@@ -59,7 +59,7 @@ public class StormController{
 	private JLabel counter2 = new JLabel();
 	private String category1, category2;
 
-	private boolean finishedSort1 = false, finishedSort2 = false, finishedSort3 = false;
+	private boolean finishedSort1 = false, finishedSort2 = false;
   
   	private Thread sort1, sort2;
   	private ArrayList<Storm> fileStorm;
@@ -494,6 +494,18 @@ public class StormController{
 
 	public ArrayList<Storm> getFile(){
 		return fileStorm;
+	}
+	
+	public boolean getStatus(String input){
+		switch(input.toLowerCase()){
+			
+		case "finishedsort1":
+			return finishedSort1;
+			
+		case "finishedsort2":
+			return finishedSort2;
+			
+		}
 	}
 
 	public void update(final JProgressBar progressBar){
