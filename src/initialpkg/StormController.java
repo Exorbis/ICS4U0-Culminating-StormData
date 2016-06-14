@@ -21,50 +21,53 @@ import com.opencsv.CSVReader;
 
 public class StormController{
   
-  	private ArrayList<Storm> sorted_beginYearMonth = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_beginDay = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_beginTime = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_episodeID = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_eventID = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_state = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_stateFIPS = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_year = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_month = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_eventType = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_czType = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_czName = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_wfo = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_timezone = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_directInj = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_indirectInj = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_directDeaths = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_indirectDeaths = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_propertyDmg = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_cropDmg = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_magnitude = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_magnitudeType = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_floodCause = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_torFScale = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_torLength = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_torWidth = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_torState = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_torName = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_beginLocation = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_beginLatitude = new ArrayList<Storm>();
-	private ArrayList<Storm> sorted_beginLongitude = new ArrayList<Storm>();
+  	private static ArrayList<Storm> sorted_beginYearMonth = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_beginDay = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_beginTime = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_episodeID = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_eventID = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_state = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_stateFIPS = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_year = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_month = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_eventType = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_czType = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_czName = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_wfo = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_timezone = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_directInj = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_indirectInj = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_directDeaths = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_indirectDeaths = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_propertyDmg = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_cropDmg = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_magnitude = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_magnitudeType = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_floodCause = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_torFScale = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_torLength = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_torWidth = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_torState = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_torName = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_beginLocation = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_beginLatitude = new ArrayList<Storm>();
+	private static ArrayList<Storm> sorted_beginLongitude = new ArrayList<Storm>();
 
-  	private double progressValue = 0, sortBarValue1 = 0, sortBarValue2 = 0;
-	private double totalValue = 0, sortBarTotal = 0;
-	private JLabel counter1 = new JLabel();
-	private JLabel counter2 = new JLabel();
-	private String category1, category2;
+  	private static double progressValue = 0;
+	private static double sortBarValue1 = 0;
+	private static double sortBarValue2 = 0;
+	private static double totalValue = 0, sortBarTotal = 0;
+	private static JLabel counter1 = new JLabel();
+	private static JLabel counter2 = new JLabel();
+	private static String category1, category2;
 
-	private boolean finishedSort1 = false, finishedSort2 = false;
+	private static boolean finishedSort1 = false;
+	private static boolean finishedSort2 = false;
   
-  	private Thread sort1, sort2;
-  	private ArrayList<Storm> fileStorm;
+  	private static Thread sort1, sort2;
+  	private static ArrayList<Storm> fileStorm;
 
-  	public static StormController(){
+  	public StormController(){
     
   	}
   
@@ -75,8 +78,8 @@ public class StormController{
 	 * @param type is what the method is going to sort based off of
 	 * @return the sorted array
 	 */
-	public ArrayList<Storm> mergeSort(ArrayList<Storm> array, String type, int thread){
-		sortBarTotal = array.size() - 1;
+	public static ArrayList<Storm> mergeSort(ArrayList<Storm> array, String type, int thread){
+		sortBarTotal = fileStorm.size() - 1;
 	 	
 		if (array.size() <= 1) return array;
 
@@ -102,11 +105,11 @@ public class StormController{
 	 * @param array2 is the second half of the split
 	 * @return array3 is the finalized merged array of the first half and second half 
 	 */
-	public ArrayList<Storm> merge(ArrayList<Storm> array1, ArrayList<Storm> array2, String type){
+	public static ArrayList<Storm> merge(ArrayList<Storm> array1, ArrayList<Storm> array2, String type){
 		ArrayList<Storm> array3 = new ArrayList<Storm>();
 
 		
-		String checkType = array1.get(0).checkType(type).toLowerCase();
+		String checkType = fileStorm.get(0).checkType(type).toLowerCase();
 
 		if (checkType.equals("string")){
 
@@ -213,7 +216,7 @@ public class StormController{
 	 * @param lines the number of lines in the file that is inputed that will most likely be calculated by countLines method
 	 * @return the array of Storm objects with all relevant parameters inputed
 	 */
-	public void fileToStorm(String fileName){
+	public static void fileToStorm(String fileName){
 		final ArrayList<Storm> array = new ArrayList<Storm>();
 		int counterValue = 0;
 		int lines = 0;
@@ -492,12 +495,12 @@ public class StormController{
 		
 	}
 
-	public ArrayList<Storm> getFile(){
+	public static ArrayList<Storm> getFile(){
 		return fileStorm;
 	}
 	
-	public boolean getStatus(String input){
-		switch(input.toLowerCase()){
+	public static boolean getStatus(String input){
+		switch(input.toLowerCase().trim()){
 			
 		case "finishedsort1":
 			return finishedSort1;
@@ -506,9 +509,10 @@ public class StormController{
 			return finishedSort2;
 			
 		}
+		return false;
 	}
 
-	public void update(final JProgressBar progressBar){
+	public static void update(final JProgressBar progressBar){
 		try {
 			progressValue++;
 			final int setValue = (int)((1.0 * progressValue)/(totalValue * 1.0)*100.0);	//updates progress bar and shows
@@ -524,7 +528,7 @@ public class StormController{
 		}
 	}
 	
-	public void updateSortBar(final JProgressBar progressBar){
+	public static void updateSortBar(final JProgressBar progressBar){
 		try {
 			progressValue++;
 			final int setValue = (int)((1.0 * progressValue)/(totalValue * 1.0)*100.0);	//updates progress bar and shows
@@ -540,7 +544,7 @@ public class StormController{
 		}
 	}
 	
-	public void dispose(final JFrame frame){
+	public static void dispose(final JFrame frame){
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run(){
 				frame.dispose();
@@ -554,7 +558,7 @@ public class StormController{
 	 * @param input the input string that needs to be changed into an integer
 	 * @return the value -1 or the integer value of the inputed string (int)
 	 */
-	public int checkParseInt(String input){
+	public static int checkParseInt(String input){
 		if (input.equals("")){ return -1; }
 		else { return Integer.parseInt(input); }
 	}
@@ -567,133 +571,133 @@ public class StormController{
 	 * @param input the input string that needs to be changed into an double
 	 * @return the value -1 or the double value of the inputed string (double)
 	 */
-	public double checkParseDouble(String input){
+	public static double checkParseDouble(String input){
 		if (input.equals("")){ return -1; }
 		else { return Double.parseDouble(input); }
 	}
 
 
-	public ArrayList<Storm> getSortedBeginYearMonth(){
+	public static ArrayList<Storm> getSortedBeginYearMonth(){
 		return sorted_beginYearMonth;
 	}
 
-	public ArrayList<Storm> getSortedBeginDay(){
+	public static ArrayList<Storm> getSortedBeginDay(){
 		return sorted_beginDay;
 	}
 	
-	public ArrayList<Storm> getSortedBeginTime(){
+	public static ArrayList<Storm> getSortedBeginTime(){
 		return sorted_beginTime;
 	}
 	
-	public ArrayList<Storm> getSortedEpisodeID(){
+	public static ArrayList<Storm> getSortedEpisodeID(){
 		return sorted_episodeID;
 	}
 	
-	public ArrayList<Storm> getSortedEventID(){
+	public static ArrayList<Storm> getSortedEventID(){
 		return sorted_eventID;
 	}
 	
-	public ArrayList<Storm> getSortedState(){
+	public static ArrayList<Storm> getSortedState(){
 		return sorted_state;
 	}
 	
-	public ArrayList<Storm> getSortedStateFIPS(){
+	public static ArrayList<Storm> getSortedStateFIPS(){
 		return sorted_stateFIPS;
 	}
 	
-	public ArrayList<Storm> getSortedYear(){
+	public static ArrayList<Storm> getSortedYear(){
 		return sorted_year;
 	}
 	
-	public ArrayList<Storm> getSortedMonth(){
+	public static ArrayList<Storm> getSortedMonth(){
 		return sorted_month;
 	}
 	
-	public ArrayList<Storm> getSortedEventType(){
+	public static ArrayList<Storm> getSortedEventType(){
 		return sorted_eventType;
 	}
 	
-	public ArrayList<Storm> getSortedCzType(){
+	public static ArrayList<Storm> getSortedCzType(){
 		return sorted_czType;
 	}
 	
-	public ArrayList<Storm> getSortedCzName(){
+	public static ArrayList<Storm> getSortedCzName(){
 		return sorted_czName;
 	}
 	
-	public ArrayList<Storm> getSortedWfo(){
+	public static ArrayList<Storm> getSortedWfo(){
 		return sorted_wfo;
 	}
 	
-	public ArrayList<Storm> getSortedTimezone(){
+	public static ArrayList<Storm> getSortedTimezone(){
 		return sorted_timezone;
 	}
 	
-	public ArrayList<Storm> getSortedDirectInj(){
+	public static ArrayList<Storm> getSortedDirectInj(){
 		return sorted_directInj;
 	}
 	
-	public ArrayList<Storm> getSortedIndirectInj(){
+	public static ArrayList<Storm> getSortedIndirectInj(){
 		return sorted_indirectInj;
 	}
 
-	public ArrayList<Storm> getSortedDirectDeaths(){
+	public static ArrayList<Storm> getSortedDirectDeaths(){
 		return sorted_directDeaths;
 	}
 	
-	public ArrayList<Storm> getSortedIndirectDeaths(){
+	public static ArrayList<Storm> getSortedIndirectDeaths(){
 		return sorted_indirectDeaths;
 	}
 	
-	public ArrayList<Storm> getSortedPropertyDmg(){
+	public static ArrayList<Storm> getSortedPropertyDmg(){
 		return sorted_propertyDmg;
 	}
 	
-	public ArrayList<Storm> getSortedCropDmg(){
+	public static ArrayList<Storm> getSortedCropDmg(){
 		return sorted_cropDmg;
 	}
 	
-	public ArrayList<Storm> getSortedMagnitude(){
+	public static ArrayList<Storm> getSortedMagnitude(){
 		return sorted_magnitude;
 	}
 	
-	public ArrayList<Storm> getSortedMagnitudeType(){
+	public static ArrayList<Storm> getSortedMagnitudeType(){
 		return sorted_magnitudeType;
 	}
 	
-	public ArrayList<Storm> getSortedFloodCause(){
+	public static ArrayList<Storm> getSortedFloodCause(){
 		return sorted_floodCause;
 	}
 
-	public ArrayList<Storm> getsortedTorFSCale(){
+	public static ArrayList<Storm> getsortedTorFSCale(){
 		return sorted_torFScale;
 	}
 	
-	public ArrayList<Storm> getSortedTorLength(){
+	public static ArrayList<Storm> getSortedTorLength(){
 		return sorted_torLength;
 	}
 	
-	public ArrayList<Storm> getSortedTorWidth(){
+	public static ArrayList<Storm> getSortedTorWidth(){
 		return sorted_torWidth;
 	}
 	
-	public ArrayList<Storm> getSortedTorState(){
+	public static ArrayList<Storm> getSortedTorState(){
 		return sorted_torState;
 	}
 	
-	public ArrayList<Storm> getSortedTorName(){
+	public static ArrayList<Storm> getSortedTorName(){
 		return sorted_torName;
 	}
 	
-	public ArrayList<Storm> getSortedBeginLocation(){
+	public static ArrayList<Storm> getSortedBeginLocation(){
 		return sorted_beginLocation;
 	}
 	
-	public ArrayList<Storm> getSortedBeginLatitude(){
+	public static ArrayList<Storm> getSortedBeginLatitude(){
 		return sorted_beginLatitude;
 	}
 	
-	public ArrayList<Storm> getSortedBeginLongitude(){
+	public static ArrayList<Storm> getSortedBeginLongitude(){
 		return sorted_beginLongitude;
 	}
 
