@@ -94,6 +94,51 @@ public class Main {
 			ex.printStackTrace();
 		} 
 
+		/*
+		Thread openFile = new Thread(new Runnable (){
+
+			public void run() {
+				FileOpen.createAndShowGUI();
+
+			}
+		});
+		
+		Thread convertData = new Thread(new Runnable () {
+			public void run () {
+
+				StormController.fileToStorm(FileOpen.getPath());
+
+			}
+		});
+		
+		
+
+		openFile.start();
+
+
+
+		while(FileOpen.getPath() == null){
+			try {
+				Thread.sleep(0);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		convertData.start();
+
+		while(StormController.getStatus(finishedSort1) == false && StormController.getStatus(finishedSort2) == false) {
+			try {
+				Thread.sleep(0);
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+		
+		StormView frame = new StormView();
+		frame.setVisible(true);
+		*/
+		
 	
 		Thread openFile = new Thread(new Runnable (){
 
@@ -145,58 +190,82 @@ public class Main {
 	}
 	public static String multipleValueRight(ArrayList<Storm> array, String type, int input, int index, String output){
 		if (array.get(index).getDataInt(type) != input) return output;
-		else return multipleValue(array, type, input, index + 1, output + ", " + index);
+		else return multipleValueRight(array, type, input, index + 1, output + ", " + index);
 	}
 	
 	public static String multipleValueLeft(ArrayList<Storm> array, String type, int input, int index, String output){
 		if (array.get(index).getDataInt(type) != input) return output;
-		else return multipleValue(array, type, input, index - 1, output + ", " + index);
+		else return multipleValueLeft(array, type, input, index - 1, output + ", " + index);
 	}
 	
 	public static String multipleValueRight(ArrayList<Storm> array, String type, double input, int index, String output){
 		if (array.get(index).getDataDouble(type) != input) return output;
-		else return multipleValue(array, type, input, index + 1, output + ", " + index);
+		else return multipleValueRight(array, type, input, index + 1, output + ", " + index);
 	}
 	
 	public static String multipleValueLeft(ArrayList<Storm> array, String type, double input, int index, String output){
 		if (array.get(index).getDataDouble(type) != input) return output;
-		else return multipleValue(array, type, input, index - 1, output + ", " + index);
+		else return multipleValueLeft(array, type, input, index - 1, output + ", " + index);
 	}
 	
 	public static String multipleValueRight(ArrayList<Storm> array, String type, String input, int index, String output){
 		if (!array.get(index).getDataString(type).toLowerCase().equals(input.toLowerCase())) return output;
-		else return multipleValue(array, type, input, index + 1, output + ", " + index);
+		else return multipleValueRight(array, type, input, index + 1, output + ", " + index);
 	}
 	
 	public static String multipleValueLeft(ArrayList<Storm> array, String type, String input, int index, String output){
 		if (!array.get(index).getDataString(type).toLowerCase().equals(input.toLowerCase())) return output;
-		else return multipleValue(array, type, input, index - 1, output + ", " + index);
+		else return multipleValueLeft(array, type, input, index - 1, output + ", " + index);
 	}
 	
 	public static String multipleValueRight(ArrayList<Storm> array, String type, char input, int index, String output){
 		if (array.get(index).getDataInt(type) != input) return output;
-		else return multipleValue(array, type, input, index + 1, output + ", " + index);
+		else return multipleValueRight(array, type, input, index + 1, output + ", " + index);
 	}
 	
 	public static String multipleValueLeft(ArrayList<Storm> array, String type, char input, int index, String output){
 		if (array.get(index).getDataInt(type) != input) return output;
-		else return multipleValue(array, type, input, index - 1, output + ", " + index);
+		else return multipleValueLeft(array, type, input, index - 1, output + ", " + index);
 	}
 	
 	
+	public static int interpolationSearch(ArrayList<Storm> array, String type, int key){
+		int low = 0;
+		int high = array.size() - 1;
+		int mid;
+		
+		while (array.get(high).getDataInt(type) != array.get(low).getDataInt(type) && key >= array.get(low).getDataInt(type) && key <= array.get(high).getDataInt(type)){
+			mid = low + ((key - array.get(low).getDataInt(type)) * (high - low) / (array.get(high).getDataInt(type) - array.get(low).getDataInt(type)));
+			
+			if (array.get(mid).getDataInt(type) < key) low = mid + 1;
+			else if (key < array.get(mid).getDataInt(type)) high = mid - 1;
+			else return mid;
+		}
+		
+		
+		if (key == array.get(low).getDataInt(type)) return low;
+		else return -1;
+	}
+	
 
-	public static String binarySearch(ArrayList<Storm> array, String type, int input){
+	public static int binarySearch(ArrayList<Storm> array, String type, int input){
 		int maximum = array.size();
 		int minimum = 0;
 		int middle;
 		
 		while (minimum < maximum){
-			middle = (int) Math.floor((maximum + minimum)/2);
-			if (array.get(middle).getDataInt(type) < input)	minimum = middle + 1;
-			else maximum = middle;
+			middle = (int) Math.floor((maximum + minimum) / 2);
+			if ((int) array.get(middle).getDataInt(type) < input){
+				minimum = middle + 1;
+			} else {
+				maximum = middle;
+			}
 		}
-		if (minimum == maximum && array.get(minimum).getDataInt(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " multipleValueRight(array, type, input, minimum, "");
-		else return "-1";
+		if (minimum == maximum && array.get(minimum).getDataInt(type) < input){
+			return minimum;
+		} else {
+			return -1;
+		}
 	}
 	
 	public static String binarySearch(ArrayList<Storm> array, String type, String input){
@@ -209,7 +278,7 @@ public class Main {
 			if (array.get(middle).getDataString(type).toLowerCase().compareTo(input.toLowerCase()) < 0) minimum = middle + 1;
 			else maximum = middle;
 		}
-		if (minimum == maximum && array.get(minimum).getDataString(type).toLowerCase().compareTo(input.toLowerCase()) < 0) return multipleValueLeft(array, type, input, minimum, "") + ", " multipleValueRight(array, type, input, minimum, "");
+		if (minimum == maximum && array.get(minimum).getDataString(type).toLowerCase().compareTo(input.toLowerCase()) < 0) return multipleValueLeft(array, type, input, minimum, "") + ", " + multipleValueRight(array, type, input, minimum, "");
 		else return "-1";
 	}
 	
@@ -223,7 +292,7 @@ public class Main {
 			if (array.get(middle).getDataDouble(type) < input) minimum = middle + 1;
 			else maximum = middle;
 		}
-		if (minimum == maximum && array.get(minimum).getDataDouble(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " multipleValueRight(array, type, input, minimum, "");
+		if (minimum == maximum && array.get(minimum).getDataDouble(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " + multipleValueRight(array, type, input, minimum, "");
 		else return "-1";
 	}
 	
@@ -233,11 +302,14 @@ public class Main {
 		int middle;
 		
 		while (minimum < maximum){
-			middle = (int) Math.floor((maximum + minimum)/2);
-			if (array.get(middle).getDataChar(type) < input) minimum = middle + 1;
-			else maximum = middle;
+			middle = (int) Math.floor((maximum + minimum) / 2);
+			if (array.get(middle).getDataChar(type) < input) {
+				minimum = middle + 1;
+			} else {
+				maximum = middle;
+			}
 		}
-		if (minimum == maximum && array.get(minimum).getDataChar(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " multipleValueRight(array, type, input, minimum, "");
+		if (minimum == maximum && array.get(minimum).getDataChar(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " + multipleValueRight(array, type, input, minimum, "");
 		else return "-1";
 	}
 	
