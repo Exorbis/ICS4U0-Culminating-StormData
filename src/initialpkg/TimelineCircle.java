@@ -41,7 +41,7 @@ public class TimelineCircle extends JPanel {
     }
     
     public static void initComponents(JFrame frame){
-    	frame.add(new TimelineCircle(datum));
+    	frame.add(new TimelineCircle(datum), BorderLayout.PAGE_END);
     }
     
     @Override
