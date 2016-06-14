@@ -491,14 +491,6 @@ public class StormController{
 		
 	}
 
-	public Thread getSort1(){
-		return sort1;
-	}
-	
-	public Thread getSort2(){
-		return sort2;
-	}
-
 	public void update(final JProgressBar progressBar){
 		try {
 			progressValue++;
