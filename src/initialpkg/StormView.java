@@ -136,17 +136,6 @@ public class StormView extends JFrame implements ActionListener{
 				}
 				break;
 				
-			case "endyearmonth":
-				
-				break;
-				
-			case "endday":
-				
-				break;
-			
-			case "endtime":
-				
-				break; 
 				
 			case "episodeid":
 				sortBy2.removeAllItems();
@@ -178,13 +167,6 @@ public class StormView extends JFrame implements ActionListener{
 				}
 				break;
 				
-			case "year":
-				categoryValue = returnNonRepeats(StormController.getSortedYear(), "year");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
-				break;
 				
 			case "month":
 				categoryValue = returnNonRepeats(StormController.getSortedMonth(), "month");
@@ -210,9 +192,6 @@ public class StormView extends JFrame implements ActionListener{
 				}
 				break;
 				
-			case "czfips":
-				
-				break;
 				
 			case "czName":
 				categoryValue = returnNonRepeats(StormController.getSortedCzName(), "czName");
@@ -230,9 +209,6 @@ public class StormView extends JFrame implements ActionListener{
 				}
 				break;
 				
-			case "begindatetime":
-				
-				break;
 				
 			case "timezone":
 				categoryValue = returnNonRepeats(StormController.getSortedTimezone(), "timezone");
@@ -242,25 +218,6 @@ public class StormView extends JFrame implements ActionListener{
 				}
 				break;
 				
-			case "enddatetime":
-				
-				break;
-				
-			case "directinj":
-				categoryValue = returnNonRepeats(StormController.getSortedDirectInj(), "hello");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
-				break;
-				
-			case "indirectinj":
-				categoryValue = returnNonRepeats(StormController.getSortedIndirectInj(), "indirectinj");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
-				break;
 				
 			case "directdeaths":
 				categoryValue = returnNonRepeats(StormController.getSortedDirectDeaths(), "directdeaths");
@@ -294,10 +251,6 @@ public class StormView extends JFrame implements ActionListener{
 				}
 				break;
 				
-			case "sourcetype":
-				
-				break;
-				
 			case "magnitude":
 				categoryValue = returnNonRepeats(StormController.getSortedMagnitude(), "magnitude");
 				sortBy2.removeAllItems();
@@ -322,9 +275,6 @@ public class StormView extends JFrame implements ActionListener{
 				}
 				break;
 				
-			case "category":
-				
-				break;
 				
 			case "torfscale":
 				categoryValue = returnNonRepeats(StormController.getsortedTorFSCale(), "torfscale");
@@ -349,10 +299,7 @@ public class StormView extends JFrame implements ActionListener{
 					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
-				
-			case "torwfo":
-				
-				break;
+
 				
 			case "torstate":
 				categoryValue = returnNonRepeats(StormController.getSortedTorState(), "torstate");
@@ -362,9 +309,6 @@ public class StormView extends JFrame implements ActionListener{
 				}
 				break;
 				
-			case "torfips":
-				
-				break;
 				
 			case "torname":
 				categoryValue = returnNonRepeats(StormController.getSortedTorName(), "torname");
@@ -374,14 +318,7 @@ public class StormView extends JFrame implements ActionListener{
 				}
 				break;
 				
-			case  "beginrange":
-				
-				break;
-				
-			case "beginazimuth":
-			
-				break;
-				
+
 			case "beginlocation":
 				categoryValue = returnNonRepeats(StormController.getSortedBeginLocation(), "beginlocation");
 				sortBy2.removeAllItems();
@@ -390,13 +327,6 @@ public class StormView extends JFrame implements ActionListener{
 				}
 				break;
 				
-			case "endrange":
-				
-				break;
-				
-			case "endazimuth":
-				
-				break;
 				
 			case "beginlatitude":
 				categoryValue = returnNonRepeats(StormController.getSortedBeginLatitude(), "beginlatitude");
@@ -414,53 +344,6 @@ public class StormView extends JFrame implements ActionListener{
 				}
 				break;
 				
-			case "endlatitude":
-				
-				break;
-				
-			case "endlongitude":
-				
-				break;
-				
-			case "episodenarrrative":
-				
-				break;
-				
-			case "eventnarrative":
-				
-				break;
-				
-			case "lastmoddate":
-				
-				break;
-				
-			case "lastmodtime":
-				
-				break;
-				
-			case "lastcertdate":
-				
-				break;
-				
-			case "lastcerttime":
-				
-				break;
-				
-			case "lastmod":
-				
-				break;
-				
-			case "lastcert":
-				
-				break;
-				
-			case "addcorrflg":
-				
-				break;
-				
-			case "addcorrdate":
-				
-				break;
 			}
 		}
 	}
