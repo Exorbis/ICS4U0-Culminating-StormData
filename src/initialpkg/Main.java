@@ -190,60 +190,60 @@ public class Main {
 	}
 	public static String multipleValueRight(ArrayList<Storm> array, String type, int input, int index, String output){
 		if (array.get(index).getDataInt(type) != input) return output;
-		else return multipleValue(array, type, input, index + 1, output + ", " + index);
+		else return multipleValueRight(array, type, input, index + 1, output + ", " + index);
 	}
 	
 	public static String multipleValueLeft(ArrayList<Storm> array, String type, int input, int index, String output){
 		if (array.get(index).getDataInt(type) != input) return output;
-		else return multipleValue(array, type, input, index - 1, output + ", " + index);
+		else return multipleValueLeft(array, type, input, index - 1, output + ", " + index);
 	}
 	
 	public static String multipleValueRight(ArrayList<Storm> array, String type, double input, int index, String output){
 		if (array.get(index).getDataDouble(type) != input) return output;
-		else return multipleValue(array, type, input, index + 1, output + ", " + index);
+		else return multipleValueRight(array, type, input, index + 1, output + ", " + index);
 	}
 	
 	public static String multipleValueLeft(ArrayList<Storm> array, String type, double input, int index, String output){
 		if (array.get(index).getDataDouble(type) != input) return output;
-		else return multipleValue(array, type, input, index - 1, output + ", " + index);
+		else return multipleValueLeft(array, type, input, index - 1, output + ", " + index);
 	}
 	
 	public static String multipleValueRight(ArrayList<Storm> array, String type, String input, int index, String output){
 		if (!array.get(index).getDataString(type).toLowerCase().equals(input.toLowerCase())) return output;
-		else return multipleValue(array, type, input, index + 1, output + ", " + index);
+		else return multipleValueRight(array, type, input, index + 1, output + ", " + index);
 	}
 	
 	public static String multipleValueLeft(ArrayList<Storm> array, String type, String input, int index, String output){
 		if (!array.get(index).getDataString(type).toLowerCase().equals(input.toLowerCase())) return output;
-		else return multipleValue(array, type, input, index - 1, output + ", " + index);
+		else return multipleValueLeft(array, type, input, index - 1, output + ", " + index);
 	}
 	
 	public static String multipleValueRight(ArrayList<Storm> array, String type, char input, int index, String output){
 		if (array.get(index).getDataInt(type) != input) return output;
-		else return multipleValue(array, type, input, index + 1, output + ", " + index);
+		else return multipleValueRight(array, type, input, index + 1, output + ", " + index);
 	}
 	
 	public static String multipleValueLeft(ArrayList<Storm> array, String type, char input, int index, String output){
 		if (array.get(index).getDataInt(type) != input) return output;
-		else return multipleValue(array, type, input, index - 1, output + ", " + index);
+		else return multipleValueLeft(array, type, input, index - 1, output + ", " + index);
 	}
 	
 	
-	public static int interpolationSearch(ArrayList<Storm> array, int key){
+	public static int interpolationSearch(ArrayList<Storm> array, String type, int key){
 		int low = 0;
 		int high = array.size() - 1;
 		int mid;
 		
-		while (array.get(high).getDataInt != array.get(low).getDataInt && key >= array.get(low).getDataInt && key <= array.get(high).getDataInt){
-			mid = low + ((key - array.get(low).getDataInt) * (high - low) / (array.get(high).getDataInt - array.get(low).getDataInt));
+		while (array.get(high).getDataInt(type) != array.get(low).getDataInt(type) && key >= array.get(low).getDataInt(type) && key <= array.get(high).getDataInt(type)){
+			mid = low + ((key - array.get(low).getDataInt(type)) * (high - low) / (array.get(high).getDataInt(type) - array.get(low).getDataInt(type)));
 			
-			if (array.get(mid).getDataInt < key) low = mid + 1;
-			else if (key < array.get(mid).getDataInt) high = mid - 1;
+			if (array.get(mid).getDataInt(type) < key) low = mid + 1;
+			else if (key < array.get(mid).getDataInt(type)) high = mid - 1;
 			else return mid;
 		}
 		
 		
-		if (key == array.get(low).getDataInt) return low;
+		if (key == array.get(low).getDataInt(type)) return low;
 		else return -1;
 	}
 	
@@ -278,7 +278,7 @@ public class Main {
 			if (array.get(middle).getDataString(type).toLowerCase().compareTo(input.toLowerCase()) < 0) minimum = middle + 1;
 			else maximum = middle;
 		}
-		if (minimum == maximum && array.get(minimum).getDataString(type).toLowerCase().compareTo(input.toLowerCase()) < 0) return multipleValueLeft(array, type, input, minimum, "") + ", " multipleValueRight(array, type, input, minimum, "");
+		if (minimum == maximum && array.get(minimum).getDataString(type).toLowerCase().compareTo(input.toLowerCase()) < 0) return multipleValueLeft(array, type, input, minimum, "") + ", " + multipleValueRight(array, type, input, minimum, "");
 		else return "-1";
 	}
 	
@@ -292,7 +292,7 @@ public class Main {
 			if (array.get(middle).getDataDouble(type) < input) minimum = middle + 1;
 			else maximum = middle;
 		}
-		if (minimum == maximum && array.get(minimum).getDataDouble(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " multipleValueRight(array, type, input, minimum, "");
+		if (minimum == maximum && array.get(minimum).getDataDouble(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " + multipleValueRight(array, type, input, minimum, "");
 		else return "-1";
 	}
 	
@@ -309,7 +309,7 @@ public class Main {
 				maximum = middle;
 			}
 		}
-		if (minimum == maximum && array.get(minimum).getDataChar(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " multipleValueRight(array, type, input, minimum, "");
+		if (minimum == maximum && array.get(minimum).getDataChar(type) < input) return multipleValueLeft(array, type, input, minimum, "") + ", " + multipleValueRight(array, type, input, minimum, "");
 		else return "-1";
 	}
 	
