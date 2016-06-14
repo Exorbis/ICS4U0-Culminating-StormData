@@ -62,6 +62,7 @@ public class StormController{
 	private boolean finishedSort1 = false, finishedSort2 = false, finishedSort3 = false;
   
   	private Thread sort1, sort2;
+  	private ArrayList<Storm> fileStorm;
 
   	public static StormController(){
     
@@ -298,7 +299,7 @@ public class StormController{
 			e.printStackTrace();
 		}
 
-		
+		fileStorm = array;
 		
 		
 		progressValue = 0;
@@ -489,6 +490,10 @@ public class StormController{
 		dispose(frame);
 		
 		
+	}
+
+	public ArrayList<Storm> getFile(){
+		return fileStorm;
 	}
 
 	public void update(final JProgressBar progressBar){
