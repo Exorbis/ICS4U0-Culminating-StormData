@@ -53,7 +53,9 @@ public class StormView extends JFrame implements ActionListener{
 		this.add(stormInfoScroll, BorderLayout.CENTER);
 		
 		
-		TimelineCircle.initComponents(this);
+		for (int i = 0; i < StormController.getFile().size(); i++){
+			new TimelineCircle(StormController.getFile().get(i)
+		}
 
 	}
 	
