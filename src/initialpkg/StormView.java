@@ -30,13 +30,18 @@ public class StormView extends JFrame implements ActionListener{
 	 * This is the default constructor that is called to display the client 
 	 */
 	StormView(){
-		JPanel dropDown = new JPanel();
-		setLayout(new FlowLayout());
+		JPanel dropDown = new JPanel(new FlowLayout());
+		setLayout(new BorderLayout());
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize((int) (screenSize.getWidth() * 0.9), (int) (screenSize.getHeight() * 0.8));
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Storm Data Timeline");
+		
+		JTextArea stormInfo = new JTextArea(15, 40);
+		JScrollPane stormInfoScroll = new JScrollPane(stormInfo);
+		stormInfo.setMargin(new Insets(5,5,5,5));
+		stormInfo.setEditable(false);
 		
 
 		sortBy.setSelectedIndex(0);
@@ -44,7 +49,9 @@ public class StormView extends JFrame implements ActionListener{
 		dropDown.add(sortBy);
 		dropDown.add(sortBy2);
 		
-		this.add(dropDown);
+		this.add(dropDown, BorderLayout.PAGE_START);
+		this.add(stormInfoScroll, BorderLayout.CENTER);
+		
 		
 		TimelineCircle.initComponents(this);
 
