@@ -22,6 +22,7 @@ public class TimelineCircle extends JPanel {
     private static int xpos;
 
     public TimelineCircle(Storm datum, int xpos) {
+    	this.datum = datum;
     	this.xpos = xpos;
         shapes = new ArrayList<>();
         this.circle = new Ellipse2D.Double(xpos, 100, 10, 10);
@@ -38,15 +39,14 @@ public class TimelineCircle extends JPanel {
                         if (s instanceof Ellipse2D) {
                             System.out.println();
                         }
-
                     }
                 }
             }
         });
     }
     
-    public static void initComponents(JFrame frame){
-    	frame.add(new TimelineCircle(datum, xpos), BorderLayout.PAGE_END);
+    public static void initComponents(JFrame frame, Storm storm, int xposition){
+    	frame.add(new TimelineCircle(storm, xposition), BorderLayout.PAGE_END);
     }
     
     @Override

@@ -58,7 +58,7 @@ public class StormView extends JFrame implements ActionListener{
 		
 		int spacing = 0;
 		for (int i = 0; i < StormController.getFile().size(); i++){
-			new TimelineCircle(StormController.getFile().get(i), spacing);
+			TimelineCircle.initComponents(this, StormController.getFile().get(i), spacing);
 			spacing += 5;
 		}
 

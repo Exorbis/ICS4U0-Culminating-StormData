@@ -1,6 +1,5 @@
 package initialpkg;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.BufferedReader;
@@ -308,6 +307,7 @@ public class StormController{
 		progressValue = 0;
 		totalValue = 30;
 		panel.add(counter2);
+		progressBar.setString("Sorting file");
 		
 		sort1 = new Thread(new Runnable () {
 			public void run () {
@@ -519,7 +519,7 @@ public class StormController{
 			SwingUtilities.invokeLater(new Runnable() {								//the text.  This runs in another 
 				public void run() {													//Thread.
 					progressBar.setValue(setValue);
-					progressBar.setString("Reading file - [" + setValue + "%]");
+					progressBar.setString( setValue + "%");
 				}
 			});
 
