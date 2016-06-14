@@ -61,6 +61,7 @@ public class StormController{
 
 	private boolean finishedSort1 = false, finishedSort2 = false, finishedSort3 = false;
   
+  	private Thread sort1, sort2;
 
   	public static StormController(){
     
@@ -304,7 +305,7 @@ public class StormController{
 		totalValue = 30;
 		panel.add(counter2);
 		
-		Thread sort1 = new Thread(new Runnable () {
+		sort1 = new Thread(new Runnable () {
 			public void run () {
 
 				sortBarValue1 = 0;
@@ -396,7 +397,7 @@ public class StormController{
 			}
 		});
 		
-		Thread sort2 = new Thread(new Runnable () {
+		sort2 = new Thread(new Runnable () {
 			public void run () {
 				
 				
@@ -490,6 +491,13 @@ public class StormController{
 		
 	}
 
+	public Thread getSort1(){
+		return sort1;
+	}
+	
+	public Thread getSort2(){
+		return sort2;
+	}
 
 	public void update(final JProgressBar progressBar){
 		try {
@@ -556,9 +564,6 @@ public class StormController{
 	}
 
 
-	
-
-	
 	public ArrayList<Storm> getSortedBeginYearMonth(){
 		return sorted_beginYearMonth;
 	}
