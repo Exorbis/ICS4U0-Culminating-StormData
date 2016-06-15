@@ -69,6 +69,8 @@ public class Main {
 			}
 		}
 		
+		
+		
 		StormView frame = new StormView();
 		frame.setVisible(true);
 		

@@ -70,6 +70,148 @@ public class StormController{
     
   	}
   
+  	public static String multipleValueRight(ArrayList<Storm> array, String type, int key, int index, String output){
+  		while (index < array.size() && array.get(index).getDataInt(type) == key){
+			output = output + ", " + index;
+			index++;
+		}
+		return output;
+	}
+
+	public static String multipleValueLeft(ArrayList<Storm> array, String type, int key, int index, String output){
+		while (index >= 0 && array.get(index).getDataInt(type) == key){
+			output = index + ", " + output;
+			index--;
+		}
+		return output;
+	}
+
+	public static String multipleValueRight(ArrayList<Storm> array, String type, double key, int index, String output){
+		while (index < array.size() && array.get(index).getDataDouble(type) == key){
+			output = output + ", " + index;
+			index++;
+		}
+		return output;
+	}
+
+	public static String multipleValueLeft(ArrayList<Storm> array, String type, double key, int index, String output){
+		while (index >= 0 && array.get(index).getDataDouble(type) == key){
+			output = index + ", " + output;
+			index--;
+		}
+		return output;
+	}
+
+	public static String multipleValueRight(ArrayList<Storm> array, String type, String key, int index, String output){
+		while (index < array.size() && array.get(index).getDataString(type).equals(key)){
+			output = output + ", " + index;
+			index++;
+		}
+		return output;
+	}
+
+	public static String multipleValueLeft(ArrayList<Storm> array, String type, String key, int index, String output){
+		while (index >= 0 && array.get(index).getDataString(type).equals(key)){
+			output = index + ", " + output;
+			index--;
+		}
+		return output;
+	}
+
+	public static String multipleValueRight(ArrayList<Storm> array, String type, char key, int index, String output){
+		while (index < array.size() && array.get(index).getDataChar(type) == key){
+			output = output + ", " + index;
+			index++;
+		}
+		return output;
+	}
+
+	public static String multipleValueLeft(ArrayList<Storm> array, String type, char key, int index, String output){
+		while (index >= 0 && array.get(index).getDataChar(type) == key){
+			output = index + ", " + output;
+			index--;
+		}
+		return output;
+	}
+  	
+  	
+  	public static String binarySearch(ArrayList<Storm> array, String type, int key){
+  		int low = 0;
+        int high = array.size() - 1;
+        while (low <= high) {
+           int mid = (low + high)/2;
+           if (array.get(mid).getDataInt(type) == key) return multipleValueLeft(array, type, key, mid, String.valueOf(mid)) + ", " + multipleValueRight(array, type, key, mid, "");
+           else if (array.get(mid).getDataInt(type) < key) low = mid + 1;
+           else high = mid - 1;
+        }
+        return "-1";
+  	}
+  	
+
+  	public static String binarySearch(ArrayList<Storm> array, String type, double key){
+  		int low = 0;
+        int high = array.size() - 1;
+        while (low <= high) {
+           int mid = (low + high)/2;
+           if (array.get(mid).getDataDouble(type) == key) return multipleValueLeft(array, type, key, mid, String.valueOf(mid)) + ", " + multipleValueRight(array, type, key, mid, "");
+           else if (array.get(mid).getDataDouble(type) < key) low = mid + 1;
+           else high = mid - 1;
+        }
+        return "-1";
+  	}
+  	
+  	public static String binarySearch(ArrayList<Storm> array, String type, char key){
+  		int low = 0;
+        int high = array.size() - 1;
+        while (low <= high) {
+           int mid = (low + high)/2;
+           if (array.get(mid).getDataChar(type) == key) return multipleValueLeft(array, type, key, mid, String.valueOf(mid)) + ", " + multipleValueRight(array, type, key, mid, "");
+           else if (array.get(mid).getDataChar(type) < key) low = mid + 1;
+           else high = mid - 1;
+        }
+        return "-1";
+  	}
+  	
+  	
+  	
+  	public static String binarySearch(ArrayList<Storm> array, String type, String key){
+  		int maximum = array.size();
+  		int minimum = 0;
+  		int middle;
+  		while (minimum < maximum) {
+  			middle = (int) Math.floor((maximum + minimum) / 2);
+  			if (array.get(middle).getDataString(type).compareToIgnoreCase(key) < 0) minimum = middle + 1; 
+  			else maximum = middle;
+  		}
+  		
+  		if (minimum == maximum && array.get(minimum).getDataString(type).equalsIgnoreCase(key)) return multipleValueLeft(array, type, key, minimum, String.valueOf(minimum)) + ", " + multipleValueRight(array, type, key, minimum, "");
+  		else return "-1";
+  		
+  	}
+  	
+
+  	
+  	public static int linearSearch(ArrayList<Storm> array, String type, int key){
+  		int index = 0;
+  		while (index < array.size()){
+  			if (array.get(index).getDataInt(type) == key) return index;
+  			else index++;
+  		}
+  		return -1;
+  	}
+  	
+  	public static int linearSearch(ArrayList<Storm> array, String type, char key){
+  		int index = 0;
+  		while (index < array.size()){
+  			if (array.get(index).getDataInt(type) == key) return index;
+  			else index++;
+  		}
+  		return -1;
+  	}
+  	
+  	
+  	
+  	
 	 /**
 	 * This method sorts an array of Storm objects based off the specified data type in a recursive-top down format
 	 *
@@ -280,7 +422,7 @@ public class StormController{
 
 				if (progressValue != 0){
 
-					array.add(new Storm(thisLine[0], checkParseInt(thisLine[1]), checkParseInt(thisLine[2]), thisLine[3], checkParseInt(thisLine[4]), checkParseInt(thisLine[5]), 
+					array.add(new Storm(checkParseInt(thisLine[0]), checkParseInt(thisLine[1]), checkParseInt(thisLine[2]), thisLine[3], checkParseInt(thisLine[4]), checkParseInt(thisLine[5]), 
 							checkParseInt(thisLine[6]), checkParseInt(thisLine[7]), thisLine[8], checkParseInt(thisLine[9]), checkParseInt(thisLine[10]), thisLine[11], thisLine[12], 
 							thisLine[13].charAt(0), checkParseInt(thisLine[14]), thisLine[15], thisLine[16], thisLine[17], thisLine[18], thisLine[19], checkParseInt(thisLine[20]), 
 							checkParseInt(thisLine[21]), checkParseInt(thisLine[22]), checkParseInt(thisLine[23]), thisLine[24], thisLine[25], thisLine[26], checkParseDouble(thisLine[27]),

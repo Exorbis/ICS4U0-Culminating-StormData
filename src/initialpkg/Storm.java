@@ -30,12 +30,12 @@ public class Storm {
 	
 	}
 	
-	private int monthIndex, customPropertyDmg, customCropDmg;
-	private double indexFullDateTime;
+	private int monthIndex;
+	private double indexFullDateTime, customPropertyDmg, customCropDmg;
 	private String customTime, customDate;
 	
-	private String beginYearMonth, endYearMonth, state, month, eventType, czName, wfo, beginDateTime, timezone, endDateTime, propertyDmg, cropDmg, sourceType, magnitudeType, floodCause, category, torFScale, torwfo, torState, torName, beginAzimuth, beginLocation, endAzimuth, endLocation, episodeNarrative, eventNarrative, lastModDate, lastModTime, lastCertDate, lastCertTime, lastMod, lastCert, addCorrFlg, addCorrDate;
-	private int beginDay, beginTime, endDay, endTime, episodeID, eventID, stateFIPS, year, czFips, directInj, indirectInj, directDeaths, indirectDeaths, torFIPS;
+	private String endYearMonth, state, month, eventType, czName, wfo, beginDateTime, timezone, endDateTime, propertyDmg, cropDmg, sourceType, magnitudeType, floodCause, category, torFScale, torwfo, torState, torName, beginAzimuth, beginLocation, endAzimuth, endLocation, episodeNarrative, eventNarrative, lastModDate, lastModTime, lastCertDate, lastCertTime, lastMod, lastCert, addCorrFlg, addCorrDate;
+	private int beginYearMonth, beginDay, beginTime, endDay, endTime, episodeID, eventID, stateFIPS, year, czFips, directInj, indirectInj, directDeaths, indirectDeaths, torFIPS;
 	private double magnitude, torLength, beginRange, endRange, beginLatitude, beginLongitude, endLatitude, endLongitude, torWidth;
 	private char czType;
 	
@@ -103,7 +103,7 @@ public class Storm {
 	 * @param addCorrFlg this is an added correction flag by NWS 
 	 * @param addCorrDate this is an added correction date by NWS
 	 */
-	public Storm(String beginYearMonth, int beginDay, int beginTime, String endYearMonth, int endDay, int endTime, 
+	public Storm(int beginYearMonth, int beginDay, int beginTime, String endYearMonth, int endDay, int endTime, 
 			int episodeID, int eventID, String state, int stateFIPS, int year, String month, String eventType, char czType, 
 			int czFips, String czName, String wfo, String beginDateTime, String timezone, String endDateTime, int directInj, 
 			int indirectInj, int directDeaths, int indirectDeaths, String propertyDmg, String cropDmg, String sourceType, double magnitude,
@@ -188,18 +188,37 @@ public class Storm {
 		
 		this.indexFullDateTime = Double.parseDouble(this.customDate) + Double.parseDouble(this.customTime);
 		
+		
 		if (this.propertyDmg.contains("K")){
-			this.customPropertyDmg = Integer.parseInt(this.propertyDmg.replaceAll(".", "") + "0");	
+			this.customPropertyDmg = Double.parseDouble(this.propertyDmg.replaceAll("K", "")) * 1000;	
 		}
 		else if (this.propertyDmg.contains("M")){
-			this.customPropertyDmg = Integer.parseInt(this.propertyDmg.replaceAll(".", "") + "0000");
+			this.customPropertyDmg = Double.parseDouble(this.propertyDmg.replaceAll("M", "")) * 1000000;
+		} 
+		else if (this.propertyDmg.contains("B")){
+			this.customPropertyDmg = Double.parseDouble(this.propertyDmg.replaceAll("B", "")) * 1000000000;
+		}
+		else if(this.propertyDmg.contains("")){
+			this.customPropertyDmg = 0;
+		} else {
+			this.customPropertyDmg = Double.parseDouble(this.propertyDmg);
 		}
 		
+		
+		
 		if (this.cropDmg.contains("K")){
-			this.customCropDmg = Integer.parseInt(this.cropDmg.replaceAll(".", "") + "0");
+			this.customCropDmg = Double.parseDouble(this.cropDmg.replaceAll("K", "")) * 1000;	
 		}
 		else if (this.cropDmg.contains("M")){
-			this.customCropDmg = Integer.parseInt(this.cropDmg.replaceAll(".", "") + "0000");
+			this.customCropDmg = Double.parseDouble(this.cropDmg.replaceAll("M", "")) * 1000000;
+		} 
+		else if (this.cropDmg.contains("B")){
+			this.customCropDmg = Double.parseDouble(this.cropDmg.replaceAll("B", "")) * 1000000000;
+		}
+		else if(this.cropDmg.contains("")){
+			this.customCropDmg = 0;
+		} else {
+			this.customCropDmg = Double.parseDouble(this.cropDmg);
 		}
 		
 	}
@@ -217,7 +236,7 @@ public class Storm {
 			return ((Object)this.czType).getClass().getSimpleName();
 		
 		case "beginyearmonth":
-			return this.beginYearMonth.getClass().getSimpleName();
+			return ((Object)this.beginYearMonth).getClass().getSimpleName();
 			
 		case "endyearmonth":
 			return this.endYearMonth.getClass().getSimpleName();
@@ -413,6 +432,9 @@ public class Storm {
 	public int getDataInt(String type){
 		switch (type.toLowerCase().trim()){
 		
+		case "beginyearmonth":
+			return this.beginYearMonth;
+		
 		case "hello":
 			return this.directInj;
 		
@@ -462,11 +484,6 @@ public class Storm {
 		case "torfips":
 			return this.torFIPS;
 			
-		case "propertydmg":
-			return this.customPropertyDmg;
-			
-		case "cropdmg":
-			return this.customCropDmg;
 		}
 		return -1;
 	}
@@ -480,6 +497,12 @@ public class Storm {
 	public double getDataDouble(String type){
 		switch (type.toLowerCase()){
 			
+		case "propertydmg":
+			return this.customPropertyDmg;
+			
+		case "cropdmg":
+			return this.customCropDmg;
+		
 		case "magnitude":
 			return this.magnitude;
 			
@@ -522,9 +545,6 @@ public class Storm {
 	 */
 	public String getDataString(String type){
 		switch (type.toLowerCase()) {
-		
-		case "beginyearmonth":
-			return this.beginYearMonth.trim();
 			
 		case "endyearmonth":
 			return this.endYearMonth.trim();
@@ -624,7 +644,7 @@ public class Storm {
 			return String.valueOf(this.directInj);
 		
 		case "beginyearmonth":
-			return this.beginYearMonth;
+			return String.valueOf(this.beginYearMonth);
 			
 		case "beginday":
 			return String.valueOf(this.beginDay);

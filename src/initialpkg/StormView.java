@@ -1,6 +1,7 @@
 package initialpkg;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Insets;
@@ -14,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import processing.core.PApplet;
+
 /**
  * This StormView will be used as the main client that the user interacts with and where the data is displayed
  * 
@@ -25,7 +28,7 @@ import javax.swing.JTextArea;
  */
 public class StormView extends JFrame implements ActionListener{
 	
-	private String [] categories = {"beginYearMonth", "beginDay", "beginTime", "episodeID", "eventID", "state", "stateFIPS", "year", "month", "eventType", "czType", "czFips", "czName", "wfo", "beginDateTime", "timezone", "directInj", "indirectInj", "propertyDmg", "cropDmg", "sourceType", "magnitude", "magnitudeType", "floodCause", "category", "torFScale", "torLength", "torWidth", "torwfo", "torState", "torFIPS", "torName", "beginAzimuth", "beingRange", "beginLocation", "beginLatitude", "beginLongitude", "episodeNarrative", "eventNarrative", "lastModDate", "lastModTime", "lastCertDate", "lastCertTime", "lastMod", "lastCert", "addCorrFlg", "addCorrDate"};
+	private String [] categories = {"beginYearMonth", "beginDay", "beginTime", "episodeID", "eventID", "state", "stateFIPS", "month", "eventType", "czType", "czName", "wfo", "timezone", "propertyDmg", "cropDmg", "magnitude", "magnitudeType", "floodCause", "torFScale", "torLength", "torWidth", "torState", "torName", "beginLocation", "beginLatitude", "beginLongitude"};
 	
 	private JComboBox sortBy = new JComboBox(categories);
 	private JComboBox sortBy2 = new JComboBox();
@@ -35,6 +38,12 @@ public class StormView extends JFrame implements ActionListener{
 	 */
 	StormView(){
 		JPanel dropDown = new JPanel(new FlowLayout());
+		JPanel timelinePanel = new JPanel();
+		timelinePanel.setBounds(20, 20, 600, 600);
+		PApplet sketch = new Circle();
+		timelinePanel.add(sketch);
+		sketch.init();
+		
 		setLayout(new BorderLayout());
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize((int) (screenSize.getWidth() * 0.9), (int) (screenSize.getHeight() * 0.8));
@@ -54,13 +63,10 @@ public class StormView extends JFrame implements ActionListener{
 		dropDown.add(sortBy2);
 		
 		this.add(dropDown, BorderLayout.PAGE_START);
-		this.add(stormInfoScroll, BorderLayout.CENTER);
+		//this.add(stormInfoScroll, BorderLayout.CENTER);
+		this.add(timelinePanel, BorderLayout.CENTER);
 		
-		int spacing = 0;
-		for (int i = 0; i < StormController.getFile().size(); i++){
-			TimelineCircle.initComponents(this, StormController.getFile().get(i), spacing);
-			spacing += 5;
-		}
+		
 
 	}
 	
