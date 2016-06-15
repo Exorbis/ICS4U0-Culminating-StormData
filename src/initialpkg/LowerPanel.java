@@ -12,8 +12,8 @@ public class LowerPanel extends CenterPanel {
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	String [] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 	float red, green, blue;
-	double max;
-	double intensity;
+	double maxDmg, maxMag;
+	double intensity, magIntensity;
 
 
 	
@@ -22,7 +22,8 @@ public class LowerPanel extends CenterPanel {
 		size((int) (screenSize.getWidth() * 0.9), (int) ((screenSize.getHeight() * 0.8)*0.2));
 		background(255);
 
-		max = Collections.max(StormController.getTotalDmgMonths());
+		maxDmg = Collections.max(StormController.getTotalDmgMonths());
+		maxMag = Collections.max(StormController.getTotalMagnitudeMonths());
 
 		fill(200);
 		ellipseMode(CENTER);
@@ -32,10 +33,14 @@ public class LowerPanel extends CenterPanel {
 		float xcord = spacing/2;
 		
 		for (int i = 0; i < 12; i++){
-			intensity = (StormController.getTotalDmgMonths().get(i)) / max;
+			intensity = (StormController.getTotalDmgMonths().get(i)) / maxDmg;
+			magIntensity = (StormController.getTotalMagnitudeMonths().get(i)) / maxMag;
+			if (magIntensity == 0.0){
+				magIntensity = 0.1;
+			}
 			setColor(intensity);
 			fill(this.red, this.green, this.blue);
-			ellipse(xcord, height/2, 20, 20);
+			ellipse(xcord, height/2, (float) magIntensity * 100, (float) magIntensity * 100);
 			fill(0);
 			text(months[i], xcord, height - 20);
 			xcord += spacing;
