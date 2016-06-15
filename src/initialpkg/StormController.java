@@ -18,6 +18,18 @@ import javax.swing.UIManager;
 
 import com.opencsv.CSVReader;
 
+/**
+ * This is where all data initializations and methods occur for the startup in order to allow the program to run
+ * It includes all the sorts, searches, and other functions are held if they do not particularly pertain to any class
+ * This class is not meant to be initialized, it is meant to be used solely for its functionality of methods and passing information within the program
+ * 
+ * 
+ * @author Marc Pelve
+ * @since JDK 8
+ * @since June 15, 2016
+ * @version 1.1
+ *
+ */
 public class StormController{
   
   	private static ArrayList<Storm> sorted_beginYearMonth = new ArrayList<Storm>();
@@ -70,34 +82,78 @@ public class StormController{
   	private static ArrayList<Integer> totalStormsPerState;
   	private static ArrayList<Double> totalDmgMonths, totalMagnitudeMonths;
   	
+  	/**
+  	 * This is the constructor that is never called as a new object due to the fact that this is a static class and in no way meant to be initialized, only used for its functionality
+  	 */
   	public StormController(){
     
   	}
   
+  	/**
+  	 * This method returns the total dmg done in each month in the form of an ArrayList of doubles
+  	 * 
+  	 * @return the variable containing the total dmg done in each month
+  	 */
   	public static ArrayList<Double> getTotalDmgMonths(){
   		return totalDmgMonths;
   	}
   	
+  	/**
+  	 * This method returns the total magnitude incurred in each month in the form of an ArraryList of double
+  	 * 
+  	 * @return the variable containing the total magnitude in each month
+  	 */
   	public static ArrayList<Double> getTotalMagnitudeMonths(){
   		return totalMagnitudeMonths;
   	}
   	
+  	/**
+  	 * This method changes the total damage months variable to one specified by the input array
+  	 * 
+  	 * @param array is the input array that is supposed to contain the total damage for each month
+  	 */
   	public static void setTotalDmgMonths(ArrayList<Double> array){
   		totalDmgMonths = array;
   	}
   	
+  	/**
+  	 * This method changes the total magnitude months variable to one specified by the input array
+  	 * 
+  	 * @param array is the input array that is supposed to contain the total magnitude for each month
+  	 */
   	public static void setTotalMagnitudeMonths(ArrayList<Double> array){
   		totalMagnitudeMonths = array;
   	}
   	
+  	
+  	/**
+  	 * This method returns the total storms that have occurred in each state in the form of sorted (by state) ArrayList of integers 
+  	 * 
+  	 * @return the variable containing the total storms per state
+  	 */
   	public static ArrayList<Integer> getTotalStormsPerState(){
   		return totalStormsPerState;
   	}
   	
+  	/**
+  	 * This method changes the total storms per state to one specified by the input array
+  	 * 
+  	 * @param array is the input array that is supposed to contain the total storms per state
+  	 */
   	public static void setTotalStormsPerState(ArrayList<Integer> array){
   		totalStormsPerState = array;
   	}
   	
+  	/**
+  	 * This function is used to check to the right of a specific index value in an array in order to ensure all of the key matching index values are included
+  	 * 
+  	 * @param array is the input array that is being referenced
+  	 * @param type is the type of data that is to be retrieved from Storm class
+  	 * @param key is the target value that is being searched for
+  	 * @param index is the current index position that is being referenced with the array
+  	 * @param output is the indexes of the key in one chain of a string
+  	 * @return all the indexes on the right side of the specified index on start
+  	 */
   	public static String multipleValueRight(ArrayList<Storm> array, String type, int key, int index, String output){
 		index++;
   		while (index < array.size()){
@@ -107,6 +163,16 @@ public class StormController{
 		return output;
 	}
 
+  	/**
+  	 * This function is used to check to the left of a specific index value in an array in order to ensure all of the key matching index values are included
+  	 * 
+  	 * @param array is the input array that is being referenced
+  	 * @param type is the type of data that is to be retrieved from Storm class
+  	 * @param key is the target value that is being searched for
+  	 * @param index is the current index position that is being referenced with the array
+  	 * @param output is the indexes of the key in one chain of a string
+  	 * @return all the indexes on the left side of the specified index on start
+  	 */
 	public static String multipleValueLeft(ArrayList<Storm> array, String type, int key, int index, String output){
 		index--;
 		while (index >= 0){
@@ -116,6 +182,16 @@ public class StormController{
 		return output;
 	}
 
+	/**
+  	 * This function is used to check to the right of a specific index value in an array in order to ensure all of the key matching index values are included
+  	 * 
+  	 * @param array is the input array that is being referenced
+  	 * @param type is the type of data that is to be retrieved from Storm class
+  	 * @param key is the target value that is being searched for
+  	 * @param index is the current index position that is being referenced with the array
+  	 * @param output is the indexes of the key in one chain of a string
+  	 * @return all the indexes on the right side of the specified index on start
+  	 */
 	public static String multipleValueRight(ArrayList<Storm> array, String type, double key, int index, String output){
 		index++;
 		while (index < array.size()){
@@ -125,6 +201,16 @@ public class StormController{
 		return output;
 	}
 
+	/**
+  	 * This function is used to check to the left of a specific index value in an array in order to ensure all of the key matching index values are included
+  	 * 
+  	 * @param array is the input array that is being referenced
+  	 * @param type is the type of data that is to be retrieved from Storm class
+  	 * @param key is the target value that is being searched for
+  	 * @param index is the current index position that is being referenced with the array
+  	 * @param output is the indexes of the key in one chain of a string
+  	 * @return all the indexes on the left side of the specified index on start
+  	 */
 	public static String multipleValueLeft(ArrayList<Storm> array, String type, double key, int index, String output){
 		index--;
 		while (index >= 0){
@@ -134,6 +220,16 @@ public class StormController{
 		return output;
 	}
 
+	/**
+  	 * This function is used to check to the right of a specific index value in an array in order to ensure all of the key matching index values are included
+  	 * 
+  	 * @param array is the input array that is being referenced
+  	 * @param type is the type of data that is to be retrieved from Storm class
+  	 * @param key is the target value that is being searched for
+  	 * @param index is the current index position that is being referenced with the array
+  	 * @param output is the indexes of the key in one chain of a string
+  	 * @return all the indexes on the right side of the specified index on start
+  	 */
 	public static String multipleValueRight(ArrayList<Storm> array, String type, String key, int index, String output){
 		index++;
 		while (index < array.size()){
@@ -143,6 +239,16 @@ public class StormController{
 		return output;
 	}
 
+	/**
+  	 * This function is used to check to the left of a specific index value in an array in order to ensure all of the key matching index values are included
+  	 * 
+  	 * @param array is the input array that is being referenced
+  	 * @param type is the type of data that is to be retrieved from Storm class
+  	 * @param key is the target value that is being searched for
+  	 * @param index is the current index position that is being referenced with the array
+  	 * @param output is the indexes of the key in one chain of a string
+  	 * @return all the indexes on the left side of the specified index on start
+  	 */
 	public static String multipleValueLeft(ArrayList<Storm> array, String type, String key, int index, String output){
 		index--;
 		while (index >= 0){
@@ -152,6 +258,16 @@ public class StormController{
 		return output;
 	}
 
+	/**
+  	 * This function is used to check to the right of a specific index value in an array in order to ensure all of the key matching index values are included
+  	 * 
+  	 * @param array is the input array that is being referenced
+  	 * @param type is the type of data that is to be retrieved from Storm class
+  	 * @param key is the target value that is being searched for
+  	 * @param index is the current index position that is being referenced with the array
+  	 * @param output is the indexes of the key in one chain of a string
+  	 * @return all the indexes on the right side of the specified index on start
+  	 */
 	public static String multipleValueRight(ArrayList<Storm> array, String type, char key, int index, String output){
 		index++;
 		while (index < array.size()){
@@ -161,6 +277,16 @@ public class StormController{
 		return output;
 	}
 
+	/**
+  	 * This function is used to check to the left of a specific index value in an array in order to ensure all of the key matching index values are included
+  	 * 
+  	 * @param array is the input array that is being referenced
+  	 * @param type is the type of data that is to be retrieved from Storm class
+  	 * @param key is the target value that is being searched for
+  	 * @param index is the current index position that is being referenced with the array
+  	 * @param output is the indexes of the key in one chain of a string
+  	 * @return all the indexes on the left side of the specified index on start
+  	 */
 	public static String multipleValueLeft(ArrayList<Storm> array, String type, char key, int index, String output){
 		index--;
 		while (index >= 0){
@@ -170,7 +296,14 @@ public class StormController{
 		return output;
 	}
   	
-  	
+  	/**
+  	 * This method is used to search a key value based off the binary search algorithm and return its first reach position of that key
+  	 * 
+  	 * @param array is the input array that is being searched
+  	 * @param type is the type of value being compared that will be retrieved from Storm class
+  	 * @param key is the target value that is being searched
+  	 * @return the first reach index value of the search
+  	 */
   	public static String binarySearch(ArrayList<Storm> array, String type, int key){
   		int low = 0;
         int high = array.size() - 1;
@@ -184,6 +317,14 @@ public class StormController{
   	}
   	
 
+  	/**
+  	 * This method is used to search a key value based off the binary search algorithm and return its first reach position of that key
+  	 * 
+  	 * @param array is the input array that is being searched
+  	 * @param type is the type of value being compared that will be retrieved from Storm class
+  	 * @param key is the target value that is being searched
+  	 * @return the first reach index value of the search
+  	 */
   	public static String binarySearch(ArrayList<Storm> array, String type, double key){
   		int low = 0;
         int high = array.size() - 1;
@@ -196,6 +337,14 @@ public class StormController{
         return "-1";
   	}
   	
+  	/**
+  	 * This method is used to search a key value based off the binary search algorithm and return its first reach position of that key
+  	 * 
+  	 * @param array is the input array that is being searched
+  	 * @param type is the type of value being compared that will be retrieved from Storm class
+  	 * @param key is the target value that is being searched
+  	 * @return the first reach index value of the search
+  	 */
   	public static String binarySearch(ArrayList<Storm> array, String type, char key){
   		int low = 0;
         int high = array.size() - 1;
@@ -209,7 +358,14 @@ public class StormController{
   	}
   	
   	
-  	
+  	/**
+  	 * This method is used to search a key value based off the binary search algorithm and return its first reach position of that key
+  	 * 
+  	 * @param array is the input array that is being searched
+  	 * @param type is the type of value being compared that will be retrieved from Storm class
+  	 * @param key is the target value that is being searched
+  	 * @return the first reach index value of the search
+  	 */
   	public static String binarySearch(ArrayList<Storm> array, String type, String key){
   		int maximum = array.size();
   		int minimum = 0;
@@ -224,45 +380,6 @@ public class StormController{
   		else return "-1";
   		
   	}
-  	
-
-  	
-  	public static int linearSearch(ArrayList<Storm> array, String type, int key){
-  		int index = 0;
-  		while (index < array.size()){
-  			if (array.get(index).getDataInt(type) == key) return index;
-  			else index++;
-  		}
-  		return -1;
-  	}
-  	
-  	public static int linearSearch(ArrayList<Storm> array, String type, char key){
-  		int index = 0;
-  		while (index < array.size()){
-  			if (array.get(index).getDataChar(type) == key) return index;
-  			else index++;
-  		}
-  		return -1;
-  	}
-  	
-  	public static int linearSearch(ArrayList<Storm> array, String type, double key){
-  		int index = 0;
-  		while (index < array.size()){
-  			if (array.get(index).getDataDouble(type) == key) return index;
-  			else index++;
-  		}
-  		return -1;
-  	}
-  	
-  	public static int linearSearch(ArrayList<Storm> array, String type, String key){
-  		int index = 0;
-  		while (index < array.size()){
-  			if (array.get(index).getDataString(type).equals(key)) return index;
-  			else index++;
-  		}
-  		return -1;
-  	}
-  	
   	
   	
 	 /**
@@ -691,10 +808,21 @@ public class StormController{
 		
 	}
 
+	/**
+	 * This method retrieves the file data that was parsed into Storm objects, but without sorting
+	 * 
+	 * @return the file data, in the form of Storm data ArrayList
+	 */
 	public static ArrayList<Storm> getFile(){
 		return fileStorm;
 	}
 	
+	/**
+	 * This method retrieves the status of the sorts in order to determine whether the mergeSort operation has been completed
+	 * 
+	 * @param input is the inputed test value to specify which boolean needs to be checked
+	 * @return the proper specified boolean value
+	 */
 	public static boolean getStatus(String input){
 		switch(input.toLowerCase().trim()){
 			
@@ -708,6 +836,11 @@ public class StormController{
 		return false;
 	}
 
+	/**
+	 * This method updates the specified progress bar to properly display the percentage completion value
+	 * 
+	 * @param progressBar is the input bar that needs to be updated
+	 */
 	public static void update(final JProgressBar progressBar){
 		try {
 			progressValue++;
@@ -724,6 +857,11 @@ public class StormController{
 		}
 	}
 	
+	/**
+	 * This method updates the specific part of the sorting section of the initiation process for the specified progress bar
+	 * 
+	 * @param progressBar the input progress bar that needs to be updated
+	 */
 	public static void updateSortBar(final JProgressBar progressBar){
 		try {
 			progressValue++;
@@ -740,6 +878,11 @@ public class StormController{
 		}
 	}
 	
+	/**
+	 * This method disposes a specified frame from a remote part of the program
+	 * 
+	 * @param frame is the frame that needs to be disposed
+	 */
 	public static void dispose(final JFrame frame){
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run(){
@@ -772,127 +915,281 @@ public class StormController{
 		else { return Double.parseDouble(input); }
 	}
 
-
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedBeginYearMonth(){
 		return sorted_beginYearMonth;
 	}
 
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedBeginDay(){
 		return sorted_beginDay;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedBeginTime(){
 		return sorted_beginTime;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedEpisodeID(){
 		return sorted_episodeID;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedEventID(){
 		return sorted_eventID;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedState(){
 		return sorted_state;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedStateFIPS(){
 		return sorted_stateFIPS;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedYear(){
 		return sorted_year;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedMonth(){
 		return sorted_month;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedEventType(){
 		return sorted_eventType;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedCzType(){
 		return sorted_czType;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedCzName(){
 		return sorted_czName;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedWfo(){
 		return sorted_wfo;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedTimezone(){
 		return sorted_timezone;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedDirectInj(){
 		return sorted_directInj;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedIndirectInj(){
 		return sorted_indirectInj;
 	}
 
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedDirectDeaths(){
 		return sorted_directDeaths;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedIndirectDeaths(){
 		return sorted_indirectDeaths;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedPropertyDmg(){
 		return sorted_propertyDmg;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedCropDmg(){
 		return sorted_cropDmg;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedMagnitude(){
 		return sorted_magnitude;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedMagnitudeType(){
 		return sorted_magnitudeType;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedFloodCause(){
 		return sorted_floodCause;
 	}
 
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getsortedTorFSCale(){
 		return sorted_torFScale;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedTorLength(){
 		return sorted_torLength;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedTorWidth(){
 		return sorted_torWidth;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedTorState(){
 		return sorted_torState;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedTorName(){
 		return sorted_torName;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedBeginLocation(){
 		return sorted_beginLocation;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedBeginLatitude(){
 		return sorted_beginLatitude;
 	}
 	
+	/**
+	 * This method returns the specified sorted list by a specific type
+	 * 
+	 * @return the sorted array of noted type
+	 */
 	public static ArrayList<Storm> getSortedBeginLongitude(){
 		return sorted_beginLongitude;
 	}
