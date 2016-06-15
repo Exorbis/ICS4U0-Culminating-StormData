@@ -133,6 +133,7 @@ public class StormView extends JFrame implements ActionListener{
 				
 				
 			case "episodeid":
+				categoryValue = returnNonRepeats(StormController.getSortedEpisodeID(), "episodeid");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < StormController.getSortedEpisodeID().size(); i++){
 					sortBy2.addItem(StormController.getSortedEpisodeID().get(i).displayData("episodeid"));
@@ -196,13 +197,7 @@ public class StormView extends JFrame implements ActionListener{
 				}
 				break;
 				
-				
-			case "timezone":
-				CenterPanel.setInput("timezonesketch");
-				sortBy2.removeAllItems();
-				break;
-				
-				
+							
 			case "directdeaths":
 				categoryValue = returnNonRepeats(StormController.getSortedDirectDeaths(), "directdeaths");
 				sortBy2.removeAllItems();
