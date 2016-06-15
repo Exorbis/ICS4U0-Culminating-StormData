@@ -7,12 +7,12 @@ import javax.swing.UIManager;
 
 
 /**
- * This is a program that retrieves data from "Storm Data" files and allows predetermined user interactivity with the organized data
+ * This is a program that retrieves data from "Storm Data" files and allows limited user interactivity and visuals with the organized data
  * 
  * @author Marc Pelve
  * @since JDK 8
- * @since June 2, 2016
- * @version 1.1
+ * @since June 15, 2016
+ * @version 1.2
  *
  */
 //Requires openCSV API 
