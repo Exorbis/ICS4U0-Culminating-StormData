@@ -3,6 +3,7 @@ package initialpkg;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import processing.core.*;
 
@@ -16,49 +17,55 @@ public class CenterPanel extends PApplet {
 	int direction = 1;
 	int speed = 2;
 	
-	static String input;
+	static String input, secondaryInput;
 	ArrayList<String> timezones = StormView.returnNonRepeats(StormController.getSortedTimezone(), "timezone");
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int paneWidth = (int) screenSize.getWidth();
 	int paneHeight = (int) screenSize.getHeight();
+	
+	double amountOfStorms;
+	int stateMax;
 
 	public void setup(){
 		
 		size((int) (screenSize.getWidth() * 0.9), (int) (screenSize.getHeight() * 0.8));
 		background(255);
 		
-		System.out.println((screenSize.getWidth() * 0.9) + " , " + (int) (screenSize.getHeight() * 0.8));
+		stateMax = Collections.max(StormController.getTotalStormsPerState());
+		
+		for (int i = 0; i < StormController.getTotalStormsPerState().size(); i++){
+		}
 		
 	}
 	
 	
 	
 	public void draw(){
+	
+		
 		background(255);
 		fill(200);
 		ellipseMode(CENTER);
+		ArrayList<String> uniqueState = StormView.returnNonRepeats(StormController.getSortedState(), "state");
+		double interval = (screenSize.getWidth() * 0.9)/timezones.size();
+		double intervalEllipse = (screenSize.getWidth() * 0.9)/uniqueState.size();
+		int xcordEllipse = (int) (intervalEllipse/2);
 		
-		
-		
-		if (ellipseCordY >= paneHeight - 100 || ellipseCordY <= 100){
-			direction = -1;
+		for (int i = 0; i < uniqueState.size(); i++){
+			ellipse(xcordEllipse, height/2, 25, 25);
+			xcordEllipse += intervalEllipse;
 		}
 		
-		if (input == "timezonesketch"){
-			ellipseCordY += speed * direction;
-			double interval = (screenSize.getWidth() * 0.9)/timezones.size();
-			fill(100);
-			int xcord = (int) (interval/2);
-			for (int i = 0; i < timezones.size(); i++){
-				text(timezones.get(i), xcord, 20);
-				xcord += interval;
-			}
-			
-			ellipse(100, ellipseCordY, 50, 50);
-			
-		} else {
-			
+		
+		fill(100);
+		int xcord = (int) (interval/2);
+		for (int i = 0; i < timezones.size(); i++){
+			text(timezones.get(i), xcord, 20);
+			xcord += interval;
 		}
+
+			
+			
 		
 	}
 	
@@ -77,6 +84,10 @@ public class CenterPanel extends PApplet {
 	
 	static void setInput(String inputChange){
 		input = inputChange.toLowerCase();
+	}
+	
+	static void setInput2(String inputChange){
+		secondaryInput = inputChange.toLowerCase();
 	}
 
 	
