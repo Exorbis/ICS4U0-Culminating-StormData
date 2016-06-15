@@ -72,19 +72,38 @@ public class Main {
 		}
 		
 
-		
+		ArrayList<Double> monthMagnitudes = new ArrayList<Double>();		
 		ArrayList<Double> monthDamages = new ArrayList<Double>();
+		double damage;
+		ArrayList<String> states = StormView.returnNonRepeats(StormController.getSortedState(), "state");
+		int numberOfStates = states.size();
+		ArrayList<Integer> stormsPerState = new ArrayList<Integer>();
+		String [] tempIndex;
+		
+		for (int i = 0; i < numberOfStates; i++){
+			tempIndex = StormController.binarySearch(StormController.getSortedState(), "state", states.get(i)).split(",");
+			stormsPerState.add(tempIndex.length);
+		}
+		
+		
 		for (int i = 1; i <= 12; i++){
 			String [] monthIndexs = StormController.binarySearch(StormController.getSortedMonth(), "month", i).split(",");
 			double monthDamage = 0;
+			double monthMagnitude = 0;
 			for (int j = 0; j < monthIndexs.length; j++){
 				monthDamage += StormController.getSortedMonth().get(j).getDataDouble("propertydmg");
 				monthDamage += StormController.getSortedMonth().get(j).getDataDouble("cropdmg");
+				if ((damage = StormController.getSortedMonth().get(j).getDataDouble("magnitude")) != -1.0) monthMagnitude += damage;
 			}
+			
+			
 			monthDamages.add(monthDamage);
+			monthMagnitudes.add(monthMagnitude);
 		}
 		
 		StormController.setTotalDmgMonths(monthDamages);
+		StormController.setTotalMagnitudeMonths(monthMagnitudes);
+		StormController.setTotalStormsPerState(stormsPerState);
 
 		
 		StormView frame = new StormView();
@@ -96,4 +115,3 @@ public class Main {
 }
 
 	
-
