@@ -67,7 +67,8 @@ public class StormController{
   	private static Thread sort1, sort2;
   	private static ArrayList<Storm> fileStorm;
   	
-  	private static ArrayList<Double> totalDmgMonths;
+  	private static ArrayList<Integer> totalStormsPerState;
+  	private static ArrayList<Double> totalDmgMonths, totalMagnitudeMonths;
   	
   	public StormController(){
     
@@ -77,8 +78,24 @@ public class StormController{
   		return totalDmgMonths;
   	}
   	
+  	public static ArrayList<Double> getTotalMagnitudeMonths(){
+  		return totalMagnitudeMonths;
+  	}
+  	
   	public static void setTotalDmgMonths(ArrayList<Double> array){
   		totalDmgMonths = array;
+  	}
+  	
+  	public static void setTotalMagnitudeMonths(ArrayList<Double> array){
+  		totalMagnitudeMonths = array;
+  	}
+  	
+  	public static ArrayList<Integer> getTotalStormsPerState(){
+  		return totalStormsPerState;
+  	}
+  	
+  	public static void setTotalStormsPerState(ArrayList<Integer> array){
+  		totalStormsPerState = array;
   	}
   	
   	public static String multipleValueRight(ArrayList<Storm> array, String type, int key, int index, String output){
