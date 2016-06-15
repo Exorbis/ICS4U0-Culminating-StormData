@@ -25,7 +25,7 @@ import processing.core.PApplet;
  */
 public class StormView extends JFrame implements ActionListener{
 	
-	private String [] categories = {"beginYearMonth", "beginDay", "beginTime", "episodeID", "eventID", "state", "stateFIPS", "month", "eventType", "czType", "czName", "wfo", "timezone", "magnitude", "magnitudeType", "floodCause", "torFScale", "torLength", "torWidth", "torState", "torName", "beginLocation", "beginLatitude", "beginLongitude"};
+	private String [] categories = {"beginYearMonth", "beginDay", "beginTime", "episodeID", "eventID", "state", "stateFIPS", "eventType", "czType", "czName", "wfo", "timezone", "magnitude", "magnitudeType", "floodCause", "torFScale", "torLength", "torWidth", "torState", "torName", "beginLocation", "beginLatitude", "beginLongitude"};
 	
 	private JComboBox sortBy = new JComboBox(categories);
 	private JComboBox sortBy2 = new JComboBox();
@@ -60,6 +60,7 @@ public class StormView extends JFrame implements ActionListener{
 
 		sortBy.setSelectedIndex(0);
 		sortBy.addActionListener(this);
+		sortBy2.addActionListener(this);
 		dropDown.add(sortBy);
 		dropDown.add(sortBy2);
 		
@@ -92,20 +93,7 @@ public class StormView extends JFrame implements ActionListener{
 		return nonRepeats;
 		
 	}
-	
-	public static ArrayList<Storm> returnNonRepeatsStorm(ArrayList<Storm> array, String type){
-		ArrayList<Storm> nonRepeats = new ArrayList<Storm>();
-		
-		for (int i = 0; i < array.size(); i++){
-			for (int j = 0; j < nonRepeats.size(); j++){
-				if (!(nonRepeats.get(j).displayData(type).equals(array.get(i).displayData(type)))){
-					nonRepeats.add(array.get(i));
-				}
-			}
-		}
-		
-		return nonRepeats;
-	}
+
 	
 	/**
 	 * This method detects for an action listener and carries out a function based off where the action comes from
@@ -116,7 +104,6 @@ public class StormView extends JFrame implements ActionListener{
 			String category = (String)localSortBy.getSelectedItem();
 			
 			ArrayList<String> categoryValue;
-			ArrayList<Storm> storms = StormController.getFile();
 			
 			switch (category.toLowerCase()){
 			
@@ -174,15 +161,7 @@ public class StormView extends JFrame implements ActionListener{
 					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
-				
-				
-			case "month":
-				categoryValue = returnNonRepeats(StormController.getSortedMonth(), "month");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
-				break;
+
 				
 			case "eventtype":
 				categoryValue = returnNonRepeats(StormController.getSortedEventType(), "eventtype");
@@ -220,11 +199,7 @@ public class StormView extends JFrame implements ActionListener{
 				
 			case "timezone":
 				CenterPanel.setInput("timezonesketch");
-				categoryValue = returnNonRepeats(StormController.getSortedTimezone(), "timezone");
 				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
 				break;
 				
 				
@@ -340,6 +315,7 @@ public class StormView extends JFrame implements ActionListener{
 				
 			}
 		}
+
 	}
 
 }
