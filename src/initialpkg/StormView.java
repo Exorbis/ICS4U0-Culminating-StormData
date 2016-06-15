@@ -34,7 +34,7 @@ public class StormView extends JFrame implements ActionListener{
 	JPanel centerpanel;
 	
 	/**
-	 * This is the default constructor that is called to display the client 
+	 * This is the default constructor that is called to display the client that displays visuals and allows the user interactivity
 	 */
 	StormView(){
 		JPanel dropDown = new JPanel(new FlowLayout());
