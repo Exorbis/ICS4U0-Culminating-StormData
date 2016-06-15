@@ -25,18 +25,21 @@ import processing.core.PApplet;
  */
 public class StormView extends JFrame implements ActionListener{
 	
-	private String [] categories = {"beginYearMonth", "beginDay", "beginTime", "episodeID", "eventID", "state", "stateFIPS", "month", "eventType", "czType", "czName", "wfo", "timezone", "propertyDmg", "cropDmg", "magnitude", "magnitudeType", "floodCause", "torFScale", "torLength", "torWidth", "torState", "torName", "beginLocation", "beginLatitude", "beginLongitude"};
+	private String [] categories = {"beginYearMonth", "beginDay", "beginTime", "episodeID", "eventID", "state", "stateFIPS", "month", "eventType", "czType", "czName", "wfo", "timezone", "magnitude", "magnitudeType", "floodCause", "torFScale", "torLength", "torWidth", "torState", "torName", "beginLocation", "beginLatitude", "beginLongitude"};
 	
 	private JComboBox sortBy = new JComboBox(categories);
 	private JComboBox sortBy2 = new JComboBox();
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	JPanel bottompanel;
+	JPanel centerpanel;
 	
 	/**
 	 * This is the default constructor that is called to display the client 
 	 */
 	StormView(){
 		JPanel dropDown = new JPanel(new FlowLayout());
-		JPanel centerpanel = new JPanel();
-		JPanel bottompanel = new JPanel();
+		centerpanel = new JPanel();
+		bottompanel = new JPanel();
 		
 		PApplet centerSketch = new CenterPanel();
 		CenterPanel bottomSketch = new LowerPanel();
@@ -47,7 +50,7 @@ public class StormView extends JFrame implements ActionListener{
 		bottomSketch.init();
 		
 		setLayout(new BorderLayout());
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		
 		setSize((int) (screenSize.getWidth() * 0.9), (int) (screenSize.getHeight() * 0.8));
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -76,7 +79,7 @@ public class StormView extends JFrame implements ActionListener{
 	 * @param type is the type of data from Storm parameter to sort from
 	 * @return the categories non repeated in an arraylist of strings
 	 */
-	public ArrayList<String> returnNonRepeats(ArrayList<Storm> array, String type){
+	public static ArrayList<String> returnNonRepeats(ArrayList<Storm> array, String type){
 		ArrayList<String> nonRepeats = new ArrayList<String>();
 		
 		for (int i = 0; i < array.size(); i++){
@@ -216,6 +219,7 @@ public class StormView extends JFrame implements ActionListener{
 				
 				
 			case "timezone":
+				CenterPanel.setInput("timezonesketch");
 				categoryValue = returnNonRepeats(StormController.getSortedTimezone(), "timezone");
 				sortBy2.removeAllItems();
 				for (int i = 0; i < categoryValue.size(); i++){
@@ -239,22 +243,7 @@ public class StormView extends JFrame implements ActionListener{
 					sortBy2.addItem(categoryValue.get(i));
 				}
 				break;
-				
-			case "propertydmg":
-				categoryValue = returnNonRepeats(StormController.getSortedPropertyDmg(), "propertydmg");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
-				break;
-				
-			case "cropdmg":
-				categoryValue = returnNonRepeats(StormController.getSortedCropDmg(), "cropdmg");
-				sortBy2.removeAllItems();
-				for (int i = 0; i < categoryValue.size(); i++){
-					sortBy2.addItem(categoryValue.get(i));
-				}
-				break;
+
 				
 			case "magnitude":
 				categoryValue = returnNonRepeats(StormController.getSortedMagnitude(), "magnitude");

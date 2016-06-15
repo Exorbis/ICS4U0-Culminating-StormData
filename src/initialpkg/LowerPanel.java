@@ -14,8 +14,8 @@ public class LowerPanel extends CenterPanel {
 	float red, green, blue;
 	double max;
 	double intensity;
-	float hue, saturation, brightness;
-	float [] hsbvals;
+
+
 	
 	public void setup(){
 		
@@ -29,16 +29,16 @@ public class LowerPanel extends CenterPanel {
 		textAlign(CENTER);
 		textSize(15);
 		float spacing = (float) ((screenSize.getWidth() * 0.9)/12);
-		float x = spacing/2;
+		float xcord = spacing/2;
 		
 		for (int i = 0; i < 12; i++){
 			intensity = (StormController.getTotalDmgMonths().get(i)) / max;
 			setColor(intensity);
-			fill(red, green, blue);
-			ellipse(x, height/2, 20, 20);
+			fill(this.red, this.green, this.blue);
+			ellipse(xcord, height/2, 20, 20);
 			fill(0);
-			text(months[i], x, height - 20);
-			x += spacing;
+			text(months[i], xcord, height - 20);
+			xcord += spacing;
 			
 		}
 	}
@@ -62,7 +62,10 @@ public class LowerPanel extends CenterPanel {
 			green = (float) (1 - 2 * (intensityValue - 0.5)) * 255;
 		}
 		
+		
+		
 	}
+	
 	
 	
 }
