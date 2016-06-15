@@ -85,7 +85,7 @@ public class Main {
 		}
 		
 		StormController.setTotalDmgMonths(monthDamages);
-		
+
 		
 		StormView frame = new StormView();
 		frame.setVisible(true);
