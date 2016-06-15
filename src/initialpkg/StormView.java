@@ -1,10 +1,8 @@
 package initialpkg;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,8 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+
 
 import processing.core.PApplet;
 
@@ -22,8 +19,8 @@ import processing.core.PApplet;
  * 
  * @author Marc Pelve
  * @since JDK 8
- * @since June 2, 2016
- * @version 1.0
+ * @since June 14, 2016
+ * @version 1.1
  *
  */
 public class StormView extends JFrame implements ActionListener{
@@ -38,11 +35,16 @@ public class StormView extends JFrame implements ActionListener{
 	 */
 	StormView(){
 		JPanel dropDown = new JPanel(new FlowLayout());
-		JPanel timelinePanel = new JPanel();
-		timelinePanel.setBounds(20, 20, 600, 600);
-		PApplet sketch = new Circle();
-		timelinePanel.add(sketch);
-		sketch.init();
+		JPanel centerpanel = new JPanel();
+		JPanel bottompanel = new JPanel();
+		
+		PApplet centerSketch = new CenterPanel();
+		CenterPanel bottomSketch = new LowerPanel();
+		
+		centerpanel.add(centerSketch);
+		bottompanel.add(bottomSketch);
+		centerSketch.init();
+		bottomSketch.init();
 		
 		setLayout(new BorderLayout());
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -51,10 +53,6 @@ public class StormView extends JFrame implements ActionListener{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Storm Data Timeline");
 		
-		JTextArea stormInfo = new JTextArea(15, 40);
-		JScrollPane stormInfoScroll = new JScrollPane(stormInfo);
-		stormInfo.setMargin(new Insets(5,5,5,5));
-		stormInfo.setEditable(false);
 		
 
 		sortBy.setSelectedIndex(0);
@@ -63,8 +61,9 @@ public class StormView extends JFrame implements ActionListener{
 		dropDown.add(sortBy2);
 		
 		this.add(dropDown, BorderLayout.PAGE_START);
-		//this.add(stormInfoScroll, BorderLayout.CENTER);
-		this.add(timelinePanel, BorderLayout.CENTER);
+		this.add(centerpanel, BorderLayout.CENTER);
+		this.add(bottompanel, BorderLayout.PAGE_END);
+
 		
 		
 

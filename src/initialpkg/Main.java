@@ -74,7 +74,8 @@ public class Main {
 		StormView frame = new StormView();
 		frame.setVisible(true);
 		
-		
+		String janIndexs = StormController.binarySearch(StormController.getSortedMonth(), "month", 1);
+		System.out.println(janIndexs);
 
 	}
 }
