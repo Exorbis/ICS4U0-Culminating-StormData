@@ -21,8 +21,8 @@ import javax.swing.JTextArea;
  * @since JDK 8
  * @since June 2, 2016
  * @version 1.0
- *
  */
+//Source idea from user on StackOverFlow
 public class FileOpen extends JPanel implements ActionListener{
 	
 	static private final String newline = "\n";
@@ -32,7 +32,7 @@ public class FileOpen extends JPanel implements ActionListener{
     static String filePath;
  
     /**
-     * This is the default constructor for calling this file opener
+     * This is the default constructor for calling this file opener which allows the retrieval of a Storm file
      */
     public FileOpen() {
         super(new BorderLayout());
