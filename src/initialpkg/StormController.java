@@ -78,10 +78,7 @@ public class StormController{
   	}
   	
   	public static void setTotalDmgMonths(ArrayList<Double> array){
-  		totalDmgMonths.removeAll(totalDmgMonths);
-  		for (int i = 0; i < totalDmgMonths.size(); i++){
-  			totalDmgMonths.add(array.get(i));
-  		}
+  		totalDmgMonths = array;
   	}
   	
   	public static String multipleValueRight(ArrayList<Storm> array, String type, int key, int index, String output){

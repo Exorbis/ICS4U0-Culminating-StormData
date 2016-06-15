@@ -1,5 +1,7 @@
 package initialpkg;
 
+import java.util.ArrayList;
+
 import javax.swing.UIManager;
 
 
@@ -69,13 +71,26 @@ public class Main {
 			}
 		}
 		
+
+		
+		ArrayList<Double> monthDamages = new ArrayList<Double>();
+		for (int i = 1; i <= 12; i++){
+			String [] monthIndexs = StormController.binarySearch(StormController.getSortedMonth(), "month", i).split(",");
+			double monthDamage = 0;
+			for (int j = 0; j < monthIndexs.length; j++){
+				monthDamage += StormController.getSortedMonth().get(j).getDataDouble("propertydmg");
+				monthDamage += StormController.getSortedMonth().get(j).getDataDouble("cropdmg");
+			}
+			monthDamages.add(monthDamage);
+		}
+		
+		StormController.setTotalDmgMonths(monthDamages);
 		
 		
 		StormView frame = new StormView();
 		frame.setVisible(true);
 		
-		String janIndexs = StormController.binarySearch(StormController.getSortedMonth(), "month", 1);
-		System.out.println(janIndexs);
+		
 
 	}
 }
